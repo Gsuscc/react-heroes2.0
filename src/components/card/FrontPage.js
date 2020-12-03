@@ -7,7 +7,24 @@ const FrontPage = (props) => {
 
   return (
     <div class="card__face card__face--front">
-      front
+      <div class="card-border">
+        FRONT
+      </div>
+      
+      {/* <div className="card-body">
+        <div
+          style={getColor ? getColor() : { color: "black" }}
+          className="name"
+        >
+          <div>{hero.name}</div>
+        </div>
+        <img
+          className="heroImg"
+          src={hero.image.url}
+          alt="img"
+          draggable="false"
+        ></img>
+      </div> */}
     </div>
   )
 }

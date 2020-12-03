@@ -6,7 +6,9 @@ const BackPage = (props) => {
 
   return (
     <div class="card__face card__face--back">
-      back
+      <div class="card-border">
+        BACK
+      </div>
     </div>
   )
 }
