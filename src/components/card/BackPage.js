@@ -1,9 +1,14 @@
 import React from 'react'
 
-export default function BackPage() {
+const BackPage = (props) => {
+  const hero = props.hero;
+  const getColor = props.getColor;
+
   return (
-    <div>
-      
+    <div class="card__face card__face--back">
+      back
     </div>
   )
 }
+
+export default BackPage;

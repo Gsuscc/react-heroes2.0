@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import useSound from "use-sound";
-import swoosh from "../sounds/swoosh.mp3";
-import { FrontPage } from "./FrontPage";
-import { BackPage } from "./BackPage";
+// import useSound from "use-sound";
+// import swoosh from "../sounds/swoosh.mp3";
+import FrontPage from "./FrontPage";
+import BackPage from "./BackPage";
+import './Card.css'
 
-export default function Card(props) {
+const Card = (props) => {
   const hero = props.hero;
   const isFlippable = props.isFlippable;
   const isZoomable = props.isZoomable;
   const isDetailsVisible = props.isDetailsVisible;
-  const [isFrontPage, setIsFrontPage] = useState(false);
+  const [isFrontPage, setIsFrontPage] = useState(true);
 
-  const [play] = useSound(swoosh, { volume: 0.2 });
+  // const [play] = useSound(swoosh, { volume: 0.2 });
 
   const getColor = () => {
     if (hero.biography.alignment === "good") return { color: "darkgreen" };
@@ -21,17 +22,21 @@ export default function Card(props) {
   };
 
   const flip = (e) => {
-    play();
+    // play();
     setIsFrontPage(!isFrontPage);
   };
 
   return (
-    <div onClick={isFlippable && flip}>
-      <FrontPage hero={hero} getColor={getColor} visible={isFrontPage}/>
-      {isFlippable && (<BackPage hero={hero} getColor={getColor} visible={!isFrontPage}/>)}
+    <div class="scene" onClick={isFlippable && flip}>
+      <div class={isFrontPage ? "card" : "card is-flipped"}>
+        <FrontPage hero={hero} getColor={getColor} visible={isFrontPage}/>
+        {isFlippable && (<BackPage hero={hero} getColor={getColor} visible={!isFrontPage}/>)}
+      </div>
     </div>
   )
 }
+
+export default Card;
 
 Card.propTypes = {
   hero: PropTypes.object,
