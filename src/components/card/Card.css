@@ -37,7 +37,6 @@
   border: solid black 1px;
   border-radius: 7px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-  padding: 6px;
 }
 
 .card-zoom {
@@ -57,18 +56,24 @@
   border-radius: 5px;
   background-color: orange;
   overflow: hidden;
+  height: 94%;
+  width: 91%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-rows: 25% 75%;
 }
 
 .card-name {
   display: grid;
   align-items: center;
   justify-content: center;
-  max-height: 75px;
-  min-height: 75px;
   text-shadow: black 1px 1px 0px;
   font-size: 1.2em;
   letter-spacing: 1px;
-  background-color: #00000055;
+  background-color: #000000aa;
   border-bottom: solid black 1px;
 }
 

@@ -11,7 +11,9 @@ const FrontPage = (props) => {
       <div class="card-border">
         <div className="card-body dotted">
           <CardHeader getColor={getColor} heroName={hero.name} />
-          <img className="card-image" src={hero.image.url} alt="img" draggable="false" />
+          <div className="card-image-container">
+            <img className="card-image" src={hero.image.url} alt="img" draggable="false" />
+          </div>
         </div>
       </div>
       
