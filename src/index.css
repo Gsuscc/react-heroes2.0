@@ -5,11 +5,19 @@
 
 body {
   margin: 0;
-  font-family: superHeroFont, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
   background-image: url("img/background.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+
+  /* Font and unselectable text settings */
+  font-family: superHeroFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
