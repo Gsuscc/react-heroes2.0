@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 // import swoosh from "../sounds/swoosh.mp3";
 import FrontPage from "./FrontPage";
 import BackPage from "./BackPage";
-import './Card.css'
+import './Card.css';
 
 const Card = (props) => {
   const hero = props.hero;
@@ -19,7 +19,8 @@ const Card = (props) => {
   const getColor = () => {
     if (hero.biography.alignment === "good") return { color: "darkgreen" };
     if (hero.biography.alignment === "bad") return { color: "darkred" };
-    return { color: "yellow" };
+    if (hero.biography.alignment === "neutral") return { color: "yellow" };
+    return { color: "black" }
   };
 
   const flip = (e) => {
@@ -30,8 +31,8 @@ const Card = (props) => {
   return (
     <div class={isZoomable ? "card-scene card-zoom" : "card-scene" } onClick={isFlippable && flip}>
       <div class={isFrontPage ? "card" : "card is-flipped"}>
-        <FrontPage hero={hero} getColor={getColor} visible={isFrontPage}/>
-        {isFlippable && (<BackPage hero={hero} getColor={getColor} visible={!isFrontPage}/>)}
+        <FrontPage hero={hero} getColor={getColor} />
+        {isFlippable && (<BackPage hero={hero} getColor={getColor} />)}
       </div>
     </div>
   )

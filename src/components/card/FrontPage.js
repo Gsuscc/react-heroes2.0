@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from "prop-types";
+import CardHeader from "./CardHeader"
 
 const FrontPage = (props) => {
   const hero = props.hero;
@@ -8,23 +9,13 @@ const FrontPage = (props) => {
   return (
     <div class="card__face card__face--front">
       <div class="card-border">
-        FRONT
+        <div className="card-body dotted">
+          <CardHeader getColor={getColor} heroName={hero.name} />
+          <img className="card-image" src={hero.image.url} alt="img" draggable="false" />
+        </div>
       </div>
       
-      {/* <div className="card-body">
-        <div
-          style={getColor ? getColor() : { color: "black" }}
-          className="name"
-        >
-          <div>{hero.name}</div>
-        </div>
-        <img
-          className="heroImg"
-          src={hero.image.url}
-          alt="img"
-          draggable="false"
-        ></img>
-      </div> */}
+
     </div>
   )
 }

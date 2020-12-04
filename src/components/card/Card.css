@@ -1,6 +1,6 @@
 .card-scene {
   width: 200px;
-  height: 260px;
+  height: 336px;
   perspective: 600px;
 }
 
@@ -48,4 +48,67 @@
 .card-zoom:hover {
   transform: scale(1.5);
   z-index: 2;
+}
+
+.card-body {
+  text-align: center;
+  font-size: x-large;
+  border: solid black 1px;
+  border-radius: 5px;
+  background-color: orange;
+  overflow: hidden;
+}
+
+.card-name {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  max-height: 75px;
+  min-height: 75px;
+  text-shadow: black 1px 1px 0px;
+  font-size: 1.2em;
+  letter-spacing: 1px;
+  background-color: #00000055;
+  border-bottom: solid black 1px;
+}
+
+.card-image {
+  align-self: stretch;
+  height: 100%;
+  width: 100%;
+  vertical-align: bottom;
+}
+
+.dotted {
+  background-image: -webkit-repeating-radial-gradient(
+    center center,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2) 2px,
+    transparent 1px,
+    transparent 100%
+  );
+  background-image: -moz-repeating-radial-gradient(
+    center center,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2) 2px,
+    transparent 1px,
+    transparent 100%
+  );
+  background-image: -ms-repeating-radial-gradient(
+    center center,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2) 2px,
+    transparent 1px,
+    transparent 100%
+  );
+  background-image: repeating-radial-gradient(
+    center center,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2) 2px,
+    transparent 1px,
+    transparent 100%
+  );
+  -webkit-background-size: 8px 8px;
+  -moz-background-size: 8px 8px;
+  background-size: 8px 8px;
 }

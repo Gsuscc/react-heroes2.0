@@ -23,7 +23,7 @@ const App = () => {
   return (    
     <div className="App">
       <div style={{margin: '100px'}}>
-        {card && <Card isFlippable={true} isZoomable={true} card={card}/>}
+        {card && <Card isFlippable={true} isZoomable={true} hero={card}/>}
         
       </div>
     </div>
