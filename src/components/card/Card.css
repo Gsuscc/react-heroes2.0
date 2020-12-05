@@ -54,7 +54,7 @@
   font-size: x-large;
   border: solid black 1px;
   border-radius: 5px;
-  background-color: orange;
+  background-color: #ffa500;
   overflow: hidden;
   height: 94%;
   width: 91%;
@@ -73,7 +73,6 @@
   text-shadow: black 1px 1px 0px;
   font-size: 1.2em;
   letter-spacing: 1px;
-  background-color: #000000aa;
   border-bottom: solid black 1px;
 }
 
@@ -84,36 +83,54 @@
   vertical-align: bottom;
 }
 
+.card-stat {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  font-size: medium;
+  background-color: #ffffff66;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 1px;
+}
+
+.card-stats-container {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.card-back-details {
+}
+
 .dotted {
   background-image: -webkit-repeating-radial-gradient(
     center center,
     rgba(0, 0, 0, 0.2),
     rgba(0, 0, 0, 0.2) 2px,
-    transparent 1px,
+    transparent 3px,
     transparent 100%
   );
   background-image: -moz-repeating-radial-gradient(
     center center,
     rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 2px,
+    rgba(0, 0, 0, 0.2) 3px,
     transparent 1px,
     transparent 100%
   );
   background-image: -ms-repeating-radial-gradient(
     center center,
     rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 2px,
+    rgba(0, 0, 0, 0.2) 3px,
     transparent 1px,
     transparent 100%
   );
   background-image: repeating-radial-gradient(
     center center,
     rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2) 2px,
+    rgba(0, 0, 0, 0.2) 3px,
     transparent 1px,
     transparent 100%
   );
-  -webkit-background-size: 8px 8px;
-  -moz-background-size: 8px 8px;
-  background-size: 8px 8px;
+  -webkit-background-size: 7px 7px;
+  -moz-background-size: 7px 7px;
+  background-size: 7px 7px;
 }
