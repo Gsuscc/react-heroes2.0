@@ -1,10 +1,9 @@
-import './App.css';
+import HeroList from './components/HeroList';
 
-function App() {
-  return (
-    <div className="App">
+const App = () => {
 
-    </div>
+  return (    
+    <HeroList />
   );
 }
 
