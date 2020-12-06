@@ -7,8 +7,8 @@ const FrontPage = (props) => {
   const getColor = props.getColor;
 
   return (
-    <div class="card__face card__face--front">
-      <div class="card-border">
+    <div className="card__face card__face--front">
+      <div className="card-border">
         <div className="card-body">
           <CardHeader getColor={getColor} heroName={hero.name} />
           <div className="card-image-container">

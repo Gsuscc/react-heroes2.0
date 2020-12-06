@@ -1,3 +1,7 @@
+.card-dock:hover {
+  z-index: 1;
+}
+
 .card-scene {
   width: 200px;
   height: 336px;
@@ -46,7 +50,6 @@
 
 .card-zoom:hover {
   transform: scale(1.5);
-  z-index: 2;
 }
 
 .card-body {

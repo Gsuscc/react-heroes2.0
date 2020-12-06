@@ -25,12 +25,12 @@ const Card = (props) => {
 
   const flip = (e) => {
     // play();
-    setIsFrontPage(!isFrontPage);
+    isFlippable && setIsFrontPage(!isFrontPage);
   };
 
   return (
-    <div class={isZoomable ? "card-scene card-zoom" : "card-scene" } onClick={isFlippable && flip}>
-      <div class={isFrontPage ? "card" : "card is-flipped"}>
+    <div className={isZoomable ? "card-scene card-zoom" : "card-scene" } onClick={flip}>
+      <div className={isFrontPage ? "card" : "card is-flipped"}>
         <FrontPage hero={hero} getColor={getColor} />
         {isFlippable && (<BackPage hero={hero} getColor={getColor} />)}
       </div>
