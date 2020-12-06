@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import Card from "./card/Card";
 import axios from "axios";
 import './HeroList.css';
+import CardDock from './card/CardDock';
 
 const HeroList = () => {
   const [page, setPage] = useState(0);
@@ -25,7 +26,6 @@ const HeroList = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    console.log(page)
     axios.get(`http://localhost:8762/api/hero/heroes?page=${page}`)
       .then((response) => {
         let newHeroes = response.data.content;
@@ -45,9 +45,9 @@ const HeroList = () => {
       <div className="hero-list-container">
         {heroesList.map((hero) => {
           return (
-            <div className="card-margin" key={hero.name + hero.id}>
-              <Card hero={hero} key={hero.id} isFlippable={true} isZoomable={true}/>
-            </div>
+            <CardDock key={hero.id}>
+              <Card hero={hero} isFlippable={true} isZoomable={true} key={hero.id}/>
+            </CardDock>
           )
         })}
       </div>
