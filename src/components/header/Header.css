@@ -1,0 +1,15 @@
+.header {
+  display: grid;
+  justify-content: center;
+}
+
+.title {
+  margin: 20px;
+  padding: 5px 30px;
+  font-size: 3.5rem;
+  text-align: center;
+  color: white;
+  background-color: red;
+  letter-spacing: 1px;
+  border-radius: 1px;
+}

@@ -1,9 +1,15 @@
+import React from 'react'
 import HeroList from './components/HeroList';
+import Header from './components/header/Header';
 
 const App = () => {
 
   return (    
-    <HeroList />
+    <React.Fragment>
+      <Header />
+      <HeroList />
+    </React.Fragment>
+
   );
 }
 
