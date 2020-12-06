@@ -3,6 +3,7 @@ import Card from "./card/Card";
 import axios from "axios";
 import './HeroList.css';
 import CardDock from './card/CardDock';
+import Loading from './misc/Loading';
 
 const HeroList = () => {
   const [page, setPage] = useState(0);
@@ -42,6 +43,7 @@ const HeroList = () => {
 
   return (
     <div>
+      {isLoading && <Loading />}
       <div className="hero-list-container">
         {heroesList.map((hero) => {
           return (
@@ -57,8 +59,7 @@ const HeroList = () => {
         id="trigger"
         key="trigger"
       ></div>
-      {isLoading.current ? <p className="heroFont">Loading...</p> : null}
-      <div className="space"></div>
+      
     </div>
   )
 }
