@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import MenuButton from '../misc/MenuButton';
 
 const useStyles = makeStyles({
   list: {
@@ -13,24 +14,6 @@ const useStyles = makeStyles({
   },
   paper: {
     background: '#00000088'
-  },
-  menuItem: {
-    fontFamily: 'inherit',
-    fontSize: '2em',
-    letterSpacing: '3px',
-    color: 'orange',
-    WebkitTextStrokeWidth: '2px',
-    WebkitTextStrokeColor: 'black',
-    transition: 'color 0.5s',
-    '&:hover': {
-      color: 'white',
-    } 
-  },
-  selectedMenuItem: {
-    transition: 'background 0.3s',
-    '&:hover': {
-      background: 'red',
-    } 
   },
   menuButton: {
     fontFamily: 'inherit',
@@ -51,9 +34,8 @@ const useStyles = makeStyles({
 
 const Menu = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
   const history = useHistory();
-
+  const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -62,15 +44,6 @@ const Menu = () => {
     setOpen(open);
   };
 
-  const handleMenuSelect = (event, text) => {
-    if (text === 'Login') {
-      history.push('/login')
-    }
-    if (text === 'Home') {
-      history.push('/home')
-    }
-  }
-
   const list = () => (
     <div
       className={classes.list}
@@ -78,13 +51,9 @@ const Menu = () => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List>
-        {['Login', 'Home', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text} classes={{button: classes.selectedMenuItem}} onClick={(event) => handleMenuSelect(event, text)}>
-            <ListItemText primary={text} classes={{primary: classes.menuItem}} />
-          </ListItem>
-        ))}
-      </List>
+      <MenuButton onClick={() => history.push('/login')}>Login</MenuButton>
+      <MenuButton onClick={() => history.push('/home')}>Home</MenuButton>
+      <MenuButton onClick={() => history.push('/heroes')}>Heroes</MenuButton>
     </div>
   );
 
