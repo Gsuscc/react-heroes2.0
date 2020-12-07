@@ -66,6 +66,9 @@ const Menu = () => {
     if (text === 'Login') {
       history.push('/login')
     }
+    if (text === 'Home') {
+      history.push('/home')
+    }
   }
 
   const list = () => (
@@ -76,7 +79,7 @@ const Menu = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {['Login', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Login', 'Home', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem button key={text} classes={{button: classes.selectedMenuItem}} onClick={(event) => handleMenuSelect(event, text)}>
             <ListItemText primary={text} classes={{primary: classes.menuItem}} />
           </ListItem>

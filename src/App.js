@@ -4,6 +4,7 @@ import HeroList from './components/HeroList';
 import Header from './components/header/Header';
 import Menu from './components/menu/Menu';
 import Login from './components/login/Login'
+import Home from './components/home/Home'
 
 const App = () => {
 
@@ -18,7 +19,7 @@ const App = () => {
         <Route path="/login">
           <Login/>
         </Route>
-        <Route path="/hero" component={null} />
+        <Route path="/home" component={Home} />
       </Switch>
     </Router>
   );
