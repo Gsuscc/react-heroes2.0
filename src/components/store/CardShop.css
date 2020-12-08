@@ -1,0 +1,60 @@
+.shop-container {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.shop-pack-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+}
+
+.shop-pack {
+  background-color: #ffffff88;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+  border: 6px solid black;
+  width: 250px;
+}
+
+.shop-pack-name {
+  letter-spacing: 3px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+  font-size: 2.5em;
+}
+
+.shop-pack-price {
+  letter-spacing: 5px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: black;
+  color: white;
+  font-size: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-pack-amount {
+  font-size: 2em;
+}
+
+.shop-pack-description {
+  font-size: 1.2em;
+}
+
+.pack-3 {
+  color: brown;
+}
+
+.pack-5 {
+  color: silver;
+}
+
+.pack-7 {
+  color: gold;
+}
