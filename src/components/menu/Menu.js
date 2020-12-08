@@ -43,7 +43,7 @@ const Menu = () => {
   };
 
   const handleLogout = () =>{
-    axios.get('http://localhost:8762/api/auth/logout', {withCredentials: true})
+    axios.get('http://localhost:8762/api/auth/clear', {withCredentials: true})
     .then(response => console.log(response))
     .catch(err => console.log(err))
   }
