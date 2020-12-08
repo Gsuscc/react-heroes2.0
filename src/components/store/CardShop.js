@@ -66,7 +66,7 @@ const CardShop = () => {
               {pack.description}
             </div>
             <HeroButton onClick={() => buyPack(pack.amount)}>
-              BUY
+              PURCHASE
             </HeroButton>
           </div>
         })}
