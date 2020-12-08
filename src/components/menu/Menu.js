@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext } from "../../state/GlobalState";
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import MenuButton from '../misc/MenuButton';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   list: {
@@ -13,24 +13,6 @@ const useStyles = makeStyles({
   },
   paper: {
     background: '#00000088'
-  },
-  menuItem: {
-    fontFamily: 'inherit',
-    fontSize: '2em',
-    letterSpacing: '3px',
-    color: 'orange',
-    WebkitTextStrokeWidth: '2px',
-    WebkitTextStrokeColor: 'black',
-    transition: 'color 0.5s',
-    '&:hover': {
-      color: 'white',
-    } 
-  },
-  selectedMenuItem: {
-    transition: 'background 0.3s',
-    '&:hover': {
-      background: 'red',
-    } 
   },
   menuButton: {
     fontFamily: 'inherit',
@@ -50,10 +32,10 @@ const useStyles = makeStyles({
 });
 
 const Menu = () => {
+  const { setIsReady, isLoggedIn, nick } = useContext(GlobalContext);
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
   const history = useHistory();
-
+  const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -62,10 +44,13 @@ const Menu = () => {
     setOpen(open);
   };
 
-  const handleMenuSelect = (event, text) => {
-    if (text === 'Login') {
-      history.push('/login')
-    }
+  const handleLogout = () =>{
+    axios.get('http://localhost:8762/api/auth/clear', {withCredentials: true})
+    .then(response => {
+      console.log(response);
+      setIsReady(false)
+    })
+    .catch(err => console.log(err))
   }
 
   const list = () => (
@@ -75,13 +60,15 @@ const Menu = () => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List>
-        {['Login', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text} classes={{button: classes.selectedMenuItem}} onClick={(event) => handleMenuSelect(event, text)}>
-            <ListItemText primary={text} classes={{primary: classes.menuItem}} />
-          </ListItem>
-        ))}
-      </List>
+      {isLoggedIn && 'Logged in'}
+      {isLoggedIn && nick !== null && nick}
+      {isLoggedIn && nick === null && 'Please set your nick'}
+      {isLoggedIn && nick === null && <MenuButton onClick={() => history.push('/nick')}>Set Nick</MenuButton>}
+      {isLoggedIn && <MenuButton onClick={handleLogout}>Logout</MenuButton>}
+      {!isLoggedIn && <MenuButton onClick={() => history.push('/login')}>Login</MenuButton>}
+      {!isLoggedIn && <MenuButton onClick={() => history.push('/register')}>Register</MenuButton>}
+      {isLoggedIn && nick !== null && <MenuButton onClick={() => history.push('/home')}>Home</MenuButton>}
+      <MenuButton onClick={() => history.push('/heroes')}>Heroes</MenuButton>
     </div>
   );
 
