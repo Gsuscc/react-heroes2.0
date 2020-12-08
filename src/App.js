@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HeroList from './components/HeroList';
 import Header from './components/header/Header';
@@ -8,6 +8,7 @@ import FirstLogin from './components/auth/FirstLogin'
 import Home from './components/home/Home'
 import BuildState from './state/BuildState'
 import { GlobalState } from "./state/GlobalState";
+import Registration from './components/auth/Registration';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/heroes" component={HeroList} />
           <Route path="/nick" component={FirstLogin} />
           <Route path="/login" component={Login} />
+          <Route path="/register" component={Registration} />
           <Route path="/home" component={Home} />
         </Switch>
       </GlobalState>
