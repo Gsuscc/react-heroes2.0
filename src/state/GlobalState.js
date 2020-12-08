@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
+import axios from "axios";
 
 export const GlobalContext = createContext();
 
@@ -8,12 +9,25 @@ export const GlobalState = (props) => {
   const [isReady, setIsReady] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nick, setNick] = useState(null);
+  const [balance, setBalance] = useState(null)
 
   useEffect(() => {
     if (!isLoggedIn) {
       setNick(null)
+      setBalance(null)
+    } else {
+      refreshBalance()
     }
   }, [isLoggedIn])
+
+  const refreshBalance = () => {
+    axios.get(`http://localhost:8762/api/user/balance`, {withCredentials: true})
+    .then((response) => {
+      setBalance(response.data.balance)
+    }).catch((err) => {
+      console.log(err)
+    });
+  }
 
   useEffect(() => {
     if (isReady) {
@@ -34,7 +48,9 @@ export const GlobalState = (props) => {
         isLoggedIn: isLoggedIn,
         setIsLoggedIn: setIsLoggedIn,
         nick: nick,
-        setNick: setNick
+        setNick: setNick,
+        balance: balance,
+        refreshBalance: refreshBalance
       }}
     >
       {props.children}

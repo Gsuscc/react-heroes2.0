@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from "axios";
+import { GlobalContext } from "../../state/GlobalState";
 import HeroButton from '../misc/HeroButton';
 import Card from "../card/Card";
 import CardDock from '../card/CardDock';
@@ -9,6 +10,7 @@ import './CardShop.css'
 
 const CardShop = () => {
 
+  const { refreshBalance } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(false)
   const [heroesList, setHeroesList] = useState([]);
 
@@ -41,6 +43,7 @@ const CardShop = () => {
       .then((response) => {
         setHeroesList(response.data);
         setIsLoading(false)
+        refreshBalance()
       }).catch((err) => {
         console.log(err)
         setIsLoading(false)

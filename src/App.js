@@ -4,6 +4,7 @@ import { GlobalState } from "./state/GlobalState";
 import BuildState from './state/BuildState'
 import HeroList from './components/HeroList';
 import Header from './components/header/Header';
+import UserInfo from './components/header/UserInfo';
 import Menu from './components/menu/Menu';
 import Login from './components/auth/Login'
 import FirstLogin from './components/auth/FirstLogin'
@@ -19,6 +20,7 @@ const App = () => {
       <GlobalState>
         <Menu />
         <Header />
+        <UserInfo />
         <BuildState />
         <Switch>
           <Route path="/heroes" component={HeroList} />

@@ -60,9 +60,6 @@ const Menu = () => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      {isLoggedIn && 'Logged in'}
-      {isLoggedIn && nick !== null && nick}
-      {isLoggedIn && nick === null && 'Please set your nick'}
       {isLoggedIn && nick === null && <MenuButton onClick={() => history.push('/nick')}>Set Nick</MenuButton>}
       {isLoggedIn && <MenuButton onClick={handleLogout}>Logout</MenuButton>}
       {!isLoggedIn && <MenuButton onClick={() => history.push('/login')}>Login</MenuButton>}
