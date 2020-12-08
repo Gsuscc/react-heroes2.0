@@ -7,20 +7,23 @@ import Login from './components/auth/Login'
 import FirstLogin from './components/auth/FirstLogin'
 import Home from './components/home/Home'
 import BuildState from './state/BuildState'
+import { GlobalState } from "./state/GlobalState";
 
 const App = () => {
 
   return (    
     <Router>
-      <Menu />
-      <Header />
-      <BuildState />
-      <Switch>
-        <Route path="/heroes" component={HeroList} />
-        <Route path="/nick" component={FirstLogin} />
-        <Route path="/login" component={Login} />
-        <Route path="/home" component={Home} />
-      </Switch>
+      <GlobalState>
+        <Menu />
+        <Header />
+        <BuildState />
+        <Switch>
+          <Route path="/heroes" component={HeroList} />
+          <Route path="/nick" component={FirstLogin} />
+          <Route path="/login" component={Login} />
+          <Route path="/home" component={Home} />
+        </Switch>
+      </GlobalState>
     </Router>
   );
 }

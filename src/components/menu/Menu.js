@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { GlobalContext } from "../../state/GlobalState";
 import { useHistory } from 'react-router-dom';
-import { makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import MenuButton from '../misc/MenuButton';
@@ -31,6 +32,7 @@ const useStyles = makeStyles({
 });
 
 const Menu = () => {
+  const { setIsReady, isLoggedIn, nick } = useContext(GlobalContext);
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -44,7 +46,10 @@ const Menu = () => {
 
   const handleLogout = () =>{
     axios.get('http://localhost:8762/api/auth/clear', {withCredentials: true})
-    .then(response => console.log(response))
+    .then(response => {
+      console.log(response);
+      setIsReady(false)
+    })
     .catch(err => console.log(err))
   }
 
@@ -55,10 +60,15 @@ const Menu = () => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <MenuButton onClick={() => history.push('/login')}>Login</MenuButton>
-      <MenuButton onClick={() => history.push('/home')}>Home</MenuButton>
+      {isLoggedIn && 'Logged in'}
+      {isLoggedIn && nick !== null && nick}
+      {isLoggedIn && nick === null && 'Please set your nick'}
+      {isLoggedIn && nick === null && <MenuButton onClick={() => history.push('/nick')}>Set Nick</MenuButton>}
+      {isLoggedIn && <MenuButton onClick={handleLogout}>Logout</MenuButton>}
+      {!isLoggedIn && <MenuButton onClick={() => history.push('/login')}>Login</MenuButton>}
+      {!isLoggedIn && <MenuButton onClick={() => history.push('/register')}>Register</MenuButton>}
+      {isLoggedIn && nick !== null && <MenuButton onClick={() => history.push('/home')}>Home</MenuButton>}
       <MenuButton onClick={() => history.push('/heroes')}>Heroes</MenuButton>
-      <MenuButton onClick={handleLogout}>Logout</MenuButton>
     </div>
   );
 

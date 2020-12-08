@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { GlobalContext } from "../../state/GlobalState";
 import TextField from '@material-ui/core/TextField';
 import HeroButton from '../misc/HeroButton';
 import FormContainer from './FormContainer'
 
 
 const Login = () => {
-
   const history = useHistory();
+  const { setIsReady } = useContext(GlobalContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,7 +19,7 @@ const Login = () => {
       password: password
     }, {withCredentials: true}).then((response)=>{
       console.log(response)
-      onClose()
+      setIsReady(false)
     }).catch((err) => {
       console.log(err);
     })
@@ -26,10 +27,6 @@ const Login = () => {
 
   const handleRegisterClick = (e) => {
     history.push('/register')
-  }
-
-  const onClose = (e) => {
-    history.push('/home')
   }
     
   return (
