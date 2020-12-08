@@ -6,7 +6,7 @@ const Header = () => {
   const history = useHistory();
 
 const handleClick = () =>{
-  history.push('/');
+  history.push('/heroes');
 }
   return (
     <div className="header" onClick={handleClick}>

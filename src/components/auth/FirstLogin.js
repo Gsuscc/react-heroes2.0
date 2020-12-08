@@ -13,13 +13,15 @@ const FirstLogin = () => {
 
   const handleClick = (e) =>{
     axios.post('http://localhost:8762/api/user/create',
-      {nick: nickField}, 
+      {
+        nick: nickField
+      }, 
       {withCredentials: true}
     ).then((response)=>{
       console.log(response)
       onClose()
     }).catch((err) => {
-      console.log(err);
+      console.log(err.response);
     })
   }
 

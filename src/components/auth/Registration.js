@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { GlobalContext } from "../../state/GlobalState";
@@ -9,22 +9,38 @@ import FormContainer from './FormContainer'
 
 const Registration = () => {
   const history = useHistory();
-//   const { setIsReady } = useContext(GlobalContext);
   const [email, setEmail] = useState("");
-  const [confirmEmail, setConfirmEmail] = useState("");
+  const [isMatcing, setIsMatching] = useState(false)
+  const [confirmPass, setConfirmPass] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleClick = (e) =>{
-      axios.post('http://localhost:8762/api/auth/register',{
-      email: email,
-      password: password
-    }, {withCredentials: true}).then((response)=>{
-      console.log(response)
-    //   setIsReady(false)
-    }).catch((err) => {
-      console.log(err);
-    })
+      if(isMatcing){
+        axios.post('http://localhost:8762/api/auth/register',{
+        email: email,
+        password: password
+        }, {withCredentials: true})
+        .then((response)=>{
+            history.push('/login')
+            console.log(response)
+        }).catch((err) => {
+            console.log(err.response);
+            setError(err.response.data)
+        })
+    }
   }
+  useEffect(() => {
+    if(error){
+        setError("");
+    }
+    if(password === confirmPass){
+        setIsMatching(true)
+    }else{
+        setIsMatching(false)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [password, confirmPass, email])
 
   const handleGuest = (e) => {
     history.push('/heroes')
@@ -32,6 +48,8 @@ const Registration = () => {
     
   return (
     <FormContainer>
+        {!isMatcing && <div>Passwords are not matching</div>}
+        {error && <div>{error}</div>}
         <TextField
             margin="dense"
             id="email"
@@ -43,20 +61,20 @@ const Registration = () => {
         />
         <TextField
             margin="dense"
-            id="confirm"
-            label="Confirm Email"
-            type="email"
-            onChange={(event) => setConfirmEmail(event.target.value)}
-            value={confirmEmail}
-            autoComplete="off"
-        />
-        <TextField
-            margin="dense"
             id="password"
             label="Password"
             type="password"
             onChange={(event) => setPassword(event.target.value)}
             value={password}
+        />
+        <TextField
+            margin="dense"
+            id="confirm"
+            label="Confirm Password"
+            type="password"
+            onChange={(event) => setConfirmPass(event.target.value)}
+            value={confirmPass}
+            autoComplete="off"
         />
       <HeroButton onClick={handleClick}>
         Register
