@@ -1,12 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, responsiveFontSizes } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuButton from '../misc/MenuButton';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   list: {
@@ -44,6 +45,12 @@ const Menu = () => {
     setOpen(open);
   };
 
+  const handleLogout = () =>{
+    axios.get('http://localhost:8762/api/auth/logout', {withCredentials: true})
+    .then(response => console.log(response))
+    .catch(err => console.log(err))
+  }
+
   const list = () => (
     <div
       className={classes.list}
@@ -54,6 +61,7 @@ const Menu = () => {
       <MenuButton onClick={() => history.push('/login')}>Login</MenuButton>
       <MenuButton onClick={() => history.push('/home')}>Home</MenuButton>
       <MenuButton onClick={() => history.push('/heroes')}>Heroes</MenuButton>
+      <MenuButton onClick={handleLogout}>Logout</MenuButton>
     </div>
   );
 
