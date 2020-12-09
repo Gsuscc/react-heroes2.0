@@ -10,6 +10,7 @@ import CardDock from "../card/CardDock"
 import Card from "../card/Card"
 import { PowerBar } from "./PowerBar";
 import { GlobalContext } from "../../state/GlobalState";
+import Search from '../details/Search'
 import "./HeroDetails.css";
 
 function TabPanel(props) {
@@ -53,6 +54,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    boxShadow: '6px 10px 100px 45px black'
+
   },
 }));
 
@@ -105,7 +108,9 @@ export default function HeroDetails(props) {
             <PowerStats props={heroDetails} />
           </TabPanel>
         </div>
-      <div className="space-filler"></div>
+      <div className="space-filler">
+        <Search label='Search your hero'/>
+      </div>
       </div>
     </div>
   );
