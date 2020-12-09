@@ -8,7 +8,17 @@ const BackPage = (props) => {
   const getColor = props.getColor;
   const isUserCard = props.isUserCard;
 
-  console.log(isUserCard)
+  const userCardClickHandler = (e) => {
+    //TODO
+    e.stopPropagation()
+    console.log('click')
+  }
+
+  const publicCardClickHandler = (e) => {
+        //TODO
+    e.stopPropagation()
+    console.log('click')
+  }
 
   return (
     <div className="card__face card__face--back">
@@ -17,11 +27,10 @@ const BackPage = (props) => {
           <CardHeader getColor={getColor} heroName={hero.name} />
           <div className="card-back-details">
             <CardStats powerStats={hero.powerstats} />
-            {isUserCard ? <CardButton>MERGE</CardButton> : <CardButton onClick={(e) => {
-              e.stopPropagation()
-              console.log('click')
-
-              }}>ABOUT</CardButton>}
+            {isUserCard ? 
+              <CardButton onClick={userCardClickHandler}>MERGE</CardButton> : 
+              <CardButton onClick={publicCardClickHandler}>ABOUT</CardButton>
+            }
           </div>
         </div>
       </div>
