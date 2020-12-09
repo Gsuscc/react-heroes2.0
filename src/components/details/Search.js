@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
+import { GlobalContext } from "../../state/GlobalState";
 import axios from 'axios';
 
 
@@ -16,18 +17,21 @@ const useStyles = makeStyles({
 });
 
 export default function Autocompleter(props) {
+  const { heroDetails, setHeroDetails } = useContext(GlobalContext);
   const classes = useStyles();
   const [searchResult, setSearchResult] = useState([]);
   const [text, setText] = useState("");
-  const [value,setValue] = useState('')
-//   const componentID = props.inputId;
-  const label = props.label;
+  const [value, setValue] = useState(heroDetails)
   const [loading, setLoading] = useState(false);
 
   const fillOptions = useCallback((data) => {
-    setSearchResult(data.values);
+    setSearchResult(data);
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    value && setHeroDetails(value)
+  }, [value, setHeroDetails])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -36,8 +40,7 @@ export default function Autocompleter(props) {
         axios.get(queryUrl, {withCredentials:true})
         .then(response => {
             let result = response.data;
-            console.log(response)
-            // fillOptions(result);
+            fillOptions(result);
         })
         .catch((err) => console.log(err.response));
         setLoading(true);
@@ -49,6 +52,9 @@ export default function Autocompleter(props) {
       clearTimeout(timer);
     };
   }, [text, fillOptions]);
+
+  console.log(searchResult)
+  console.log(value)
 
   return (
     <React.Fragment>
@@ -66,9 +72,10 @@ export default function Autocompleter(props) {
         onInputChange={(event, value) => setText(value)}
         onChange={(event, value) => setValue(value)}
         inputValue={text}
-        getOptionSelected={(option, value) => option.code === value.code}
+        getOptionSelected={(option, value) => option.id === value.id}
         autoHighlight
-        getOptionLabel={(option) => option.label}
+        renderOption={(option) => option.name + " - " + option.biography['full-name']}
+        getOptionLabel={(option) => option.name}
         renderInput={(params) => {
           const inputProps = params.inputProps;
           inputProps.autoComplete = "off";
@@ -76,7 +83,7 @@ export default function Autocompleter(props) {
             <TextField
               {...params}
               inputProps={inputProps}
-              label={label}
+              label={props.label}
               variant="standard"
             />
           );

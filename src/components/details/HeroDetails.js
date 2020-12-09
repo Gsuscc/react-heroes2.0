@@ -71,44 +71,48 @@ export default function HeroDetails(props) {
   return (
     <div>
       <div className="heroDetailContainer">
-          <CardDock margin='50px'>
-            <Card hero={heroDetails} isFlippable={true} isZoomable={true}/>
-          </CardDock>
-        <div className={classes.root}>
-          <AppBar position="static" color="default">
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              variant="scrollable"
-              scrollButtons="auto"
-              aria-label="scrollable auto tabs example"
-            >
-              <Tab label="Biography" {...a11yProps(0)} />
-              <Tab label="Appearance" {...a11yProps(1)} />
-              <Tab label="Work" {...a11yProps(2)} />
-              <Tab label="Connections" {...a11yProps(3)} />
-              <Tab label="Power Stats" {...a11yProps(4)} />
-            </Tabs>
-          </AppBar>
-          <TabPanel value={value} index={0}>
-            <Biography props={heroDetails} />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <Appearance props={heroDetails} />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <Work props={heroDetails} />
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            <Connections props={heroDetails} />
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-            <PowerStats props={heroDetails} />
-          </TabPanel>
-        </div>
-      <div className="space-filler">
+        {heroDetails && 
+          <React.Fragment>
+            <CardDock margin='50px'>
+              <Card hero={heroDetails} isFlippable={true} isZoomable={true}/>
+            </CardDock>
+            <div className={classes.root}>
+              <AppBar position="static" color="default">
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  indicatorColor="primary"
+                  textColor="primary"
+                  variant="scrollable"
+                  scrollButtons="auto"
+                  aria-label="scrollable auto tabs example"
+                >
+                  <Tab label="Biography" {...a11yProps(0)} />
+                  <Tab label="Appearance" {...a11yProps(1)} />
+                  <Tab label="Work" {...a11yProps(2)} />
+                  <Tab label="Connections" {...a11yProps(3)} />
+                  <Tab label="Power Stats" {...a11yProps(4)} />
+                </Tabs>
+              </AppBar>
+              <TabPanel value={value} index={0}>
+                <Biography props={heroDetails} />
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <Appearance props={heroDetails} />
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                <Work props={heroDetails} />
+              </TabPanel>
+              <TabPanel value={value} index={3}>
+                <Connections props={heroDetails} />
+              </TabPanel>
+              <TabPanel value={value} index={4}>
+                <PowerStats props={heroDetails} />
+              </TabPanel>
+            </div>
+          </React.Fragment>
+        }
+      <div className="search-autocompleter">
         <Search label='Search your hero'/>
       </div>
       </div>
