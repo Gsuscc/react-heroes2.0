@@ -10,7 +10,7 @@ const FrontPage = (props) => {
     <div className="card__face card__face--front">
       <div className="card-border">
         <div className="card-body">
-          <CardHeader getColor={getColor} heroName={hero.name} isLegend={hero.cost >= 1350}/>
+          <CardHeader getColor={getColor} heroName={hero.name} />
           <div className="card-image-container">
             <img className="card-image" src={hero.image.url} alt="img" draggable="false" />
           </div>

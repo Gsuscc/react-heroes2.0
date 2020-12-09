@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import LegendBadge from '../misc/LegendBadge'
+
 
 const CardHeader = (props) => {
   const getColor = props.getColor;
@@ -12,7 +12,6 @@ const CardHeader = (props) => {
       className="card-name dotted"
     >
       <div>{heroName}</div>
-      {props.isLegend&& <LegendBadge size={40}/>}
     </div>
   )
 }
