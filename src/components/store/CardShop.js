@@ -7,6 +7,7 @@ import CardDock from '../card/CardDock';
 import Loading from '../misc/Loading';
 import Coin from '../misc/Coin';
 import './CardShop.css'
+import CardDockDelayed from '../card/CardDockDelayed';
 
 const CardShop = () => {
 
@@ -75,10 +76,10 @@ const CardShop = () => {
         })}
       </div>
       <div className="hero-list-container">
-        {heroesList.map(hero => {
-          return <CardDock key={hero.id}>
+        {heroesList.map((hero, index) => {
+          return <CardDockDelayed key={hero.id} delay={index * 300}>
             <Card hero={hero} isFlippable={true} isZoomable={true} key={hero.id}/>
-          </CardDock>
+          </CardDockDelayed>
         })}
       </div>
       {isLoading && <Loading />}

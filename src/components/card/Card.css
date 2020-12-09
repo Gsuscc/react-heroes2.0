@@ -44,7 +44,6 @@
 }
 
 .card-zoom {
-  -webkit-animation: fadein 3s;
   transition: transform 0.2s;
 }
 
@@ -136,4 +135,21 @@
   -webkit-background-size: 7px 7px;
   -moz-background-size: 7px 7px;
   background-size: 7px 7px;
+}
+
+.card-hidden {
+  visibility: hidden;
+}
+
+.card-revealed {
+  -webkit-animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
