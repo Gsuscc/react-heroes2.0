@@ -12,6 +12,7 @@ import Home from './components/home/Home'
 import CardShop from './components/store/CardShop'
 import Registration from './components/auth/Registration';
 import MyCards from './components/mycards/MyCards';
+import HeroDetails from './components/details/HeroDetails';
 
 const App = () => {
 
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/home" component={Home} />
           <Route path="/cardshop" component={CardShop} />
           <Route path="/mycards" component={MyCards} />
+          <Route path="/details" component={HeroDetails} />
         </Switch>
       </GlobalState>
     </Router>

@@ -1,0 +1,71 @@
+.heroDetailContainer {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 100px;
+  flex-wrap: wrap;
+}
+
+.space-filler {
+  min-width: 300px;
+}
+
+.detailCategory {
+  color: #3477b0;
+  padding: 14px;
+  min-width: 195px;
+}
+
+.superHeroDetailedContainer {
+  display: grid !important;
+  grid-template-columns: 30% 70% !important;
+  justify-items: center;
+  align-items: center;
+}
+
+.MuiTab-wrapper {
+  font-family: superHeroFont;
+  color: white;
+  font-size: large;
+}
+
+.MuiTabs-root {
+  background-color: red;
+}
+
+.MuiTypography-h6 {
+  margin-left: 20px !important;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.MuiPaper-root {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 10px !important;
+}
+
+.MuiTypography-body1,
+.MuiTypography-h6 {
+  font-family: superHeroFont !important;
+  text-align: center !important;
+  font-size: x-large !important;
+  letter-spacing: 1px !important;
+}
+
+.MuiAppBar-colorPrimary {
+  background-color: transparent !important;
+  color: black !important;
+}
+
+.MuiPaper-elevation4 {
+  box-shadow: none !important;
+}
+
+.makeStyles-root-1 {
+  height: 20px !important;
+}

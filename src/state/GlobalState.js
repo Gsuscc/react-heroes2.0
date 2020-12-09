@@ -10,6 +10,7 @@ export const GlobalState = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nick, setNick] = useState(null);
   const [balance, setBalance] = useState(null)
+  const [heroDetails, setHeroDetails] = useState();
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -50,7 +51,9 @@ export const GlobalState = (props) => {
         nick: nick,
         setNick: setNick,
         balance: balance,
-        refreshBalance: refreshBalance
+        refreshBalance: refreshBalance,
+        heroDetails: heroDetails,
+        setHeroDetails: setHeroDetails
       }}
     >
       {props.children}
