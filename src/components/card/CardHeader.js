@@ -9,7 +9,7 @@ const CardHeader = (props) => {
   return (
     <div
       style={getColor ? getColor() : { color: "black" }}
-      className={`card-name dotted card-rarity-${props.rarity.toLowerCase()}`}
+      className={"card-name dotted"}
     >
       <div>{heroName}</div>
     </div>

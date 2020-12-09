@@ -1,5 +1,5 @@
 .card-rarity-common {
-  background-color: gray;
+  background-color: lightgray;
 }
 
 .card-rarity-uncommon {
@@ -7,15 +7,15 @@
 }
 
 .card-rarity-rare {
-  background-color: darkblue;
+  background-color: blue;
 }
 
 .card-rarity-epic {
-  background-color: purple;
+  background-color: darkorchid;
 }
 
 .card-rarity-legendary {
-  background-color: orange;
+  background-color: darkorange;
 }
 
 .card-dock:hover {
@@ -70,7 +70,6 @@
 }
 
 .card-border {
-  background: white;
   border: solid black 1px;
   border-radius: 7px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
