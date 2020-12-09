@@ -47,6 +47,7 @@ const Registration = () => {
   }
     
   return (
+    <div className="form-background">
     <FormContainer>
         {!isMatcing && <div>Passwords are not matching</div>}
         {error && <div>{error}</div>}
@@ -87,6 +88,7 @@ const Registration = () => {
         as a Guest
       </div>
     </FormContainer>
+    </div>
   )
 }
 

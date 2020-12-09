@@ -4,10 +4,11 @@
   justify-content: center;
   align-items: center;
   margin: 40px;
+  padding: 7px;
 }
 
 .form-background {
-  background-color: #ffffffb0;
+  background-color: #ffffffcf;
   max-width: 382px;
   margin: auto;
   border-radius: 20px;
