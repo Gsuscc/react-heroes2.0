@@ -1,3 +1,23 @@
+.card-rarity-common {
+  background-color: gray;
+}
+
+.card-rarity-uncommon {
+  background-color: green;
+}
+
+.card-rarity-rare {
+  background-color: darkblue;
+}
+
+.card-rarity-epic {
+  background-color: purple;
+}
+
+.card-rarity-legendary {
+  background-color: orange;
+}
+
 .card-dock:hover {
   z-index: 1;
 }

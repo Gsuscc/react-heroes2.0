@@ -28,7 +28,7 @@ const BackPage = (props) => {
     <div className="card__face card__face--back">
       <div className="card-border">
         <div className="card-body">
-          <CardHeader getColor={getColor} heroName={hero.name} isLegend={hero.cost >= 1350}/>
+          <CardHeader getColor={getColor} heroName={hero.name} rarity={hero.rarity} />
           <div className="card-back-details">
             <CardStats powerStats={hero.powerstats} />
             {isUserCard ? 
