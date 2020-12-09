@@ -10,8 +10,7 @@ const Card = (props) => {
   const hero = props.hero;
   const isFlippable = props.isFlippable;
   const isZoomable = props.isZoomable;
-  const isDetailsVisible = props.isDetailsVisible;
-  const level = props.level;
+  const isUserCard = props.isUserCard;
   const [isFrontPage, setIsFrontPage] = useState(true);
 
   // const [play] = useSound(swoosh, { volume: 0.2 });
@@ -31,8 +30,8 @@ const Card = (props) => {
   return (
     <div className={isZoomable ? "card-scene card-zoom" : "card-scene" } onClick={flip}>
       <div className={isFrontPage ? "card" : "card is-flipped"}>
-        <FrontPage hero={hero} getColor={getColor} />
-        {isFlippable && (<BackPage hero={hero} getColor={getColor} />)}
+        <FrontPage hero={hero} getColor={getColor} isUserCard={isUserCard} />
+        {isFlippable && (<BackPage hero={hero} getColor={getColor} isUserCard={isUserCard} />)}
       </div>
     </div>
   )
@@ -44,13 +43,11 @@ Card.propTypes = {
   hero: PropTypes.object,
   isFlippable: PropTypes.bool,
   isZoomable: PropTypes.bool,
-  isDetailsVisible: PropTypes.bool,
-  level: PropTypes.number
+  isUserCard: PropTypes.bool,
 };
 
 Card.defaultProps = {
   isFlippable: false,
   isZoomable: false,
-  isDetailsVisible: false,
-  level: 0
+  isUserCard: false,
 };
