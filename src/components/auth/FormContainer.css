@@ -3,16 +3,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 40px;
-  padding: 7px;
-}
-
-.form-background {
+  padding: 33px;
   background-color: #ffffffcf;
-  max-width: 382px;
   margin: auto;
   border-radius: 20px;
   box-shadow: 4px 2px 40px 20px #4b4f50;
+}
+
+.form-background {
+  padding: 50px;
+  display: flex;
 }
 
 .error-container {
