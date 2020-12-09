@@ -5,3 +5,11 @@
   align-items: center;
   margin: 40px;
 }
+
+.form-background {
+  background-color: #ffffffb0;
+  max-width: 382px;
+  margin: auto;
+  border-radius: 20px;
+  box-shadow: 4px 2px 40px 20px #4b4f50;
+}

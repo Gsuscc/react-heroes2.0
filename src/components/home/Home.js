@@ -10,6 +10,7 @@ const Home = () => {
   useEffect(() => {
     axios.get('http://localhost:8762/api/user/mydetails', {withCredentials: true})
       .then((response) => {
+        console.log(response)
         let data = response.data;
         setDetails(data)
         setIsLoading(false)
