@@ -49,8 +49,10 @@ const Registration = () => {
   return (
     <div className="form-background">
     <FormContainer>
+      <div className="error-container">
         {!isMatcing && <div>Passwords are not matching</div>}
         {error && <div>{error}</div>}
+        </div>
         <TextField
             margin="dense"
             id="email"

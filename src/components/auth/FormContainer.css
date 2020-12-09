@@ -14,3 +14,7 @@
   border-radius: 20px;
   box-shadow: 4px 2px 40px 20px #4b4f50;
 }
+
+.error-container {
+  min-height: 17px;
+}
