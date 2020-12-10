@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function MyCards() {
 
-  axios.get(`http://localhost:8762/api/user/mycards`, {withCredentials: true})
+  axios.get(`http://localhost:8762/api/user/mycards?page=0`, {withCredentials: true})
   .then((response) => {
     console.log(response.data)
     // setHeroesList(response.data);
