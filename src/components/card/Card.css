@@ -201,3 +201,28 @@
   color: black;
   cursor: pointer;
 }
+
+.card-level {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  position: absolute;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  bottom: 10px;
+  right: 10px;
+  padding: 4px;
+  border-radius: 30%;
+  background-color: orange;
+  border: 3px solid black;
+}
+
+.card-level-name {
+  position: absolute;
+  top: -20px;
+  color: white;
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 1px;
+  font-size: 1.2em;
+}
