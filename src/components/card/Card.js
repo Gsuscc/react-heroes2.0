@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-// import useSound from "use-sound";
-// import swoosh from "../sounds/swoosh.mp3";
+import useSound from "use-sound";
+import card from "../../sounds/card.wav";
 import FrontPage from "./FrontPage";
 import BackPage from "./BackPage";
 import './Card.css';
@@ -13,7 +13,7 @@ const Card = (props) => {
   const isUserCard = props.isUserCard;
   const [isFrontPage, setIsFrontPage] = useState(true);
 
-  // const [play] = useSound(swoosh, { volume: 0.2 });
+  const [play] = useSound(card, { volume: 0.2 });
 
   const getColor = () => {
     if (hero.biography.alignment === "good") return { color: "darkgreen" };
@@ -23,7 +23,7 @@ const Card = (props) => {
   };
 
   const flip = (e) => {
-    // play();
+    play();
     isFlippable && setIsFrontPage(!isFrontPage);
   };
 

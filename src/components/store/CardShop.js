@@ -4,9 +4,11 @@ import { GlobalContext } from "../../state/GlobalState";
 import HeroButton from '../misc/HeroButton';
 import Card from "../card/Card";
 import CardDock from '../card/CardDock';
+import useSound from "use-sound";
 import Loading from '../misc/Loading';
 import Coin from '../misc/Coin';
 import './CardShop.css'
+import shop from "../../sounds/shop.mp3";
 import CardDockDelayed from '../card/CardDockDelayed';
 
 const CardShop = () => {
@@ -14,6 +16,7 @@ const CardShop = () => {
   const { refreshBalance } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(false)
   const [heroesList, setHeroesList] = useState([]);
+  const [play] = useSound(shop, { volume: 0.2 });
 
 
   const packs=[
@@ -42,6 +45,7 @@ const CardShop = () => {
       setIsLoading(true)
       axios.get(`http://localhost:8762/api/user/buypack?pack=${amount}`, {withCredentials: true})
       .then((response) => {
+        play()
         setHeroesList(response.data);
         setIsLoading(false)
         refreshBalance()
