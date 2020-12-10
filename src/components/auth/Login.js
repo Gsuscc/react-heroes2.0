@@ -30,7 +30,6 @@ const Login = () => {
   }
     
   return (
-    <div className="form-background">
     <FormContainer>
         <TextField
             margin="dense"
@@ -60,7 +59,6 @@ const Login = () => {
         new account
       </div>
     </FormContainer>
-    </div>
   )
 }
 

@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import HeroButton from '../misc/HeroButton';
 import FormContainer from './FormContainer'
+import { GlobalContext } from "../../state/GlobalState";
 
 
 const FirstLogin = () => {
-
+  const { setIsReady, setNick } = useContext(GlobalContext);
   const history = useHistory();
   const [nickField, setNickField] = useState("");
 
@@ -18,6 +19,8 @@ const FirstLogin = () => {
       }, 
       {withCredentials: true}
     ).then((response)=>{
+      setNick(nickField)
+      setIsReady(false)
       console.log(response)
       onClose()
     }).catch((err) => {

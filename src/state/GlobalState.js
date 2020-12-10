@@ -21,6 +21,12 @@ export const GlobalState = (props) => {
     }
   }, [isLoggedIn])
 
+  useEffect(() => {
+    if (nick != null) {
+      refreshBalance();
+    }
+  }, [nick])
+
   const refreshBalance = () => {
     axios.get(`http://localhost:8762/api/user/balance`, {withCredentials: true})
     .then((response) => {
