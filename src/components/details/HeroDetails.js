@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     maxWidth: '675px',
-    minHeight: '473px',
+    minHeight: '481px',
     borderRadius: '10px',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
