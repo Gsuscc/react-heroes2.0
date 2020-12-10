@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from "prop-types";
 import CardHeader from "./CardHeader"
+import CardLevel from './CardLevel';
 
 const FrontPage = (props) => {
   const hero = props.hero;
@@ -12,6 +13,7 @@ const FrontPage = (props) => {
         <div className="card-body">
           <CardHeader getColor={getColor} heroName={hero.name} />
           <div className="card-image-container">
+            {props.isUserCard && <CardLevel level={hero.level} />}
             <img className="card-image" src={hero.image.url} alt="img" draggable="false" />
           </div>
         </div>
