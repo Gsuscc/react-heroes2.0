@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     color: 'orange',
     WebkitTextStrokeWidth: '2px',
     WebkitTextStrokeColor: 'black',
-    position: 'absolute',
+    position: 'fixed',
     left: '20px',
     transition: 'color 0.3s',
     '&:hover': {

@@ -2,7 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { GlobalState } from "./state/GlobalState";
 import BuildState from './state/BuildState'
-import HeroList from './components/HeroList';
+import HeroList from './components/cardpage/HeroList';
+import MyCards from './components/cardpage/MyCards';
 import Header from './components/header/Header';
 import UserInfo from './components/header/UserInfo';
 import Menu from './components/menu/Menu';
@@ -11,7 +12,6 @@ import FirstLogin from './components/auth/FirstLogin'
 import Home from './components/home/Home'
 import CardShop from './components/store/CardShop'
 import Registration from './components/auth/Registration';
-import MyCards from './components/mycards/MyCards';
 import HeroDetails from './components/details/HeroDetails';
 
 const App = () => {
