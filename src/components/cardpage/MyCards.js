@@ -4,6 +4,7 @@ import axios from "axios";
 import CardDock from '../card/CardDock';
 import Loading from '../misc/Loading';
 import PageTitle from '../header/PageTitle';
+import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 
 const MyCards = () => {
 
@@ -46,6 +47,16 @@ const MyCards = () => {
 
   return (
     <div>
+      <ScrollUpButton
+        StopPosition={0}
+        ShowAtPosition={150}
+        EasingType='easeOutCubic'
+        AnimationDuration={500}
+        ContainerClassName='ScrollUpButton__Container'
+        TransitionClassName='ScrollUpButton__Toggled'
+        style={{backgroundColor: 'orange'}}
+        ToggledStyle={{right: 60}}
+      />
       {isLoading && <Loading />}
       <PageTitle>My Superhero Collection</PageTitle>
       <div className="hero-list-container">
