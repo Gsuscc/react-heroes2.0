@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { GlobalContext } from "../../state/GlobalState";
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import useSound from "use-sound";
+import woosh from "../../sounds/woosh.mp3"
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import MenuButton from '../misc/MenuButton';
@@ -36,12 +38,14 @@ const Menu = () => {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
+  const [play] = useSound(woosh, { volume: 0.2 });
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setOpen(open);
+    play();
   };
 
   const handleLogout = () =>{
