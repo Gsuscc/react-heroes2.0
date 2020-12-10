@@ -5,6 +5,7 @@ import CardDock from '../card/CardDock';
 import Loading from '../misc/Loading';
 import './HeroList.css';
 import PageTitle from '../header/PageTitle';
+import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 
 const HeroList = () => {
   const [page, setPage] = useState(0);
@@ -47,6 +48,16 @@ const HeroList = () => {
     <div>
       {isLoading && <Loading />}
       <PageTitle>Superhero Encyclopedia</PageTitle>
+      <ScrollUpButton
+      StopPosition={0}
+      ShowAtPosition={150}
+      EasingType='easeOutCubic'
+      AnimationDuration={500}
+      ContainerClassName='ScrollUpButton__Container'
+      TransitionClassName='ScrollUpButton__Toggled'
+      style={{backgroundColor: 'orange'}}
+      ToggledStyle={{right: 60}}
+    />
       <div className="hero-list-container">
         {heroesList.map((hero) => {
           return (
