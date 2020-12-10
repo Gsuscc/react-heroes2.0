@@ -20,19 +20,19 @@ const CardShop = () => {
     {
       name: "Bronze Pack",
       price: 1000,
-      amount: 3,
-      description: "3 regular cards"
+      amount: 4,
+      description: "4 regular cards"
     },
     {
       name: "Silver Pack",
       price: 3000,
-      amount: 5,
+      amount: 6,
       description: "includes 2 rare card"
     },
     {
       name: "Gold Pack",
-      price: 7500,
-      amount: 7,
+      price: 8500,
+      amount: 8,
       description: "includes 2 rare and 1 epic card"
     },
   ]
