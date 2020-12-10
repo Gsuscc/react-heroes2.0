@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react'
-import Card from "./card/Card";
+import Card from "../card/Card";
 import axios from "axios";
-import './HeroList.css';
-import CardDock from './card/CardDock';
-import Loading from './misc/Loading';
+import CardDock from '../card/CardDock';
+import Loading from '../misc/Loading';
+import PageTitle from '../header/PageTitle';
 
-const HeroList = () => {
+const MyCards = () => {
+
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true)
   const [hasMorePage, setHasMorePage] = useState(true)
@@ -27,13 +28,15 @@ const HeroList = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    axios.get(`http://localhost:8762/api/hero/heroes?page=${page}`)
+    setHasMorePage(false)
+    axios.get(`http://localhost:8762/api/user/mycards?page=${page}`, {withCredentials: true})
       .then((response) => {
         let newHeroes = response.data.content;
+        console.log(response.data)
         setHeroesList(oldHeroes => [...oldHeroes, ...newHeroes])
         setIsLoading(false)
-        if (response.data.last) {
-          setHasMorePage(false)
+        if (response.data.last === false) {
+          setHasMorePage(true)
         }
       }).catch((err) => {
         console.log(err)
@@ -44,11 +47,13 @@ const HeroList = () => {
   return (
     <div>
       {isLoading && <Loading />}
+      <PageTitle>My Superhero Collection</PageTitle>
       <div className="hero-list-container">
-        {heroesList.map((hero) => {
+        {heroesList.map((heroDetails) => {
+          let hero = heroDetails.hero;
           return (
-            <CardDock key={hero.id}>
-              <Card hero={hero} isFlippable={true} isZoomable={true} key={hero.id}/>
+            <CardDock key={hero.heroId}>
+              <Card hero={hero} isFlippable={true} isZoomable={true} isUserCard={true}/>
             </CardDock>
           )
         })}
@@ -64,4 +69,4 @@ const HeroList = () => {
   )
 }
 
-export default HeroList;
+export default MyCards;

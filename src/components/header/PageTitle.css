@@ -1,0 +1,9 @@
+.hero-page-title {
+  text-align: center;
+  font-size: 3em;
+  padding: 25px;
+  letter-spacing: 5px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: black;
+  color: white;
+}
