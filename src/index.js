@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Snowfall from 'react-snowfall'
+import SnowStorm from 'react-snowstorm';
 import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-      <Snowfall style={{ zIndex: '1000' }}/>
+      <SnowStorm followMouse={false} animationInterval={1} flakesMaxActive={120}/> 
       <App />
   </React.StrictMode>,
   document.getElementById('root')

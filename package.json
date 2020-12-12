@@ -16,6 +16,7 @@
     "react-scripts": "4.0.1",
     "react-scroll-up-button": "^1.6.4",
     "react-snowfall": "^1.0.2",
+    "react-snowstorm": "0.0.3",
     "use-sound": "^2.0.1",
     "web-vitals": "^0.2.4"
   },
