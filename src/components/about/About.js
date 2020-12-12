@@ -1,13 +1,11 @@
 import React from 'react'
 import SampleCard from '../card/SampleCard'
+import './About.css'
 
 const About = (props) => {
     return (
-        <div>
-            <div className="card-scene">
+        <div className="about-container">
                 <SampleCard/>
-            </div>
-            
         </div>
     )
 }
