@@ -72,6 +72,7 @@ const Menu = () => {
       {isLoggedIn && nick !== null && <MenuButton onClick={() => history.push('/mycards')}>My Cards</MenuButton>}
       {isLoggedIn && nick !== null && <MenuButton onClick={() => history.push('/cardshop')}>Card Shop</MenuButton>}
       <MenuButton onClick={() => history.push('/heroes')}>Heroes</MenuButton>
+      <MenuButton onClick={() => history.push('/about')}>About</MenuButton>
     </div>
   );
 
