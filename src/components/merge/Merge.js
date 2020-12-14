@@ -1,14 +1,13 @@
-import { Card } from 'material-ui';
-import React, { useContext, useEffect, useState, useRef } from 'react'
-import { GlobalContext } from '../../state/GlobalState'
+import React, { useEffect, useState, useRef } from 'react'
 import CardDock from '../card/CardDock';
 import axios from 'axios';
 import Loading from '../misc/Loading';
 import PageTitle from '../header/PageTitle';
 import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
+import Card from '../card/Card';
 
  const Merge = (props) =>{
-    const {heroToMerge} = useContext(GlobalContext);
+    const heroToMerge = props.location.state;
     const [page, setPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true)
     const [hasMorePage, setHasMorePage] = useState(true)
@@ -16,8 +15,6 @@ import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
     const pageBottom = useRef();
     console.log("kitt")
     console.log(heroToMerge)
-
-
 
     useEffect(() => {
         const toggleDiv = pageBottom.current;
@@ -37,7 +34,7 @@ import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
         console.log(heroToMerge)
         setIsLoading(true)
         setHasMorePage(false)
-        axios.get(`http://localhost:8762/api/user/merge?cardId=${heroToMerge.id}&page=${page}`)
+        axios.get(`http://localhost:8762/api/user/merge?cardId=${heroToMerge.cardid}&page=${page}`, {withCredentials: true})
           .then((response) => {
             let newHeroes = response.data.content;
             setHeroesList(oldHeroes => [...oldHeroes, ...newHeroes])
@@ -69,16 +66,17 @@ import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
       style={{backgroundColor: 'orange'}}
       ToggledStyle={{right: 60}}
     />
-    <div>
+      <div className="hero-list-container">
         <CardDock >
             <Card hero={heroToMerge} isFlippable={true} isZoomable={true} />
         </CardDock>
-    </div>
+      </div>
       <div className="hero-list-container">
-        {heroesList.map((hero) => {
+        {heroesList.map((heroDetails) => {
+          let hero = heroDetails.hero;
           return (
-            <CardDock key={hero.id}>
-              <Card hero={hero} isFlippable={true} isZoomable={true} key={hero.id}/>
+            <CardDock key={hero.heroId}>
+              <Card hero={hero} isFlippable={true} isZoomable={true} isUserCard={true}/>
             </CardDock>
           )
         })}
