@@ -18,12 +18,14 @@ const CardDockDrop = (props) => {
         canDrop: monitor.canDrop(),
     }),
   });
-  const opacity = canDrop ? 1 : 0.7;
-  let backgroundColor = isOver ? '#00FF00AA' : '#FFFFFF55';
+  const opacity = isOver ? 1 : 0.7;
+  let backgroundColor = canDrop ? '#FFFFFF99' : 'initial';
 
   return (
-    <div ref={drop} style={{ ...style, backgroundColor, opacity }}>
-			{props.children}
+    <div ref={drop} style={{ ...style, backgroundColor }}>
+      <div style={{opacity}}>
+        {props.children}
+      </div>
 		</div>
   )
 }
