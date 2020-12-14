@@ -5,6 +5,10 @@ import Loading from '../misc/Loading';
 import PageTitle from '../header/PageTitle';
 import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 import Card from '../card/Card';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import CardDockDrag from '../card/CardDockDrag';
+import CardDockDrop from '../card/CardDockDrop';
 
  const Merge = (props) =>{
     const heroToMerge = props.location.state;
@@ -13,8 +17,6 @@ import Card from '../card/Card';
     const [hasMorePage, setHasMorePage] = useState(true)
     const [heroesList, setHeroesList] = useState([]);
     const pageBottom = useRef();
-    console.log("kitt")
-    console.log(heroToMerge)
 
     useEffect(() => {
         const toggleDiv = pageBottom.current;
@@ -31,7 +33,6 @@ import Card from '../card/Card';
 
 
     useEffect(() => {
-        console.log(heroToMerge)
         setIsLoading(true)
         setHasMorePage(false)
         axios.get(`http://localhost:8762/api/user/merge?cardId=${heroToMerge.cardid}&page=${page}`, {withCredentials: true})
@@ -48,14 +49,15 @@ import Card from '../card/Card';
           });
       }, [page])
 
-
-
+    const onDrop = (hero) => {
+      console.log(hero.cardid)
+    }
 
     return (
         (
     <div>
       {isLoading && <Loading />}
-      <PageTitle>Superhero Encyclopedia</PageTitle>
+      <PageTitle>Drag cards to update</PageTitle>
       <ScrollUpButton
       StopPosition={0}
       ShowAtPosition={150}
@@ -66,30 +68,34 @@ import Card from '../card/Card';
       style={{backgroundColor: 'orange'}}
       ToggledStyle={{right: 60}}
     />
+
+    <DndProvider backend={HTML5Backend}>
       <div className="hero-list-container">
-        <CardDock >
-            <Card hero={heroToMerge} isFlippable={true} isZoomable={true} />
-        </CardDock>
+        <CardDockDrop onDrop={onDrop}>
+            <Card hero={heroToMerge} isFlippable={true} isZoomable={true} isUserCard={true} />
+        </CardDockDrop>
       </div>
       <div className="hero-list-container">
         {heroesList.map((heroDetails) => {
           let hero = heroDetails.hero;
           return (
-            <CardDock key={hero.heroId}>
-              <Card hero={hero} isFlippable={true} isZoomable={true} isUserCard={true}/>
-            </CardDock>
+            <CardDockDrag key={hero.heroId} hero={hero}>
+              <Card hero={hero} isUserCard={true}/>
+            </CardDockDrag>
           )
         })}
       </div>
-      <div
-        className="scrollTrigger"
-        ref={pageBottom}
-        id="trigger"
-        key="trigger"
-      ></div>
+    </DndProvider>
+
+    <div
+      className="scrollTrigger"
+      ref={pageBottom}
+      id="trigger"
+      key="trigger"
+    />
       
     </div>
   )
     )
 }
-export default Merge
+export default Merge;
