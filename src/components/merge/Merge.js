@@ -51,6 +51,13 @@ import CardDockDrop from '../card/CardDockDrop';
 
     const onDrop = (hero) => {
       console.log(hero.cardid)
+      axios.get(`http://localhost:8762/api/user/mergecard?mergeInto=${heroToMerge.cardid}&merging=${hero.cardid}`, {withCredentials: true})
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
     }
 
     return (
