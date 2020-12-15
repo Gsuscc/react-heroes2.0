@@ -6,7 +6,7 @@ import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-      <SnowStorm followMouse={false} animationInterval={10} flakesMaxActive={120}/> 
+      {/* <SnowStorm followMouse={false} animationInterval={10} flakesMaxActive={120}/>  */}
       <App />
   </React.StrictMode>,
   document.getElementById('root')

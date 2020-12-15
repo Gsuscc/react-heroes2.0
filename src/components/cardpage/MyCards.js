@@ -33,7 +33,6 @@ const MyCards = () => {
     axios.get(`http://localhost:8762/api/user/mycards?page=${page}`, {withCredentials: true})
       .then((response) => {
         let newHeroes = response.data.content;
-        console.log(response.data)
         setHeroesList(oldHeroes => [...oldHeroes, ...newHeroes])
         setIsLoading(false)
         if (response.data.last === false) {
@@ -60,10 +59,9 @@ const MyCards = () => {
       {isLoading && <Loading />}
       <PageTitle>My Superhero Collection</PageTitle>
       <div className="hero-list-container">
-        {heroesList.map((heroDetails) => {
-          let hero = heroDetails.hero;
+        {heroesList.map((hero) => {
           return (
-            <CardDock key={hero.heroId}>
+            <CardDock key={hero.uniqueId}>
               <Card hero={hero} isFlippable={true} isZoomable={true} isUserCard={true}/>
             </CardDock>
           )

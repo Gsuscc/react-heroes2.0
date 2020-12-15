@@ -51,7 +51,6 @@ const Menu = () => {
   const handleLogout = () =>{
     axios.get('http://localhost:8762/api/auth/clear', {withCredentials: true})
     .then(response => {
-      console.log(response);
       setIsReady(false)
     })
     .catch(err => console.log(err))
@@ -72,6 +71,7 @@ const Menu = () => {
       {isLoggedIn && nick !== null && <MenuButton onClick={() => history.push('/mycards')}>My Cards</MenuButton>}
       {isLoggedIn && nick !== null && <MenuButton onClick={() => history.push('/cardshop')}>Card Shop</MenuButton>}
       <MenuButton onClick={() => history.push('/heroes')}>Heroes</MenuButton>
+      <MenuButton onClick={() => history.push('/about')}>About</MenuButton>
     </div>
   );
 

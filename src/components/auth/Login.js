@@ -18,7 +18,6 @@ const Login = () => {
       email: username,
       password: password
     }, {withCredentials: true}).then((response)=>{
-      console.log(response)
       setIsReady(false)
     }).catch((err) => {
       console.log(err);
