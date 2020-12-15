@@ -10,8 +10,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import CardDockDrag from '../card/CardDockDrag';
 import CardDockDrop from '../card/CardDockDrop';
 
- const Merge = (props) =>{
-    const heroToMerge = props.location.state;
+ const Merge = (props) => {
+    const [heroToMerge, setHeroToMerge] = useState(props.location.state);
     const [page, setPage] = useState(0);
     const [isLoading, setIsLoading] = useState(true)
     const [hasMorePage, setHasMorePage] = useState(true)
@@ -49,12 +49,27 @@ import CardDockDrop from '../card/CardDockDrop';
           });
       }, [page])
 
+    const levelUp = (newLevel) => {
+      // todo
+      console.log("Level up: " + newLevel)
+    }
+
     const onDrop = (hero) => {
+      setIsLoading(true)
       axios.get(`http://localhost:8762/api/user/mergecard?mergeInto=${heroToMerge.uniqueId}&merging=${hero.uniqueId}`, {withCredentials: true})
       .then(response => {
-        console.log(response.data)
+        if (heroToMerge.level < response.data.level) levelUp(response.data.level)
+        setIsLoading(false)
+        setHeroToMerge(response.data);
+        if (page === 0) setHeroesList((heroes) => heroes.filter(x => x.uniqueId !== hero.uniqueId))
+        else {
+          setHeroesList([]);
+          setPage(0);
+        }
+        
       })
       .catch(err => {
+        setIsLoading(false)
         console.log(err.response)
       })
     }
@@ -82,13 +97,13 @@ import CardDockDrop from '../card/CardDockDrop';
         </CardDockDrop>
       </div>
       <div className="hero-list-container">
-        {heroesList.map((hero) => {
+        {heroesList.length > 0 ? heroesList.map((hero) => {
           return (
             <CardDockDrag key={hero.uniqueId} hero={hero}>
               <Card hero={hero} isUserCard={true}/>
             </CardDockDrag>
           )
-        })}
+        }) : "No hero to merge"}
       </div>
     </DndProvider>
 
