@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
-import CardDock from '../card/CardDock';
+import levelUpSound from '../../sounds/levelUpSound.mp3'
+import useSound from "use-sound";
 import axios from 'axios';
 import Loading from '../misc/Loading';
 import PageTitle from '../header/PageTitle';
@@ -9,6 +10,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import CardDockDrag from '../card/CardDockDrag';
 import CardDockDrop from '../card/CardDockDrop';
+import LevelUp from '../misc/LevelUp';
 
  const Merge = (props) => {
     const [heroToMerge, setHeroToMerge] = useState(props.location.state);
@@ -17,6 +19,8 @@ import CardDockDrop from '../card/CardDockDrop';
     const [hasMorePage, setHasMorePage] = useState(true)
     const [heroesList, setHeroesList] = useState([]);
     const pageBottom = useRef();
+    const [isLevelUp, setIsLevelUp] = useState(false)
+    const [play] = useSound(levelUpSound, { volume: 0.6 })
 
     useEffect(() => {
         const toggleDiv = pageBottom.current;
@@ -50,7 +54,9 @@ import CardDockDrop from '../card/CardDockDrop';
       }, [page])
 
     const levelUp = (newLevel) => {
-      // todo
+      play()
+      setIsLevelUp(true)
+      setTimeout(()=>{setIsLevelUp(false)}, 4000)
       console.log("Level up: " + newLevel)
     }
 
@@ -78,6 +84,7 @@ import CardDockDrop from '../card/CardDockDrop';
         (
     <div>
       {isLoading && <Loading />}
+      {isLevelUp && <LevelUp/>}
       <PageTitle>Drag cards to update</PageTitle>
       <ScrollUpButton
       StopPosition={0}
