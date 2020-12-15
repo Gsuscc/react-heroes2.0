@@ -23,7 +23,6 @@ const Registration = () => {
         }, {withCredentials: true})
         .then((response)=>{
             history.push('/login')
-            console.log(response)
         }).catch((err) => {
             console.log(err.response);
             setError(err.response.data)

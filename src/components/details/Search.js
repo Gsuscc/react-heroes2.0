@@ -53,9 +53,6 @@ export default function Autocompleter(props) {
     };
   }, [text, fillOptions]);
 
-  console.log(searchResult)
-  console.log(value)
-
   return (
     <React.Fragment>
       <Autocomplete

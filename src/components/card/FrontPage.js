@@ -7,7 +7,6 @@ const FrontPage = (props) => {
   const hero = props.hero;
   const getColor = props.getColor;
 
-  console.log(hero)
   return (
     <div className="card__face card__face--front">
       <div className={`card-border card-rarity-${hero.rarity.toLowerCase()}`}>

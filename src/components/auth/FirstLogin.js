@@ -21,7 +21,6 @@ const FirstLogin = () => {
     ).then((response)=>{
       setNick(nickField)
       setIsReady(false)
-      console.log(response)
       onClose()
     }).catch((err) => {
       console.log(err.response);

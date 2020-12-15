@@ -33,7 +33,6 @@ const MyCards = () => {
     axios.get(`http://localhost:8762/api/user/mycards?page=${page}`, {withCredentials: true})
       .then((response) => {
         let newHeroes = response.data.content;
-        console.log(response.data)
         setHeroesList(oldHeroes => [...oldHeroes, ...newHeroes])
         setIsLoading(false)
         if (response.data.last === false) {
