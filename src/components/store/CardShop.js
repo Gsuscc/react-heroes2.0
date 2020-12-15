@@ -47,6 +47,7 @@ const CardShop = () => {
       .then((response) => {
         play()
         setHeroesList(response.data);
+        console.log(response.data)
         setIsLoading(false)
         refreshBalance()
       }).catch((err) => {
@@ -81,8 +82,9 @@ const CardShop = () => {
       </div>
       <div className="hero-list-container">
         {heroesList.map((hero, index) => {
-          return <CardDockDelayed key={hero.id} delay={index * 300}>
-            <Card hero={hero} isFlippable={true} isZoomable={true} key={hero.id}/>
+          console.log(hero)
+          return <CardDockDelayed key={hero.uniqueId} delay={index * 300}>
+            <Card hero={hero} isFlippable={true} isZoomable={true} isUserCard={true}/>
           </CardDockDelayed>
         })}
       </div>

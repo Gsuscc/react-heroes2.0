@@ -35,7 +35,7 @@ import CardDockDrop from '../card/CardDockDrop';
     useEffect(() => {
         setIsLoading(true)
         setHasMorePage(false)
-        axios.get(`http://localhost:8762/api/user/merge?cardId=${heroToMerge.cardid}&page=${page}`, {withCredentials: true})
+        axios.get(`http://localhost:8762/api/user/merge?uniqueId=${heroToMerge.uniqueId}&page=${page}`, {withCredentials: true})
           .then((response) => {
             let newHeroes = response.data.content;
             setHeroesList(oldHeroes => [...oldHeroes, ...newHeroes])
@@ -50,8 +50,8 @@ import CardDockDrop from '../card/CardDockDrop';
       }, [page])
 
     const onDrop = (hero) => {
-      console.log(hero.cardid)
-      axios.get(`http://localhost:8762/api/user/mergecard?mergeInto=${heroToMerge.cardid}&merging=${hero.cardid}`, {withCredentials: true})
+      console.log(hero.uniqueId)
+      axios.get(`http://localhost:8762/api/user/mergecard?mergeInto=${heroToMerge.uniqueId}&merging=${hero.uniqueId}`, {withCredentials: true})
       .then(response => {
         console.log(response.data)
       })
@@ -83,10 +83,9 @@ import CardDockDrop from '../card/CardDockDrop';
         </CardDockDrop>
       </div>
       <div className="hero-list-container">
-        {heroesList.map((heroDetails) => {
-          let hero = heroDetails.hero;
+        {heroesList.map((hero) => {
           return (
-            <CardDockDrag key={hero.heroId} hero={hero}>
+            <CardDockDrag key={hero.uniqueId} hero={hero}>
               <Card hero={hero} isUserCard={true}/>
             </CardDockDrag>
           )
