@@ -9,7 +9,7 @@ import FormContainer from './FormContainer'
 
 const Login = () => {
   const history = useHistory();
-  const { setIsReady } = useContext(GlobalContext);
+  const { setIsReady, addNewAlert } = useContext(GlobalContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,6 +20,7 @@ const Login = () => {
     }, {withCredentials: true}).then((response)=>{
       setIsReady(false)
     }).catch((err) => {
+      addNewAlert(err.response.data.error)
       console.log(err);
     })
   }

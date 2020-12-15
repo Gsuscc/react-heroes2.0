@@ -15,12 +15,14 @@ import Registration from './components/auth/Registration';
 import HeroDetails from './components/details/HeroDetails';
 import About from './components/about/About';
 import Merge from './components/merge/Merge';
+import Alerts from './components/alert/Alerts';
 
 const App = () => {
 
   return (    
     <Router>
       <GlobalState>
+        <Alerts />
         <Menu />
         <Header />
         <UserInfo />
