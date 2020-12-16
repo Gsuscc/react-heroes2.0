@@ -3,8 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import { GlobalContext } from "../../state/GlobalState";
-import axios from 'axios';
-
+import axios from "axios";
 
 const useStyles = makeStyles({
   option: {
@@ -17,11 +16,13 @@ const useStyles = makeStyles({
 });
 
 export default function Autocompleter(props) {
-  const { heroDetails, setHeroDetails } = useContext(GlobalContext);
+  const { heroDetails, setHeroDetails, addNewAlert } = useContext(
+    GlobalContext
+  );
   const classes = useStyles();
   const [searchResult, setSearchResult] = useState([]);
   const [text, setText] = useState("");
-  const [value, setValue] = useState(heroDetails)
+  const [value, setValue] = useState(heroDetails);
   const [loading, setLoading] = useState(false);
 
   const fillOptions = useCallback((data) => {
@@ -30,19 +31,23 @@ export default function Autocompleter(props) {
   }, []);
 
   useEffect(() => {
-    value && setHeroDetails(value)
-  }, [value, setHeroDetails])
+    value && setHeroDetails(value);
+  }, [value, setHeroDetails]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (text.length >= 2) {
         const queryUrl = `http://localhost:8762/api/hero/search?value=${text}`;
-        axios.get(queryUrl, {withCredentials:true})
-        .then(response => {
+        axios
+          .get(queryUrl, { withCredentials: true })
+          .then((response) => {
             let result = response.data;
             fillOptions(result);
-        })
-        .catch((err) => console.log(err.response));
+          })
+          .catch((err) => {
+            addNewAlert(err.response.data.error);
+            console.log(err.response);
+          });
         setLoading(true);
       } else {
         setSearchResult([]);
@@ -71,7 +76,9 @@ export default function Autocompleter(props) {
         inputValue={text}
         getOptionSelected={(option, value) => option.id === value.id}
         autoHighlight
-        renderOption={(option) => option.name + " - " + option.biography['full-name']}
+        renderOption={(option) =>
+          option.name + " - " + option.biography["full-name"]
+        }
         getOptionLabel={(option) => option.name}
         renderInput={(params) => {
           const inputProps = params.inputProps;
