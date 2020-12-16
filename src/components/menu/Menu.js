@@ -2,12 +2,11 @@ import React, { useContext } from "react";
 import { GlobalContext } from "../../state/GlobalState";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import useSound from "use-sound";
-import woosh from "../../sounds/woosh.mp3";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import MenuButton from "../misc/MenuButton";
 import axios from "axios";
+import { SoundContext } from "../../state/SoundState";
 
 const useStyles = makeStyles({
   list: {
@@ -37,10 +36,10 @@ const Menu = () => {
   const { refreshStatus, isLoggedIn, nick, addNewAlert } = useContext(
     GlobalContext
   );
+  const { playWoosh } = useContext(SoundContext);
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
-  const [play] = useSound(woosh, { volume: 0.2 });
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -50,14 +49,14 @@ const Menu = () => {
       return;
     }
     setOpen(open);
-    play();
+    playWoosh();
   };
 
   const handleLogout = () => {
     axios
       .get("http://localhost:8762/api/auth/clear", { withCredentials: true })
       .then((response) => {
-        refreshStatus().then(history.push('/'))
+        refreshStatus().then(history.push("/"));
       })
       .catch((err) => {
         addNewAlert(err.response.data.error);

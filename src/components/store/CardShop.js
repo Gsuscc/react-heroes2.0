@@ -3,18 +3,17 @@ import axios from "axios";
 import { GlobalContext } from "../../state/GlobalState";
 import HeroButton from "../misc/HeroButton";
 import Card from "../card/Card";
-import useSound from "use-sound";
 import Loading from "../misc/Loading";
 import Coin from "../misc/Coin";
 import "./CardShop.css";
-import shop from "../../sounds/shop.mp3";
 import CardDockDelayed from "../card/CardDockDelayed";
+import { SoundContext } from "../../state/SoundState";
 
 const CardShop = () => {
   const { refreshStatus, addNewAlert } = useContext(GlobalContext);
+  const { playBuy } = useContext(SoundContext);
   const [isLoading, setIsLoading] = useState(false);
   const [heroesList, setHeroesList] = useState([]);
-  const [play] = useSound(shop, { volume: 0.2 });
 
   const packs = [
     {
@@ -45,10 +44,10 @@ const CardShop = () => {
           withCredentials: true,
         })
         .then((response) => {
-          play();
+          playBuy();
           setHeroesList(response.data);
           setIsLoading(false);
-          refreshStatus()
+          refreshStatus();
         })
         .catch((err) => {
           addNewAlert(err.response.data);

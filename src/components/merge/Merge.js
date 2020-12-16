@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
-import levelUpSound from "../../sounds/levelUpSound.mp3";
-import useSound from "use-sound";
 import axios from "axios";
 import Loading from "../misc/Loading";
 import PageTitle from "../header/PageTitle";
@@ -13,6 +11,7 @@ import CardDockDrop from "../card/CardDockDrop";
 import LevelUp from "../misc/LevelUp";
 import { GlobalContext } from "../../state/GlobalState";
 import InfoText from "../misc/InfoText";
+import { SoundContext } from "../../state/SoundState";
 
 const Merge = (props) => {
   const { addNewAlert } = useContext(GlobalContext);
@@ -23,7 +22,7 @@ const Merge = (props) => {
   const [heroesList, setHeroesList] = useState([]);
   const pageBottom = useRef();
   const [isLevelUp, setIsLevelUp] = useState(false);
-  const [play] = useSound(levelUpSound, { volume: 0.6 });
+  const { playLevelUp } = useContext(SoundContext);
 
   useEffect(() => {
     const toggleDiv = pageBottom.current;
@@ -62,7 +61,7 @@ const Merge = (props) => {
   }, [page]);
 
   const levelUp = (newLevel) => {
-    play();
+    playLevelUp();
     setIsLevelUp(true);
     setTimeout(() => {
       setIsLevelUp(false);
