@@ -47,6 +47,11 @@ const Login = () => {
             type="password"
             onChange={(event) => setPassword(event.target.value)}
             value={password}
+            onKeyPress= {(e) => {
+              if (e.key === 'Enter') {
+                handleClick(e)
+              }}
+          }
         />
       <HeroButton onClick={handleClick}>
         Login
