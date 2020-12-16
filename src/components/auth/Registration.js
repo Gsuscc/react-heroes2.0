@@ -42,7 +42,7 @@ const Registration = () => {
   }, [password, confirmPass, email])
 
   const handleGuest = (e) => {
-    history.push('/heroes')
+    history.push('/')
   }
     
   return (

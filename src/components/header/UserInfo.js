@@ -8,6 +8,7 @@ import './UserInfo.css';
 export default function UserInfo() {
   const history = useHistory();
   const { nick, balance } = useContext(GlobalContext);
+  
   return (
     <React.Fragment>
       {nick !== null &&

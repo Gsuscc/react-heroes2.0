@@ -17,6 +17,7 @@ import About from "./components/about/About";
 import Merge from "./components/merge/Merge";
 import Alerts from "./components/alert/Alerts";
 import { SoundState } from "./state/SoundState";
+import LoginCheck from "./components/misc/LoginCheck";
 
 const App = () => {
   return (
@@ -33,12 +34,14 @@ const App = () => {
             <Route path="/nick" component={FirstLogin} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Registration} />
+            <Route path="/about" component={About} />
+          <LoginCheck>
             <Route path="/home" component={Home} />
             <Route path="/cardshop" component={CardShop} />
             <Route path="/mycards" component={MyCards} />
             <Route path="/details" component={HeroDetails} />
-            <Route path="/about" component={About} />
             <Route path="/merge" component={Merge} />
+          </LoginCheck>
           </Switch>
         </SoundState>
       </GlobalState>

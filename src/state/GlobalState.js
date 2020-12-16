@@ -18,6 +18,13 @@ export const GlobalState = (props) => {
     setTimeout(() => setAlerts((alerts) => [...alerts.slice(1)]), 3000);
   };
 
+  const checkLoginState = useCallback(
+    () => {
+      if(!isLoggedIn) history.push('/login')
+    },
+    [isLoggedIn, history]
+  ) 
+
   const refreshStatus = useCallback(() => {
     const statusRequest = axios.get("http://localhost:8762/api/user/status", {
       withCredentials: true,
@@ -59,6 +66,7 @@ export const GlobalState = (props) => {
         alerts: alerts,
         addNewAlert: addNewAlert,
         refreshStatus: refreshStatus,
+        checkLoginState: checkLoginState
       }}
     >
       {props.children}
