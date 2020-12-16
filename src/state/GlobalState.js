@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -12,40 +12,37 @@ export const GlobalState = (props) => {
   const [heroDetails, setHeroDetails] = useState();
   const [mergeHero, setMergeHero] = useState({});
   const [alerts, setAlerts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
-
 
   const addNewAlert = (message) => {
     setAlerts((alerts) => [...alerts, message]);
     setTimeout(() => setAlerts((alerts) => [...alerts.slice(1)]), 3000);
   };
 
-
-  const refreshStatus = (callback = ()=>{}) => {
-    return new Promise(() => {
-        axios.get('http://localhost:8762/api/user/status', {withCredentials: true})
-        .then((response) => {
-          let data = response.data;
-          setIsLoggedIn(true)
-          setNick(data.nick)
-          setIsLoading(false)
-          setBalance(data.balance)
-          callback(data)
-        }).catch((err) => {
-          let statusCode = err.response.status
-          if (statusCode === 501) {
-            setIsLoggedIn(true)
-            history.push("/nick")
-          } else {
-            setIsLoggedIn(false)
-          }
-          setNick(null)
-          setBalance(null)
-          setIsLoading(false)
-        });
-    })
-    }
-
+  const refreshStatus = useCallback(() => {
+    const statusRequest = axios.get("http://localhost:8762/api/user/status", {
+      withCredentials: true,
+    });
+    return statusRequest
+      .then((response) => {
+        let data = response.data;
+        setIsLoggedIn(true);
+        setNick(data.nick);
+        setBalance(data.balance);
+        return data;
+      })
+      .catch((err) => {
+        let statusCode = err.response.status;
+        if (statusCode === 501) {
+          setIsLoggedIn(true);
+          history.push("/nick");
+        } else {
+          setIsLoggedIn(false);
+        }
+        setNick(null);
+        setBalance(null);
+        return err;
+      });
+  }, [history]);
 
   return (
     <GlobalContext.Provider
@@ -61,7 +58,7 @@ export const GlobalState = (props) => {
         setMergeHero: setMergeHero,
         alerts: alerts,
         addNewAlert: addNewAlert,
-        refreshStatus: refreshStatus
+        refreshStatus: refreshStatus,
       }}
     >
       {props.children}

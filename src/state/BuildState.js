@@ -1,22 +1,16 @@
-import React, {useContext, useState, useEffect} from 'react'
+import React, { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "./GlobalState";
-import Loading from '../components/misc/Loading';
-
+import Loading from "../components/misc/Loading";
 
 const BuildState = () => {
   const { refreshStatus } = useContext(GlobalContext);
-  const [isLoading, setIsLoading] = useState(true)
-  
-  useEffect(() => {
-    refreshStatus()
-      .then(setIsLoading(false))
-  }, [refreshStatus])
+  const [isLoading, setIsLoading] = useState(true);
 
-  return (
-    <React.Fragment>
-      {isLoading ? <Loading /> : null}
-    </React.Fragment>
-  )
-}
+  useEffect(() => {
+    refreshStatus().then(setIsLoading(false));
+  }, [refreshStatus]);
+
+  return <React.Fragment>{isLoading ? <Loading /> : null}</React.Fragment>;
+};
 
 export default BuildState;
