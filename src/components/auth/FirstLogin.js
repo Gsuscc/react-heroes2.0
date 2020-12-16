@@ -8,7 +8,7 @@ import { GlobalContext } from "../../state/GlobalState";
 
 
 const FirstLogin = () => {
-  const { setIsReady, setNick, addNewAlert } = useContext(GlobalContext);
+  const { refreshStatus, setNick, addNewAlert } = useContext(GlobalContext);
   const history = useHistory();
   const [nickField, setNickField] = useState("");
 
@@ -19,17 +19,11 @@ const FirstLogin = () => {
       }, 
       {withCredentials: true}
     ).then((response)=>{
-      setNick(nickField)
-      setIsReady(false)
-      onClose()
+      refreshStatus().then(history.push('/') )
     }).catch((err) => {
       addNewAlert(err.response.data.error);
       console.log(err.response)
     })
-  }
-
-  const onClose = (e) => {
-    history.push('/home')
   }
     
   return (

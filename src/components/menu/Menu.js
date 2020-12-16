@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 });
 
 const Menu = () => {
-  const { setIsReady, isLoggedIn, nick, addNewAlert } = useContext(
+  const { refreshStatus, isLoggedIn, nick, addNewAlert } = useContext(
     GlobalContext
   );
   const classes = useStyles();
@@ -57,7 +57,7 @@ const Menu = () => {
     axios
       .get("http://localhost:8762/api/auth/clear", { withCredentials: true })
       .then((response) => {
-        setIsReady(false);
+        refreshStatus().then(history.push('/'))
       })
       .catch((err) => {
         addNewAlert(err.response.data.error);
@@ -97,7 +97,7 @@ const Menu = () => {
           Card Shop
         </MenuButton>
       )}
-      <MenuButton onClick={() => history.push("/heroes")}>Heroes</MenuButton>
+      <MenuButton onClick={() => history.push("/")}>Heroes</MenuButton>
       <MenuButton onClick={() => history.push("/about")}>About</MenuButton>
     </div>
   );
