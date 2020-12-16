@@ -11,7 +11,7 @@ import shop from "../../sounds/shop.mp3";
 import CardDockDelayed from "../card/CardDockDelayed";
 
 const CardShop = () => {
-  const { refreshBalance, addNewAlert } = useContext(GlobalContext);
+  const { refreshStatus, addNewAlert } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(false);
   const [heroesList, setHeroesList] = useState([]);
   const [play] = useSound(shop, { volume: 0.2 });
@@ -48,7 +48,7 @@ const CardShop = () => {
           play();
           setHeroesList(response.data);
           setIsLoading(false);
-          refreshBalance();
+          refreshStatus()
         })
         .catch((err) => {
           addNewAlert(err.response.data);

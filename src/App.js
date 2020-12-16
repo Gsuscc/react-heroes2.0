@@ -28,7 +28,7 @@ const App = () => {
         <UserInfo />
         <BuildState />
         <Switch>
-          <Route path="/heroes" component={HeroList} />
+          <Route exact path="/" component={HeroList} />
           <Route path="/nick" component={FirstLogin} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Registration} />

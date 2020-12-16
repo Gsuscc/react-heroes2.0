@@ -9,7 +9,7 @@ import FormContainer from './FormContainer'
 
 const Login = () => {
   const history = useHistory();
-  const { setIsReady, addNewAlert } = useContext(GlobalContext);
+  const { refreshStatus, addNewAlert } = useContext(GlobalContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,7 +18,7 @@ const Login = () => {
       email: username,
       password: password
     }, {withCredentials: true}).then((response)=>{
-      setIsReady(false)
+      refreshStatus().then(history.push('/'))
     }).catch((err) => {
       addNewAlert(err.response.data.error)
       console.log(err);
