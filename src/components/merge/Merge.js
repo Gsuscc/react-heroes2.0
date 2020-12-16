@@ -115,7 +115,7 @@ const Merge = (props) => {
 
       <DndProvider backend={HTML5Backend}>
         <div className="hero-list-container">
-          <CardDockDrop onDrop={onDrop}>
+          <CardDockDrop onDrop={onDrop} hero={heroToMerge}>
             <Card
               hero={heroToMerge}
               isFlippable={true}
