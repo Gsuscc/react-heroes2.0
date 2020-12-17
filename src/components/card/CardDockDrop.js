@@ -30,7 +30,7 @@ const statsStyle = {
 };
 
 const CardDockDrop = (props) => {
-  const [{ isOver, canDrop, dragItem }, drop] = useDrop({
+  const [{ isOver, dragItem }, drop] = useDrop({
     accept: "hero",
     drop(item) {
       props.onDrop(item.hero);

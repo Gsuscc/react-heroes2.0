@@ -1,0 +1,31 @@
+.home-profile-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 500px;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  background-color: #000000aa;
+  margin: 20px;
+  border-radius: 20px;
+  box-shadow: 4px 2px 40px 20px #4b4f50;
+}
+
+.home-profile-entry {
+  min-width: 200px;
+  max-width: 200px;
+  padding: 25px;
+}
+
+.home-profile-key {
+  color: white;
+  text-align: right;
+}
+
+.home-profile-value {
+  color: orange;
+  text-align: left;
+}
