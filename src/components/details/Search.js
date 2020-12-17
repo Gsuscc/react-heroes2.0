@@ -56,7 +56,7 @@ export default function Autocompleter(props) {
     return () => {
       clearTimeout(timer);
     };
-  }, [text, fillOptions]);
+  }, [text, fillOptions, addNewAlert]);
 
   return (
     <React.Fragment>

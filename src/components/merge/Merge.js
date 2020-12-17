@@ -59,7 +59,7 @@ const Merge = (props) => {
         addNewAlert(err.response.data.error);
         setIsLoading(false);
       });
-  }, [page]);
+  }, [addNewAlert, heroToMerge.uniqueId, page]);
 
   const levelUp = (newLevel) => {
     playLevelUp();
@@ -115,7 +115,7 @@ const Merge = (props) => {
       />
 
       <DndProvider backend={HTML5Backend}>
-      <CardContainer>
+        <CardContainer>
           <CardDockDrop onDrop={onDrop} hero={heroToMerge}>
             <Card
               hero={heroToMerge}
@@ -124,7 +124,7 @@ const Merge = (props) => {
               isUserCard={true}
             />
           </CardDockDrop>
-          </CardContainer>
+        </CardContainer>
         <CardContainer>
           {heroesList.length > 0 ? (
             heroesList.map((hero) => {

@@ -50,7 +50,7 @@ const MyCards = () => {
         console.log(err.response);
         setIsLoading(false);
       });
-  }, [page]);
+  }, [page, addNewAlert]);
 
   return (
     <React.Fragment>

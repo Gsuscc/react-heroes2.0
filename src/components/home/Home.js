@@ -1,8 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import axios from "axios";
 import Loading from "../misc/Loading";
 import { GlobalContext } from "../../state/GlobalState";
 import PageTitle from "../header/PageTitle";
+import VanillaTilt from "vanilla-tilt";
+import "./Home.css";
+
+function Tilt(props) {
+  const { options, ...rest } = props;
+  const tilt = useRef(null);
+
+  useEffect(() => {
+    VanillaTilt.init(tilt.current, options);
+  }, [options]);
+
+  return (
+    <div ref={tilt} {...rest}>
+      {props.children}
+    </div>
+  );
+}
 
 const Home = () => {
   const { addNewAlert } = useContext(GlobalContext);
@@ -27,18 +44,41 @@ const Home = () => {
         addNewAlert(err.response.data.error);
         setIsLoading(false);
       });
-  }, []);
+  }, [addNewAlert]);
+
+  const options = {
+    scale: 1.2,
+    speed: 1000,
+    max: 30,
+  };
 
   return (
     <React.Fragment>
       <PageTitle>My Profile</PageTitle>
       {isLoading && <Loading />}
       {!isLoading && (
-        <div>
-          <div>{details.nick}</div>
-          <div>{details.email}</div>
-          <div>{details.balance}</div>
-        </div>
+        <Tilt className="home-profile-container" options={options}>
+          <div className="home-profile-entry home-profile-key">User Id</div>
+          <div className="home-profile-entry home-profile-value">
+            {details.id}
+          </div>
+          <div className="home-profile-entry home-profile-key">Nick</div>
+          <div className="home-profile-entry home-profile-value">
+            {details.nick}
+          </div>
+          <div className="home-profile-entry home-profile-key">Email</div>
+          <div className="home-profile-entry home-profile-value">
+            {details.email}
+          </div>
+          <div className="home-profile-entry home-profile-key">Balance</div>
+          <div className="home-profile-entry home-profile-value">
+            {details.balance}
+          </div>
+          <div className="home-profile-entry home-profile-key">Total Cards</div>
+          <div className="home-profile-entry home-profile-value">
+            {details.totalCardsNumber}
+          </div>
+        </Tilt>
       )}
     </React.Fragment>
   );
