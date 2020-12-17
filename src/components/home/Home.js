@@ -58,25 +58,29 @@ const Home = () => {
       {isLoading && <Loading />}
       {!isLoading && (
         <Tilt className="home-profile-container" options={options}>
-          <div className="home-profile-entry home-profile-key">User Id</div>
-          <div className="home-profile-entry home-profile-value">
-            {details.id}
-          </div>
-          <div className="home-profile-entry home-profile-key">Nick</div>
-          <div className="home-profile-entry home-profile-value">
-            {details.nick}
-          </div>
-          <div className="home-profile-entry home-profile-key">Email</div>
-          <div className="home-profile-entry home-profile-value">
-            {details.email}
-          </div>
-          <div className="home-profile-entry home-profile-key">Balance</div>
-          <div className="home-profile-entry home-profile-value">
-            {details.balance}
-          </div>
-          <div className="home-profile-entry home-profile-key">Total Cards</div>
-          <div className="home-profile-entry home-profile-value">
-            {details.totalCardsNumber}
+          <div className="dotted three-d-layer">
+            <div className="home-profile-entry home-profile-key">User Id</div>
+            <div className="home-profile-entry home-profile-value">
+              {details.id}
+            </div>
+            <div className="home-profile-entry home-profile-key">Nick</div>
+            <div className="home-profile-entry home-profile-value">
+              {details.nick}
+            </div>
+            <div className="home-profile-entry home-profile-key">Email</div>
+            <div className="home-profile-entry home-profile-value">
+              {details.email}
+            </div>
+            <div className="home-profile-entry home-profile-key">Balance</div>
+            <div className="home-profile-entry home-profile-value">
+              {details.balance}
+            </div>
+            <div className="home-profile-entry home-profile-key">
+              Total Cards
+            </div>
+            <div className="home-profile-entry home-profile-value">
+              {details.totalCardsNumber}
+            </div>
           </div>
         </Tilt>
       )}

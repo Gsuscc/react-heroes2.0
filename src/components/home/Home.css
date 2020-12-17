@@ -1,4 +1,27 @@
 .home-profile-container {
+  background-color: #000000aa;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 4px 2px 40px 20px #4b4f50;
+  transform-style: preserve-3d;
+}
+
+.home-profile-entry {
+  min-width: 200px;
+  max-width: 200px;
+  padding: 25px;
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, 30px);
+  transition: transform 0.5s;
+}
+
+.home-profile-entry:hover {
+  transform: translate3d(0, 0, 70px);
+  transform-style: preserve-3d;
+}
+
+.three-d-layer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -6,26 +29,34 @@
   justify-content: center;
   align-items: center;
   font-size: 30px;
+  border-radius: 20px;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
-  background-color: #000000aa;
-  margin: 20px;
-  border-radius: 20px;
-  box-shadow: 4px 2px 40px 20px #4b4f50;
-}
-
-.home-profile-entry {
-  min-width: 200px;
-  max-width: 200px;
-  padding: 25px;
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, 40px);
 }
 
 .home-profile-key {
   color: white;
   text-align: right;
+  transform-style: preserve-3d;
 }
 
 .home-profile-value {
   color: orange;
   text-align: left;
+  transform-style: preserve-3d;
+}
+
+.dotted {
+  background-image: -webkit-repeating-radial-gradient(
+    center center,
+    #ffd70033,
+    #ffd70033 2px,
+    transparent 3px,
+    transparent 100%
+  );
+  -webkit-background-size: 7px 7px;
+  -moz-background-size: 7px 7px;
+  background-size: 7px 7px;
 }
