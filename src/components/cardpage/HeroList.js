@@ -47,7 +47,7 @@ const HeroList = () => {
         console.log(err.response);
         setIsLoading(false);
       });
-  }, [page, addNewAlert]);
+  }, [page]);
 
   return (
     <React.Fragment>

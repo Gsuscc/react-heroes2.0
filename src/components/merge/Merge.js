@@ -59,7 +59,7 @@ const Merge = (props) => {
         addNewAlert(err.response.data.error);
         setIsLoading(false);
       });
-  }, [addNewAlert, heroToMerge.uniqueId, page]);
+  }, [page]);
 
   const levelUp = (newLevel) => {
     playLevelUp();
