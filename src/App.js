@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { GlobalState } from "./state/GlobalState";
-import BuildState from "./state/BuildState";
 import HeroList from "./components/cardpage/HeroList";
 import MyCards from "./components/cardpage/MyCards";
 import Header from "./components/header/Header";
@@ -29,7 +28,6 @@ const App = () => {
           <Menu />
           <Header />
           <UserInfo />
-          <BuildState />
           <Switch>
             <PaddingContent>
               <Route exact path="/" component={HeroList} />
@@ -37,11 +35,11 @@ const App = () => {
               <Route path="/login" component={Login} />
               <Route path="/register" component={Registration} />
               <Route path="/about" component={About} />
+              <Route path="/details" component={HeroDetails} />
               <LoginCheck>
                 <Route path="/home" component={Home} />
                 <Route path="/cardshop" component={CardShop} />
                 <Route path="/mycards" component={MyCards} />
-                <Route path="/details" component={HeroDetails} />
                 <Route path="/merge" component={Merge} />
               </LoginCheck>
             </PaddingContent>

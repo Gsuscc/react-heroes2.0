@@ -13,43 +13,33 @@ export const GlobalState = (props) => {
   const [mergeHero, setMergeHero] = useState({});
   const [alerts, setAlerts] = useState([]);
 
+
   const addNewAlert = (message) => {
     setAlerts((alerts) => [...alerts, message]);
     setTimeout(() => setAlerts((alerts) => [...alerts.slice(1)]), 3000);
   };
 
-  const checkLoginState = useCallback(
-    () => {
-      if(!isLoggedIn) history.push('/login')
-    },
-    [isLoggedIn, history]
-  ) 
 
   const refreshStatus = useCallback(() => {
     const statusRequest = axios.get("http://localhost:8762/api/user/status", {
       withCredentials: true,
     });
     return statusRequest
-      .then((response) => {
-        let data = response.data;
-        setIsLoggedIn(true);
-        setNick(data.nick);
-        setBalance(data.balance);
-        return data;
-      })
-      .catch((err) => {
-        let statusCode = err.response.status;
-        if (statusCode === 501) {
-          setIsLoggedIn(true);
-          history.push("/nick");
-        } else {
-          setIsLoggedIn(false);
-        }
-        setNick(null);
-        setBalance(null);
-        return err;
-      });
-  }, [history]);
+    .then((response) => {
+      let data = response.data;
+      setIsLoggedIn(true);
+      setNick(data.nick);
+      setBalance(data.balance);
+      return data;
+    })
+    .catch((err) => {
+      setNick(null);
+      setBalance(null);
+      return Promise.reject(err);
+    });
+  }, []);
+  
+
 
   return (
     <GlobalContext.Provider
@@ -66,7 +56,6 @@ export const GlobalState = (props) => {
         alerts: alerts,
         addNewAlert: addNewAlert,
         refreshStatus: refreshStatus,
-        checkLoginState: checkLoginState
       }}
     >
       {props.children}

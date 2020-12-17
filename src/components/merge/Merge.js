@@ -115,7 +115,7 @@ const Merge = (props) => {
       />
 
       <DndProvider backend={HTML5Backend}>
-        <CardContainer>
+      <CardContainer>
           <CardDockDrop onDrop={onDrop} hero={heroToMerge}>
             <Card
               hero={heroToMerge}
@@ -124,8 +124,8 @@ const Merge = (props) => {
               isUserCard={true}
             />
           </CardDockDrop>
-        </CardContainer>
-        <div className="hero-list-container">
+          </CardContainer>
+        <CardContainer>
           {heroesList.length > 0 ? (
             heroesList.map((hero) => {
               return (
@@ -137,7 +137,7 @@ const Merge = (props) => {
           ) : (
             <InfoText>No hero to merge</InfoText>
           )}
-        </div>
+        </CardContainer>
       </DndProvider>
 
       <div

@@ -16,8 +16,8 @@ const containerStyle = {
 
 const statsStyle = {
   width: "200px",
-  height: "120px",
-  fontSize: "20px",
+  height: "180px",
+  fontSize: "30px",
   color: "orange",
   textAlign: "center",
   WebkitTextStrokeWidth: "1px",
