@@ -12,6 +12,7 @@ import LevelUp from "../misc/LevelUp";
 import { GlobalContext } from "../../state/GlobalState";
 import InfoText from "../misc/InfoText";
 import { SoundContext } from "../../state/SoundState";
+import CardContainer from "../card/CardContainer";
 
 const Merge = (props) => {
   const { addNewAlert } = useContext(GlobalContext);
@@ -98,7 +99,7 @@ const Merge = (props) => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       {isLoading && <Loading />}
       {isLevelUp && <LevelUp />}
       <PageTitle>Drag cards to update</PageTitle>
@@ -114,7 +115,7 @@ const Merge = (props) => {
       />
 
       <DndProvider backend={HTML5Backend}>
-        <div className="hero-list-container">
+        <CardContainer>
           <CardDockDrop onDrop={onDrop} hero={heroToMerge}>
             <Card
               hero={heroToMerge}
@@ -123,7 +124,7 @@ const Merge = (props) => {
               isUserCard={true}
             />
           </CardDockDrop>
-        </div>
+        </CardContainer>
         <div className="hero-list-container">
           {heroesList.length > 0 ? (
             heroesList.map((hero) => {
@@ -145,7 +146,7 @@ const Merge = (props) => {
         id="trigger"
         key="trigger"
       />
-    </div>
+    </React.Fragment>
   );
 };
 export default Merge;

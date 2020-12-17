@@ -3,10 +3,10 @@ import Card from "../card/Card";
 import axios from "axios";
 import CardDock from "../card/CardDock";
 import Loading from "../misc/Loading";
-import "./HeroList.css";
 import PageTitle from "../header/PageTitle";
 import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 import { GlobalContext } from "../../state/GlobalState";
+import CardContainer from "../card/CardContainer";
 
 const HeroList = () => {
   const [page, setPage] = useState(0);
@@ -50,7 +50,7 @@ const HeroList = () => {
   }, [page]);
 
   return (
-    <div>
+    <React.Fragment>
       {isLoading && <Loading />}
       <PageTitle>Superhero Encyclopedia</PageTitle>
       <ScrollUpButton
@@ -63,7 +63,7 @@ const HeroList = () => {
         style={{ backgroundColor: "orange" }}
         ToggledStyle={{ right: 60 }}
       />
-      <div className="hero-list-container">
+      <CardContainer>
         {heroesList.map((hero) => {
           return (
             <CardDock key={hero.id}>
@@ -76,14 +76,14 @@ const HeroList = () => {
             </CardDock>
           );
         })}
-      </div>
+      </CardContainer>
       <div
         className="scrollTrigger"
         ref={pageBottom}
         id="trigger"
         key="trigger"
       ></div>
-    </div>
+    </React.Fragment>
   );
 };
 

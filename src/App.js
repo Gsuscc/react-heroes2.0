@@ -18,6 +18,7 @@ import Merge from "./components/merge/Merge";
 import Alerts from "./components/alert/Alerts";
 import { SoundState } from "./state/SoundState";
 import LoginCheck from "./components/misc/LoginCheck";
+import PaddingContent from "./components/misc/PaddingContent";
 
 const App = () => {
   return (
@@ -30,18 +31,20 @@ const App = () => {
           <UserInfo />
           <BuildState />
           <Switch>
-            <Route exact path="/" component={HeroList} />
-            <Route path="/nick" component={FirstLogin} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Registration} />
-            <Route path="/about" component={About} />
-          <LoginCheck>
-            <Route path="/home" component={Home} />
-            <Route path="/cardshop" component={CardShop} />
-            <Route path="/mycards" component={MyCards} />
-            <Route path="/details" component={HeroDetails} />
-            <Route path="/merge" component={Merge} />
-          </LoginCheck>
+            <PaddingContent>
+              <Route exact path="/" component={HeroList} />
+              <Route path="/nick" component={FirstLogin} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Registration} />
+              <Route path="/about" component={About} />
+              <LoginCheck>
+                <Route path="/home" component={Home} />
+                <Route path="/cardshop" component={CardShop} />
+                <Route path="/mycards" component={MyCards} />
+                <Route path="/details" component={HeroDetails} />
+                <Route path="/merge" component={Merge} />
+              </LoginCheck>
+            </PaddingContent>
           </Switch>
         </SoundState>
       </GlobalState>

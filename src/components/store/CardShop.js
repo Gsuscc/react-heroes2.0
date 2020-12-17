@@ -8,6 +8,8 @@ import Coin from "../misc/Coin";
 import "./CardShop.css";
 import CardDockDelayed from "../card/CardDockDelayed";
 import { SoundContext } from "../../state/SoundState";
+import PageTitle from "../header/PageTitle";
+import CardContainer from "../card/CardContainer";
 
 const CardShop = () => {
   const { refreshStatus, addNewAlert } = useContext(GlobalContext);
@@ -58,7 +60,8 @@ const CardShop = () => {
   };
 
   return (
-    <div className="shop-container">
+    <React.Fragment>
+      <PageTitle>Card Shop</PageTitle>
       <div className="shop-pack-container">
         {packs.map((pack) => {
           return (
@@ -78,7 +81,7 @@ const CardShop = () => {
           );
         })}
       </div>
-      <div className="hero-list-container">
+      <CardContainer>
         {heroesList.map((hero, index) => {
           return (
             <CardDockDelayed key={hero.uniqueId} delay={index * 300}>
@@ -91,9 +94,9 @@ const CardShop = () => {
             </CardDockDelayed>
           );
         })}
-      </div>
+      </CardContainer>
       {isLoading && <Loading />}
-    </div>
+    </React.Fragment>
   );
 };
 

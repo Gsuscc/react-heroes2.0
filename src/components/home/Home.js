@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Loading from "../misc/Loading";
 import { GlobalContext } from "../../state/GlobalState";
+import PageTitle from "../header/PageTitle";
 
 const Home = () => {
   const { addNewAlert } = useContext(GlobalContext);
@@ -30,6 +31,7 @@ const Home = () => {
 
   return (
     <React.Fragment>
+      <PageTitle>My Profile</PageTitle>
       {isLoading && <Loading />}
       {!isLoading && (
         <div>

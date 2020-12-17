@@ -7,6 +7,7 @@ import PageTitle from "../header/PageTitle";
 import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 import { GlobalContext } from "../../state/GlobalState";
 import InfoText from "../misc/InfoText";
+import CardContainer from "../card/CardContainer";
 
 const MyCards = () => {
   const [page, setPage] = useState(0);
@@ -52,7 +53,7 @@ const MyCards = () => {
   }, [page]);
 
   return (
-    <div>
+    <React.Fragment>
       <ScrollUpButton
         StopPosition={0}
         ShowAtPosition={150}
@@ -65,7 +66,7 @@ const MyCards = () => {
       />
       {isLoading && <Loading />}
       <PageTitle>My Superhero Collection</PageTitle>
-      <div className="hero-list-container">
+      <CardContainer>
         {heroesList.length > 0
           ? heroesList.map((hero) => {
               return (
@@ -82,14 +83,14 @@ const MyCards = () => {
           : !isLoading && (
               <InfoText>No cards, go to Shop to collect'em</InfoText>
             )}
-      </div>
+      </CardContainer>
       <div
         className="scrollTrigger"
         ref={pageBottom}
         id="trigger"
         key="trigger"
       ></div>
-    </div>
+    </React.Fragment>
   );
 };
 
