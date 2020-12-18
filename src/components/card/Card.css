@@ -114,7 +114,7 @@
   align-self: stretch;
   height: 100%;
   width: 100%;
-  vertical-align: bottom;
+  /* vertical-align: bottom; */
 }
 
 .card-stat {
