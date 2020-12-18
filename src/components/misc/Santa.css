@@ -1,0 +1,10 @@
+.santa-hat {
+  display: inline-block;
+  position: absolute;
+  top: -20px;
+  left: 92%;
+}
+.santa-hat-img {
+  width: 60px;
+  transform: rotate(20deg);
+}
