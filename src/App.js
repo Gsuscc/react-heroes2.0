@@ -29,13 +29,13 @@ const App = () => {
           <Header />
           <UserInfo />
           <Switch>
+              <Route path="/details" component={HeroDetails} />
             <PaddingContent>
               <Route exact path="/" component={HeroList} />
               <Route path="/nick" component={FirstLogin} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Registration} />
               <Route path="/about" component={About} />
-              <Route path="/details" component={HeroDetails} />
               <LoginCheck>
                 <Route path="/home" component={Home} />
                 <Route path="/cardshop" component={CardShop} />
