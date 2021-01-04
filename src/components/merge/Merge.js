@@ -16,16 +16,17 @@ import CardContainer from "../card/CardContainer";
 import LoginCheck from "../misc/LoginCheck";
 
 const Merge = (props) => {
+  const cardToMerge = props.location.state;
   return (
     <LoginCheck>
-      <MergeComponent />
+      <MergeComponent cardToMerge={cardToMerge} />
     </LoginCheck>
   );
 };
 
 const MergeComponent = (props) => {
   const { addNewAlert } = useContext(GlobalContext);
-  const [heroToMerge, setHeroToMerge] = useState(props.location.state);
+  const [heroToMerge, setHeroToMerge] = useState(props.cardToMerge);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMorePage, setHasMorePage] = useState(true);
