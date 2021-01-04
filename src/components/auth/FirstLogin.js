@@ -7,7 +7,7 @@ import FormContainer from "./FormContainer";
 import { GlobalContext } from "../../state/GlobalState";
 
 const FirstLogin = () => {
-  const { refreshStatus, addNewAlert } = useContext(GlobalContext);
+  const { refreshUserDetails, addNewAlert } = useContext(GlobalContext);
   const history = useHistory();
   const [nickField, setNickField] = useState("");
 
@@ -21,7 +21,8 @@ const FirstLogin = () => {
         { withCredentials: true }
       )
       .then((response) => {
-        refreshStatus().then(history.push("/"));
+        refreshUserDetails();
+        history.push("/");
       })
       .catch((err) => {
         addNewAlert(err.response.data.error);

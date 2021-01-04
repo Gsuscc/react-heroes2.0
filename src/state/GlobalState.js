@@ -4,52 +4,70 @@ import axios from "axios";
 export const GlobalContext = createContext();
 
 export const GlobalState = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [nick, setNick] = useState(null);
-  const [balance, setBalance] = useState(null);
   const [heroDetails, setHeroDetails] = useState();
   const [mergeHero, setMergeHero] = useState({});
+  const [userDetails, setUserDetails] = useState({
+    isLoggedIn: false,
+    isFirstLogin: false,
+    nick: null,
+    balance: null,
+  });
+  const [initialized, setInitialized] = useState(false);
   const [alerts, setAlerts] = useState([]);
 
-  const addNewAlert = (message) => {
+  const addNewAlert = useCallback((message) => {
     setAlerts((alerts) => [...alerts, message]);
     setTimeout(() => setAlerts((alerts) => [...alerts.slice(1)]), 3000);
+  }, []);
+
+  const resetStatus = () => {
+    setUserDetails({
+      isLoggedIn: false,
+      isFirstLogin: false,
+      nick: null,
+      balance: null,
+    });
   };
 
-  const refreshStatus = useCallback(() => {
-    const statusRequest = axios.get("http://localhost:8762/api/user/status", {
-      withCredentials: true,
-    });
-    return statusRequest
+  const refreshUserDetails = useCallback(() => {
+    axios
+      .get("http://localhost:8762/api/user/status", {
+        withCredentials: true,
+      })
       .then((response) => {
-        let data = response.data;
-        setIsLoggedIn(true);
-        setNick(data.nick);
-        setBalance(data.balance);
-        return data;
+        setUserDetails({
+          isLoggedIn: true,
+          isFirstLogin: false,
+          nick: response.data.nick,
+          balance: response.data.balance,
+        });
+        if (!initialized) setInitialized(true);
       })
       .catch((err) => {
-        setNick(null);
-        setBalance(null);
-        return Promise.reject(err);
+        if (err.response.status === 501) {
+          setUserDetails({
+            isLoggedIn: true,
+            isFirstLogin: true,
+          });
+        } else if (err.response.status === 403) {
+          resetStatus();
+        }
+        if (!initialized) setInitialized(true);
       });
-  }, []);
+  }, [initialized, setInitialized]);
 
   return (
     <GlobalContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
-        setIsLoggedIn: setIsLoggedIn,
-        nick: nick,
-        setNick: setNick,
-        balance: balance,
         heroDetails: heroDetails,
         setHeroDetails: setHeroDetails,
         mergeHero: mergeHero,
         setMergeHero: setMergeHero,
         alerts: alerts,
         addNewAlert: addNewAlert,
-        refreshStatus: refreshStatus,
+        userDetails: userDetails,
+        refreshUserDetails: refreshUserDetails,
+        initialized: initialized,
       }}
     >
       {props.children}

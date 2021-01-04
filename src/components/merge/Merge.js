@@ -13,10 +13,20 @@ import { GlobalContext } from "../../state/GlobalState";
 import InfoText from "../misc/InfoText";
 import { SoundContext } from "../../state/SoundState";
 import CardContainer from "../card/CardContainer";
+import LoginCheck from "../misc/LoginCheck";
 
 const Merge = (props) => {
+  const cardToMerge = props.location.state;
+  return (
+    <LoginCheck>
+      <MergeComponent cardToMerge={cardToMerge} />
+    </LoginCheck>
+  );
+};
+
+const MergeComponent = (props) => {
   const { addNewAlert } = useContext(GlobalContext);
-  const [heroToMerge, setHeroToMerge] = useState(props.location.state);
+  const [heroToMerge, setHeroToMerge] = useState(props.cardToMerge);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMorePage, setHasMorePage] = useState(true);
@@ -99,7 +109,7 @@ const Merge = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <LoginCheck>
       {isLoading && <Loading />}
       {isLevelUp && <LevelUp />}
       <PageTitle>Drag cards to update</PageTitle>
@@ -146,7 +156,7 @@ const Merge = (props) => {
         id="trigger"
         key="trigger"
       />
-    </React.Fragment>
+    </LoginCheck>
   );
 };
 export default Merge;

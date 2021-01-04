@@ -10,9 +10,18 @@ import CardDockDelayed from "../card/CardDockDelayed";
 import { SoundContext } from "../../state/SoundState";
 import PageTitle from "../header/PageTitle";
 import CardContainer from "../card/CardContainer";
+import LoginCheck from "../misc/LoginCheck";
 
-const CardShop = () => {
-  const { refreshStatus, addNewAlert } = useContext(GlobalContext);
+const CardShop = (props) => {
+  return (
+    <LoginCheck>
+      <CardShopComponent />
+    </LoginCheck>
+  );
+};
+
+const CardShopComponent = () => {
+  const { refreshUserDetails, addNewAlert } = useContext(GlobalContext);
   const { playBuy } = useContext(SoundContext);
   const [isLoading, setIsLoading] = useState(false);
   const [heroesList, setHeroesList] = useState([]);
@@ -49,7 +58,7 @@ const CardShop = () => {
           playBuy();
           setHeroesList(response.data);
           setIsLoading(false);
-          refreshStatus();
+          refreshUserDetails();
         })
         .catch((err) => {
           addNewAlert(err.response.data);

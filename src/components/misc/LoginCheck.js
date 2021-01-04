@@ -1,43 +1,20 @@
-import React, { useEffect, useCallback, useState, useContext } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useContext } from "react";
 import { GlobalContext } from "../../state/GlobalState";
-import Loading from "./Loading";
+import InfoText from "./InfoText";
 
 const LoginCheck = (props) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const { refreshStatus, addNewAlert } = useContext(GlobalContext);
-  const history = useHistory();
-  const location = useLocation();
-
-  const checkExeption = React.useMemo(() => {
-    return ["/login", "/", "/register", "/nick", "/about", "/details"];
-  }, []);
-
-  const checkLoginState = useCallback(() => {
-    const check = refreshStatus();
-    return check
-      .then(() => null)
-      .catch((err) => {
-        if (!checkExeption.includes(location.pathname)) {
-          let statusCode = err.response.status;
-          if (statusCode === 501) {
-            history.push("/nick");
-          } else if (statusCode === 403) {
-            history.push("/login");
-          } else {
-            addNewAlert(err.response.message);
-          }
-        }
-        return {};
-      });
-  }, [refreshStatus, checkExeption, location.pathname, history, addNewAlert]);
-
-  useEffect(() => {
-    checkLoginState().then(() => setIsLoading(false));
-  }, [checkLoginState]);
+  const { userDetails } = useContext(GlobalContext);
 
   return (
-    <React.Fragment>{isLoading ? <Loading /> : props.children}</React.Fragment>
+    <React.Fragment>
+      {userDetails.isFirstLogin ? (
+        <InfoText>Need to set your nickname</InfoText>
+      ) : !userDetails.isLoggedIn ? (
+        <InfoText>Not authorized</InfoText>
+      ) : (
+        props.children
+      )}
+    </React.Fragment>
   );
 };
 export default LoginCheck;
