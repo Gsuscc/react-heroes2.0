@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 });
 
 const Menu = () => {
-  const { refreshStatus, isLoggedIn, nick, addNewAlert } = useContext(
+  const { refreshUserDetails, userDetails, addNewAlert } = useContext(
     GlobalContext
   );
   const { playWoosh } = useContext(SoundContext);
@@ -56,7 +56,8 @@ const Menu = () => {
     axios
       .get("http://localhost:8762/api/auth/clear", { withCredentials: true })
       .then((response) => {
-        refreshStatus().then(history.push("/"));
+        refreshUserDetails();
+        history.push("/");
       })
       .catch((err) => {
         addNewAlert(err.response.data.error);
@@ -71,27 +72,29 @@ const Menu = () => {
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      {isLoggedIn && nick === null && (
+      {userDetails.isFirstLogin && (
         <MenuButton onClick={() => history.push("/nick")}>Set Nick</MenuButton>
       )}
-      {isLoggedIn && <MenuButton onClick={handleLogout}>Logout</MenuButton>}
-      {!isLoggedIn && (
+      {userDetails.isLoggedIn && (
+        <MenuButton onClick={handleLogout}>Logout</MenuButton>
+      )}
+      {!userDetails.isLoggedIn && (
         <MenuButton onClick={() => history.push("/login")}>Login</MenuButton>
       )}
-      {!isLoggedIn && (
+      {!userDetails.isLoggedIn && (
         <MenuButton onClick={() => history.push("/register")}>
           Register
         </MenuButton>
       )}
-      {isLoggedIn && nick !== null && (
+      {userDetails.isLoggedIn && !userDetails.isFirstLogin && (
         <MenuButton onClick={() => history.push("/home")}>Home</MenuButton>
       )}
-      {isLoggedIn && nick !== null && (
+      {userDetails.isLoggedIn && !userDetails.isFirstLogin && (
         <MenuButton onClick={() => history.push("/mycards")}>
           My Cards
         </MenuButton>
       )}
-      {isLoggedIn && nick !== null && (
+      {userDetails.isLoggedIn && !userDetails.isFirstLogin && (
         <MenuButton onClick={() => history.push("/cardshop")}>
           Card Shop
         </MenuButton>
