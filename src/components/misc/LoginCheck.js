@@ -1,11 +1,20 @@
-import { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { GlobalContext } from "../../state/GlobalState";
+import InfoText from "./InfoText";
 
-const LoginCheck = () => {
-  const { refreshUserDetails } = useContext(GlobalContext);
+const LoginCheck = (props) => {
+  const { userDetails } = useContext(GlobalContext);
 
-  useEffect(() => {
-    refreshUserDetails();
-  }, [refreshUserDetails]);
+  return (
+    <React.Fragment>
+      {userDetails.isFirstLogin ? (
+        <InfoText>Need to set your nickname</InfoText>
+      ) : !userDetails.isLoggedIn ? (
+        <InfoText>Not authorized</InfoText>
+      ) : (
+        props.children
+      )}
+    </React.Fragment>
+  );
 };
 export default LoginCheck;

@@ -12,6 +12,7 @@ export const GlobalState = (props) => {
     nick: null,
     balance: null,
   });
+  const [initialized, setInitialized] = useState(false);
   const [alerts, setAlerts] = useState([]);
 
   const addNewAlert = useCallback((message) => {
@@ -40,6 +41,7 @@ export const GlobalState = (props) => {
           nick: response.data.nick,
           balance: response.data.balance,
         });
+        if (!initialized) setInitialized(true);
       })
       .catch((err) => {
         if (err.response.status === 501) {
@@ -50,52 +52,9 @@ export const GlobalState = (props) => {
         } else if (err.response.status === 403) {
           resetStatus();
         }
+        if (!initialized) setInitialized(true);
       });
-  }, []);
-
-  // const refreshStatus = useCallback(() => {
-  //   const statusRequest = axios.get("http://localhost:8762/api/user/status", {
-  //     withCredentials: true,
-  //   });
-  //   return statusRequest
-  //     .then((response) => {
-  //       let data = response.data;
-  //       setNick(data.nick);
-  //       setBalance(data.balance);
-  //       setIsLoggedIn(true);
-  //       return "success";
-  //     })
-  //     .catch((err) => {
-  //       if (err.response.status === 501) {
-  //         setNick(null);
-  //         setBalance(null);
-  //         setIsLoggedIn(true);
-  //         return "firstlogin";
-  //       } else if (err.response.status === 403) {
-  //         resetStatus();
-  //         return "accessdenied";
-  //       }
-  //       return "Communication error";
-  //     });
-  // }, [resetStatus]);
-
-  const publicAllowedRoutes = React.useMemo(() => {
-    return ["/login", "/", "/register", "/nick", "/about", "/details"];
-  }, []);
-
-  // const checkLoginState = useCallback(() => {
-  //   if (isGuestUser() && !publicAllowedRoutes.includes(location.pathname)) {
-  //     history.push("/login");
-  //   } else if (isFirstLogin()) {
-  //     history.push("/nick");
-  //   }
-  // }, [
-  //   history,
-  //   isFirstLogin,
-  //   isGuestUser,
-  //   location.pathname,
-  //   publicAllowedRoutes,
-  // ]);
+  }, [initialized, setInitialized]);
 
   return (
     <GlobalContext.Provider
@@ -108,6 +67,7 @@ export const GlobalState = (props) => {
         addNewAlert: addNewAlert,
         userDetails: userDetails,
         refreshUserDetails: refreshUserDetails,
+        initialized: initialized,
       }}
     >
       {props.children}

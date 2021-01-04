@@ -8,8 +8,17 @@ import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 import { GlobalContext } from "../../state/GlobalState";
 import InfoText from "../misc/InfoText";
 import CardContainer from "../card/CardContainer";
+import LoginCheck from "../misc/LoginCheck";
 
-const MyCards = () => {
+const MyCards = (props) => {
+  return (
+    <LoginCheck>
+      <MyCardsComponent />
+    </LoginCheck>
+  );
+};
+
+const MyCardsComponent = () => {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMorePage, setHasMorePage] = useState(true);

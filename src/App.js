@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import HeroList from "./components/cardpage/HeroList";
 import MyCards from "./components/cardpage/MyCards";
 import Header from "./components/header/Header";
@@ -18,37 +17,44 @@ import Alerts from "./components/alert/Alerts";
 import { SoundState } from "./state/SoundState";
 import PaddingContent from "./components/misc/PaddingContent";
 import { GlobalContext } from "./state/GlobalState";
+import Loading from "./components/misc/Loading";
 
 const App = () => {
-  const { refreshUserDetails } = useContext(GlobalContext);
+  const { refreshUserDetails, initialized } = useContext(GlobalContext);
 
   useEffect(() => {
     refreshUserDetails();
   }, [refreshUserDetails]);
 
   return (
-    <Router>
-      <SoundState>
-        <Alerts />
-        <Menu />
-        <Header />
-        <UserInfo />
-        <Switch>
-          <Route path="/details" component={HeroDetails} />
-          <PaddingContent>
-            <Route exact path="/" component={HeroList} />
-            <Route path="/nick" component={FirstLogin} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Registration} />
-            <Route path="/about" component={About} />
-            <Route path="/home" component={Home} />
-            <Route path="/cardshop" component={CardShop} />
-            <Route path="/mycards" component={MyCards} />
-            <Route path="/merge" component={Merge} />
-          </PaddingContent>
-        </Switch>
-      </SoundState>
-    </Router>
+    <React.Fragment>
+      {!initialized ? (
+        <Loading />
+      ) : (
+        <Router>
+          <SoundState>
+            <Alerts />
+            <Menu />
+            <Header />
+            <UserInfo />
+            <Switch>
+              <Route path="/details" component={HeroDetails} />
+              <PaddingContent>
+                <Route exact path="/" component={HeroList} />
+                <Route path="/nick" component={FirstLogin} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Registration} />
+                <Route path="/about" component={About} />
+                <Route path="/home" component={Home} />
+                <Route path="/cardshop" component={CardShop} />
+                <Route path="/mycards" component={MyCards} />
+                <Route path="/merge" component={Merge} />
+              </PaddingContent>
+            </Switch>
+          </SoundState>
+        </Router>
+      )}
+    </React.Fragment>
   );
 };
 

@@ -5,6 +5,7 @@ import { GlobalContext } from "../../state/GlobalState";
 import PageTitle from "../header/PageTitle";
 import VanillaTilt from "vanilla-tilt";
 import "./Home.css";
+import LoginCheck from "../misc/LoginCheck";
 
 function Tilt(props) {
   const { options, ...rest } = props;
@@ -21,7 +22,15 @@ function Tilt(props) {
   );
 }
 
-const Home = () => {
+const Home = (props) => {
+  return (
+    <LoginCheck>
+      <HomeComponent />
+    </LoginCheck>
+  );
+};
+
+const HomeComponent = () => {
   const { addNewAlert } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
   const [details, setDetails] = useState({
