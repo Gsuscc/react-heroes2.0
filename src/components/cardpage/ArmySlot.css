@@ -15,15 +15,9 @@
 @keyframes fade-filter {
   from {
     max-height: 0vh;
-    /* min-width: 0px; */
-    /* opacity: 0; */
   }
   to {
     max-height: 550vh;
-    /* min-width: 1000px; */
-    /* transform: translateY(0); */
-
-    /* opacity: 1; */
   }
 }
 
@@ -39,8 +33,8 @@
 }
 .bounce {
   position: sticky;
-  bottom: 25pxgit;
-  left: 0;
+  bottom: 25px;
+  left: 0px;
   animation: bounce 3s infinite;
   z-index: 100;
   width: -webkit-fill-available;
