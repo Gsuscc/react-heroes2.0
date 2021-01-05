@@ -27,7 +27,7 @@ const MyCardsComponent = () => {
   const [hasMorePage, setHasMorePage] = useState(true);
   const [heroesList, setHeroesList] = useState([]);
   const pageBottom = useRef();
-  const { addNewAlert } = useContext(GlobalContext);
+  const { addNewAlert, setArmy } = useContext(GlobalContext);
   const [isArmySlotVisible, setIsArmySlotVisible] = useState(false)
 
   const toggleSlots = useCallback(
@@ -35,6 +35,13 @@ const MyCardsComponent = () => {
       setIsArmySlotVisible(!isArmySlotVisible)
     },
     [isArmySlotVisible],
+  )
+
+  const resetSlots = useCallback(
+    () => {
+      setArmy([])
+    },
+    [setArmy],
   )
 
   useEffect(() => {
@@ -96,6 +103,7 @@ const MyCardsComponent = () => {
                     isFlippable={true}
                     isZoomable={true}
                     isUserCard={true}
+                    isRightClickabale={true}
                   />
                 </CardDock>
               );
@@ -109,6 +117,9 @@ const MyCardsComponent = () => {
             <div class="bounce">
             <Button className="slot-button" variant="contained" color="primary" onClick={toggleSlots}>
                 Slots
+            </Button>
+            <Button className="slot-button" variant="contained" color="primary" onClick={resetSlots}>
+                Reset
             </Button>
             </div>
       </React.Fragment>

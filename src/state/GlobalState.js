@@ -14,6 +14,7 @@ export const GlobalState = (props) => {
   });
   const [initialized, setInitialized] = useState(false);
   const [alerts, setAlerts] = useState([]);
+  const [army, setArmy] = useState([])
 
   const addNewAlert = useCallback((message) => {
     setAlerts((alerts) => [...alerts, message]);
@@ -68,6 +69,8 @@ export const GlobalState = (props) => {
         userDetails: userDetails,
         refreshUserDetails: refreshUserDetails,
         initialized: initialized,
+        army: army,
+        setArmy: setArmy
       }}
     >
       {props.children}
