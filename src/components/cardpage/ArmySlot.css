@@ -1,0 +1,72 @@
+.slots {
+  width: 750px;
+  height: 130px;
+  background-color: rgba(240, 248, 255, 0.85);
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: revert;
+  justify-content: space-evenly;
+  padding: 5px;
+  border-radius: 5px;
+  animation: fade-filter 6s linear;
+}
+@keyframes fade-filter {
+  from {
+    max-height: 0vh;
+    /* min-width: 0px; */
+    /* opacity: 0; */
+  }
+  to {
+    max-height: 550vh;
+    /* min-width: 1000px; */
+    /* transform: translateY(0); */
+
+    /* opacity: 1; */
+  }
+}
+
+.slot {
+  height: 130px;
+  width: 120px;
+  background-color: rgba(170, 170, 170, 0.51);
+  box-shadow: 0px 0px 20px 1px black;
+}
+
+.slot-button {
+  margin: 30px;
+}
+.bounce {
+  position: sticky;
+  bottom: 25pxgit;
+  left: 0;
+  animation: bounce 3s infinite;
+  z-index: 100;
+  width: -webkit-fill-available;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
