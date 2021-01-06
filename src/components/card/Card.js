@@ -32,8 +32,10 @@ const Card = (props) => {
     (e) => {
       if(isRightClickabale){
         e.preventDefault()
-        console.log(army.length)
-        if (army.length <= 4){
+        if(army.includes(hero)){
+          setArmy(army.filter((selected)=> selected !== hero))
+        }
+        else if (army.length <= 4){
           setArmy(army => [...army, hero])
         }
         else{console.log('army is full')}

@@ -1,15 +1,31 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { GlobalContext } from "../../state/GlobalState";
 import Card from "../card/Card";
 import CardDock from "../card/CardDock";
 import CardDockDrag from "../card/CardDockDrag";
 import CardDockMini from "../card/CardDockMini";
+import HeroButton from "../misc/HeroButton";
+import axios from 'axios';
 import "./ArmySlot.css";
+import { List } from "material-ui";
 
 const ArmySlot = () => {
-  const { army } = useContext(GlobalContext);
+  const { army, setArmy } = useContext(GlobalContext);
 
-  console.log(army);
+  const resetSlots = useCallback(() => {
+    setArmy([]);
+  }, [setArmy]);
+
+  const saveArmy = useCallback(()=>{
+    axios
+    .post(
+      "http://localhost:8762/api/user/setarmy",
+      {
+        army: army.map(hero => hero.uniqueId)
+      },
+      { withCredentials: true }
+    )
+  },[army])
 
   return (
     <div className="slots">
@@ -87,6 +103,14 @@ const ArmySlot = () => {
             />
           </CardDockMini>
         )}
+      </div>
+      <div className="button-container">
+            <HeroButton onClick={saveArmy}>
+                Save
+            </HeroButton>
+            <HeroButton onClick={resetSlots}>
+                Reset
+            </HeroButton>
       </div>
     </div>
   );

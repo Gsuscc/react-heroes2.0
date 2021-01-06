@@ -29,6 +29,11 @@
   padding: 10px;
 }
 
+.button-container {
+  flex-direction: column;
+  display: flex;
+}
+
 .bottom-left-corner {
   position: fixed;
   bottom: 20px;
