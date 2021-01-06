@@ -1,0 +1,70 @@
+.slots {
+  width: 750px;
+  background-color: rgba(240, 248, 255, 0.85);
+  position: fixed;
+  top: 0px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: revert;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  animation: fade-filter 6s linear;
+}
+@keyframes fade-filter {
+  from {
+    max-height: 0vh;
+  }
+  to {
+    max-height: 550vh;
+  }
+}
+
+.slot {
+  height: 135px;
+  width: 80px;
+  background-color: rgba(170, 170, 170, 0.51);
+  box-shadow: 0px 0px 20px 1px black;
+  padding: 10px;
+}
+
+.button-container {
+  flex-direction: column;
+  display: flex;
+}
+
+.bottom-left-corner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.bounce {
+  animation: bounce 7s infinite;
+  z-index: 100;
+}
+
+@keyframes bounce {
+  0%,
+  76%,
+  88%,
+  100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  84% {
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  92% {
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+}

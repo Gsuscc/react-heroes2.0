@@ -1,17 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback } from "react";
 import PropTypes from "prop-types";
 import FrontPage from "./FrontPage";
 import BackPage from "./BackPage";
 import "./Card.css";
 import { SoundContext } from "../../state/SoundState";
+import { GlobalContext } from "../../state/GlobalState";
 
 const Card = (props) => {
   const hero = props.hero;
   const isFlippable = props.isFlippable;
   const isZoomable = props.isZoomable;
   const isUserCard = props.isUserCard;
+  const isRightClickabale = props.isRightClickabale
   const [isFrontPage, setIsFrontPage] = useState(true);
   const { playCardFlip } = useContext(SoundContext);
+  const { army, setArmy } = useContext(GlobalContext);
+  
 
   const getColor = () => {
     if (hero.biography.alignment === "good") return { color: "darkgreen" };
@@ -25,10 +29,27 @@ const Card = (props) => {
     isFlippable && setIsFrontPage(!isFrontPage);
   };
 
+  const handleRightClick = useCallback(
+    (e) => {
+      if(isRightClickabale){
+        e.preventDefault()
+        if(army.includes(hero)){
+          setArmy(army.filter((selected)=> selected !== hero))
+        }
+        else if (army.length <= 4){
+          setArmy(army => [...army, hero])
+        }
+        else{console.log('army is full')}
+      }
+    },
+    [army, hero, isRightClickabale, setArmy],
+  ) 
+
   return (
     <div
       className={isZoomable ? "card-scene card-zoom" : "card-scene"}
       onClick={flip}
+      onContextMenu={handleRightClick}
     >
       <div className={isFrontPage ? "card" : "card is-flipped"}>
         <FrontPage hero={hero} getColor={getColor} isUserCard={isUserCard} />
@@ -42,15 +63,17 @@ const Card = (props) => {
 
 export default Card;
 
-Card.propTypes = {
-  hero: PropTypes.object,
-  isFlippable: PropTypes.bool,
-  isZoomable: PropTypes.bool,
-  isUserCard: PropTypes.bool,
+Card.propTypes = {		
+  hero: PropTypes.object,		
+  isFlippable: PropTypes.bool,		
+  isZoomable: PropTypes.bool,		
+  isUserCard: PropTypes.bool,		
+  isRightClickabale: PropTypes.bool
 };
 
 Card.defaultProps = {
   isFlippable: false,
   isZoomable: false,
   isUserCard: false,
+  isRightClickabale: false
 };

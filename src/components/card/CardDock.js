@@ -1,19 +1,18 @@
-import React from 'react'
+import React from "react";
 import PropTypes from "prop-types";
 
 function CardDock(props) {
-
   const getStyle = () => {
     return {
-      margin: props.margin
-    }
-  }
+      margin: props.margin,
+    };
+  };
 
   return (
     <div className="card-dock" style={getStyle()}>
       {props.children}
     </div>
-  )
+  );
 }
 
 export default CardDock;
