@@ -33,7 +33,7 @@ const MyCardsComponent = () => {
   const [hasMorePage, setHasMorePage] = useState(true);
   const [heroesList, setHeroesList] = useState([]);
   const pageBottom = useRef();
-  const { addNewAlert, setArmy } = useContext(GlobalContext);
+  const { addNewAlert, army, setArmy } = useContext(GlobalContext);
   const [isArmySlotVisible, setIsArmySlotVisible] = useState(false);
 
   const toggleSlots = useCallback(() => {
@@ -41,19 +41,18 @@ const MyCardsComponent = () => {
   }, [isArmySlotVisible]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8762/api/user/myarmy`, {
-      withCredentials: true,
-    })
-    .then(response => {
-      let army = response.data
-      setArmy(army);
-    })
-    .catch(err =>{
-      addNewAlert(err.response.data.error)
-    })
-  }, [setArmy, addNewAlert])
-
-
+    axios
+      .get(`http://localhost:8762/api/user/myarmy`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        let army = response.data;
+        setArmy(army);
+      })
+      .catch((err) => {
+        addNewAlert(err.response.data.error);
+      });
+  }, [setArmy, addNewAlert]);
 
   useEffect(() => {
     const toggleDiv = pageBottom.current;
@@ -107,7 +106,9 @@ const MyCardsComponent = () => {
       <CardContainer>
         {heroesList.length > 0
           ? heroesList.map((hero) => {
-              return (
+              let armyUniques = army.map((element) => element.uniqueId);
+              console.log(armyUniques);
+              return armyUniques.includes(hero.uniqueId) ? null : (
                 <CardDock key={hero.uniqueId}>
                   <Card
                     hero={hero}
