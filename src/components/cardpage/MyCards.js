@@ -108,7 +108,7 @@ const MyCardsComponent = () => {
       <CardContainer>
         {heroesList.length > 0
           ? heroesList.map((hero) => {
-              return armyUniques.includes(hero.uniqueId) ? null : (
+              return  (
                 <CardDock key={hero.uniqueId}>
                   <Card
                     hero={hero}

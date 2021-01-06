@@ -43,7 +43,6 @@
 .bounce {
   animation: bounce 7s infinite;
   z-index: 100;
-  width: -webkit-fill-available;
 }
 
 @keyframes bounce {
