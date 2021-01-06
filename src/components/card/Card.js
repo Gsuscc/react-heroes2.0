@@ -15,6 +15,7 @@ const Card = (props) => {
   const [isFrontPage, setIsFrontPage] = useState(true);
   const { playCardFlip } = useContext(SoundContext);
   const { army, setArmy } = useContext(GlobalContext);
+  
 
   const getColor = () => {
     if (hero.biography.alignment === "good") return { color: "darkgreen" };

@@ -40,9 +40,20 @@ const MyCardsComponent = () => {
     setIsArmySlotVisible(!isArmySlotVisible);
   }, [isArmySlotVisible]);
 
-  const resetSlots = useCallback(() => {
-    setArmy([]);
-  }, [setArmy]);
+  useEffect(() => {
+    axios.get(`http://localhost:8762/api/user/myarmy`, {
+      withCredentials: true,
+    })
+    .then(response => {
+      let army = response.data
+      setArmy(army);
+    })
+    .catch(err =>{
+      addNewAlert(err.response.data.error)
+    })
+  }, [setArmy, addNewAlert])
+
+
 
   useEffect(() => {
     const toggleDiv = pageBottom.current;
