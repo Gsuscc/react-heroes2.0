@@ -62,6 +62,13 @@ const Card = (props) => {
 
 export default Card;
 
+Card.propTypes = {		
+  hero: PropTypes.object,		
+  isFlippable: PropTypes.bool,		
+  isZoomable: PropTypes.bool,		
+  isUserCard: PropTypes.bool,		
+  isRightClickabale: PropTypes.bool
+};
 
 Card.defaultProps = {
   isFlippable: false,
