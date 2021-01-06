@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useContext, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useContext,
+  useCallback,
+} from "react";
 import Card from "../card/Card";
 import axios from "axios";
 import CardDock from "../card/CardDock";
@@ -10,8 +16,8 @@ import InfoText from "../misc/InfoText";
 import CardContainer from "../card/CardContainer";
 import LoginCheck from "../misc/LoginCheck";
 import ArmySlot from "./ArmySlot";
-import Button from '@material-ui/core/Button';
-
+import Button from "@material-ui/core/Button";
+import HeroButton from "../misc/HeroButton";
 
 const MyCards = (props) => {
   return (
@@ -28,21 +34,15 @@ const MyCardsComponent = () => {
   const [heroesList, setHeroesList] = useState([]);
   const pageBottom = useRef();
   const { addNewAlert, setArmy } = useContext(GlobalContext);
-  const [isArmySlotVisible, setIsArmySlotVisible] = useState(false)
+  const [isArmySlotVisible, setIsArmySlotVisible] = useState(false);
 
-  const toggleSlots = useCallback(
-    () => {
-      setIsArmySlotVisible(!isArmySlotVisible)
-    },
-    [isArmySlotVisible],
-  )
+  const toggleSlots = useCallback(() => {
+    setIsArmySlotVisible(!isArmySlotVisible);
+  }, [isArmySlotVisible]);
 
-  const resetSlots = useCallback(
-    () => {
-      setArmy([])
-    },
-    [setArmy],
-  )
+  const resetSlots = useCallback(() => {
+    setArmy([]);
+  }, [setArmy]);
 
   useEffect(() => {
     const toggleDiv = pageBottom.current;
@@ -111,18 +111,13 @@ const MyCardsComponent = () => {
           : !isLoading && (
               <InfoText>No cards, go to Shop to collect'em</InfoText>
             )}
-      {isArmySlotVisible && <ArmySlot/>}
+        {isArmySlotVisible && <ArmySlot />}
       </CardContainer>
-      <React.Fragment>
-            <div class="bounce">
-            <Button className="slot-button" variant="contained" color="primary" onClick={toggleSlots}>
-                Slots
-            </Button>
-            <Button className="slot-button" variant="contained" color="primary" onClick={resetSlots}>
-                Reset
-            </Button>
-            </div>
-      </React.Fragment>
+      <div class="bounce bottom-left-corner">
+        <HeroButton onClick={toggleSlots}>
+          {isArmySlotVisible ? "Hide Army" : "Show Army"}
+        </HeroButton>
+      </div>
       <div
         className="scrollTrigger"
         ref={pageBottom}
