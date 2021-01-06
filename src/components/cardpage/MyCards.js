@@ -36,6 +36,8 @@ const MyCardsComponent = () => {
   const { addNewAlert, army, setArmy } = useContext(GlobalContext);
   const [isArmySlotVisible, setIsArmySlotVisible] = useState(false);
 
+  const armyUniques = army.map((element) => element.uniqueId);
+
   const toggleSlots = useCallback(() => {
     setIsArmySlotVisible(!isArmySlotVisible);
   }, [isArmySlotVisible]);
@@ -106,8 +108,6 @@ const MyCardsComponent = () => {
       <CardContainer>
         {heroesList.length > 0
           ? heroesList.map((hero) => {
-              let armyUniques = army.map((element) => element.uniqueId);
-              console.log(armyUniques);
               return armyUniques.includes(hero.uniqueId) ? null : (
                 <CardDock key={hero.uniqueId}>
                   <Card

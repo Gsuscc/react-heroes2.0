@@ -5,27 +5,31 @@ import CardDock from "../card/CardDock";
 import CardDockDrag from "../card/CardDockDrag";
 import CardDockMini from "../card/CardDockMini";
 import HeroButton from "../misc/HeroButton";
-import axios from 'axios';
+import axios from "axios";
 import "./ArmySlot.css";
 import { List } from "material-ui";
 
 const ArmySlot = () => {
-  const { army, setArmy } = useContext(GlobalContext);
+  const { addNewAlert, army, setArmy } = useContext(GlobalContext);
 
   const resetSlots = useCallback(() => {
     setArmy([]);
   }, [setArmy]);
 
-  const saveArmy = useCallback(()=>{
-    axios
-    .post(
-      "http://localhost:8762/api/user/setarmy",
-      {
-        army: army.map(hero => hero.uniqueId)
-      },
-      { withCredentials: true }
-    )
-  },[army])
+  const saveArmy = useCallback(() => {
+    if (army.length !== 5) addNewAlert("Need exacly 5 card!");
+    else
+      axios
+        .post(
+          "http://localhost:8762/api/user/setarmy",
+          {
+            army: army.map((hero) => hero.uniqueId),
+          },
+          { withCredentials: true }
+        )
+        .then(addNewAlert("Army saved successfully!", "green"))
+        .catch("Error while saving army");
+  }, [army, addNewAlert]);
 
   return (
     <div className="slots">
@@ -105,12 +109,8 @@ const ArmySlot = () => {
         )}
       </div>
       <div className="button-container">
-            <HeroButton onClick={saveArmy}>
-                Save
-            </HeroButton>
-            <HeroButton onClick={resetSlots}>
-                Reset
-            </HeroButton>
+        <HeroButton onClick={saveArmy}>Save</HeroButton>
+        <HeroButton onClick={resetSlots}>Reset</HeroButton>
       </div>
     </div>
   );

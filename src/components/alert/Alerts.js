@@ -1,17 +1,11 @@
 import React from "react";
 import { GlobalContext } from "../../state/GlobalState";
-import Alert from "./Alert";
 import "./Alerts.css";
 
-const Alerts = () => {
+const Alerts = (props) => {
   const { alerts } = React.useContext(GlobalContext);
-  return (
-    <React.Fragment>
-      {alerts.map((alert) => {
-        return <Alert>{alert}</Alert>;
-      })}
-    </React.Fragment>
-  );
+
+  return <React.Fragment>{alerts.map((alert) => alert)}</React.Fragment>;
 };
 
 export default Alerts;
