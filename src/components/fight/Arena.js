@@ -4,6 +4,8 @@ import { GlobalContext } from '../../state/GlobalState';
 import Card from '../card/Card';
 import CardContainer from '../card/CardContainer';
 import CardDock from '../card/CardDock';
+import HeroButton from '../misc/HeroButton';
+import InfoText from '../misc/InfoText';
 import Loading from '../misc/Loading';
 import LoginCheck from '../misc/LoginCheck';
 
@@ -20,6 +22,7 @@ const ArenaComponent = () => {
     const [enemyArmy, setEnemyArmy] = useState();
     const {addNewAlert} =useContext(GlobalContext);
     const [isLoading, setIsLoading] = useState(true);
+    const [fightLog, setFightLog] = useState();
     
 
     useEffect(()=>{
@@ -39,16 +42,46 @@ const ArenaComponent = () => {
  
     },[addNewAlert]);
 
+    const getNewEnemyHandler= () => {
+        setIsLoading(true)
+        axios.get("http://localhost:8762/api/fight/getenemy", {
+            withCredentials: true,
+          })
+          .then(response =>{
+            setEnemyArmy(response.data)
+            setIsLoading(false)
+        })
+        .catch((err) => {
+            addNewAlert('valami2')
+            console.log(err);
+            setIsLoading(false)
+        })
+    }
 
-    console.log(myArmy)
-    console.log(enemyArmy)
+    const startBattleHandler= () => {
+        setIsLoading(true)
+        axios.get("http://localhost:8762/api/fight/startfight", {
+            withCredentials: true,
+          })
+          .then(response =>{
+            setFightLog(response.data)
+            console.log(fightLog)
+            setIsLoading(false)
+        })
+        .catch((err) => {
+            addNewAlert('valami3')
+            console.log(err);
+            setIsLoading(false)
+        })
+    }
+
     return (
         <React.Fragment>
             {isLoading ? <Loading /> :
-            <div>
+            <React.Fragment>
+                <InfoText>{myArmy.nick}'s Army</InfoText>
                 <CardContainer>
                     {myArmy.cards.map((hero) => {
-                        console.log(hero)
                         return  (
                             <CardDock key={hero.uniqueId}>
                             <Card
@@ -63,23 +96,31 @@ const ArenaComponent = () => {
                         })
                     }
                 </CardContainer> 
-                 <CardContainer>
-                    {enemyArmy.cards.map((hero) => {
-                        return  (
-                            <CardDock key={hero.uniqueId}>
-                            <Card
-                                hero={hero}
-                                isFlippable={true}
-                                isZoomable={true}
-                                isUserCard={true}
-                                isRightClickabale={false}
-                            />
-                            </CardDock>
-                        );
-                        })
-                    }
-                </CardContainer> 
-                </div>}
+                <HeroButton onClick={getNewEnemyHandler}>New Enemy</HeroButton>
+                {enemyArmy && 
+                <React.Fragment>
+                    <HeroButton onClick={startBattleHandler}>Start Battle</HeroButton>
+                    <InfoText>{enemyArmy.nick}'s Army</InfoText>
+                    <CardContainer>
+                        {enemyArmy.cards.map((hero) => {
+                            return  (
+                                <CardDock key={hero.uniqueId}>
+                                <Card
+                                    hero={hero}
+                                    isFlippable={true}
+                                    isZoomable={true}
+                                    isUserCard={true}
+                                    isRightClickabale={false}
+                                />
+                                </CardDock>
+                            );
+                            })
+                        }
+                    </CardContainer> 
+                </React.Fragment>
+                }
+                
+                </React.Fragment>}
       </React.Fragment>
     )
 }
