@@ -16,7 +16,6 @@ import InfoText from "../misc/InfoText";
 import CardContainer from "../card/CardContainer";
 import LoginCheck from "../misc/LoginCheck";
 import ArmySlot from "./ArmySlot";
-import Button from "@material-ui/core/Button";
 import HeroButton from "../misc/HeroButton";
 
 const MyCards = (props) => {
@@ -90,6 +89,8 @@ const MyCardsComponent = () => {
         setIsLoading(false);
       });
   }, [page]);
+
+  console.log(heroesList)
 
   return (
     <React.Fragment>

@@ -18,6 +18,7 @@ import { SoundState } from "./state/SoundState";
 import PaddingContent from "./components/misc/PaddingContent";
 import { GlobalContext } from "./state/GlobalState";
 import Loading from "./components/misc/Loading";
+import Arena from "./components/fight/Arena";
 
 const App = () => {
   const { refreshUserDetails, initialized } = useContext(GlobalContext);
@@ -49,6 +50,7 @@ const App = () => {
                 <Route path="/cardshop" component={CardShop} />
                 <Route path="/mycards" component={MyCards} />
                 <Route path="/merge" component={Merge} />
+                <Route path="/arena" component={Arena} />
               </PaddingContent>
             </Switch>
           </SoundState>

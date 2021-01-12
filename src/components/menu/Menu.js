@@ -99,6 +99,11 @@ const Menu = () => {
           Card Shop
         </MenuButton>
       )}
+      {userDetails.isLoggedIn && !userDetails.isFirstLogin && (
+        <MenuButton onClick={() => history.push("/arena")}>
+          Arena
+        </MenuButton>
+      )}
       <MenuButton onClick={() => history.push("/")}>Heroes</MenuButton>
       <MenuButton onClick={() => history.push("/about")}>About</MenuButton>
     </div>
