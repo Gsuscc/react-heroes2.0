@@ -20,14 +20,14 @@ const useStyles = makeStyles({
   root: {
     width: "200px",
     height: "30px",
-    textAlign: "center",
-    position: "absolute",
+    // textAlign: "center",
+    // position: "absolute",
     padding: "5px",
   },
   bar: {
     height: "100%",
     width: "100%",
-    position: "absolute",
+    // position: "absolute",
     borderRadius: "5px",
   },
   label: {
@@ -52,7 +52,7 @@ function LinearProgressWithLabel(props) {
         className={classes.label}
         variant="body2"
         color="textSecondary"
-      >{`${Math.round(props.value)}%`}</Typography>
+      >{props.labelToShow}</Typography>
     </Box>
   );
 }

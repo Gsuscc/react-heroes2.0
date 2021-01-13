@@ -1,6 +1,8 @@
 import { HardwareDeveloperBoard } from "material-ui/svg-icons";
 import React, { useCallback, useEffect, useState } from "react";
 import LinearProgressWithLabel from "../misc/HeroBar";
+import InfoText from "../misc/InfoText";
+import './Battle.css'
 
 const Battle = (props) => {
   const fightLog = props.fightLog;
@@ -30,7 +32,6 @@ const Battle = (props) => {
        if(round.defender.died){
           defenderCard = defenderCards[0]
           setDefenderCards((cards) => defenderCards.filter((card) => card.uniqueId !== round.defender.uniqueId) )
-          console.log(defenderCards)
        }
     }
     else{
@@ -58,6 +59,7 @@ const Battle = (props) => {
       nextRound = setTimeout(() => {
         updateFightState()
         setRounds((rounds) => [...rounds.slice(1)]);
+        console.log(fightState)
       }, 3000);
     }
     return () => {
@@ -70,13 +72,21 @@ const Battle = (props) => {
 
 
 
-  return <div>
+  return <div className="battle-container">
           <div className='attacker-container'>
-            <LinearProgressWithLabel value={100}/>
+            <InfoText>{fightState.attackerCard.name}</InfoText>
+            <LinearProgressWithLabel 
+                      value={fightState.attackerHp < 0 ? 0: (fightState.attackerHp / fightState.attackerCard.stat.maxHp) * 100}
+                      labelToShow={fightState.attackerHp < 0 ? 0 : fightState.attackerHp}
+            />
           </div>
 
           <div className='defender-container'>
-            <LinearProgressWithLabel value={100}/>
+          <InfoText>{fightState.defenderCard.name}</InfoText>
+            <LinearProgressWithLabel 
+                      value={fightState.defenderHp < 0 ? 0: (fightState.defenderHp / fightState.defenderCard.stat.maxHp) * 100}
+                      labelToShow={fightState.defenderHp < 0 ? 0 : fightState.defenderHp}
+            />
           </div>
     
         </div>;
