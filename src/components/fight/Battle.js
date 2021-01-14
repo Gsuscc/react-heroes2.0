@@ -55,7 +55,7 @@ const Battle = (props) => {
           }
         }
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 3500);
+      }, 2500);
     }
     return () => {
       clearTimeout(timeout);
@@ -106,6 +106,14 @@ const Battle = (props) => {
     return fightState.defenderCard.uniqueId === round.defender.uniqueId ?
             fightState.defenderCard.name:
             fightState.attackerCard.name
+  }
+
+  const getActionColorClassName = () =>{
+    if(fightState.action === 'KAPOW') return 'fight-action-kapow'
+    if(fightState.action === 'POW') return 'fight-action-pow'
+    if(fightState.action === 'MISS') return 'fight-action-miss'
+    if(fightState.action === 'DOUBLE') return 'fight-action-double'
+    if(fightState.action === 'BOOM') return 'fight-action-boom'
   }
 
   console.log(fightState)
@@ -190,8 +198,13 @@ const Battle = (props) => {
 
           {round&&
           <InfoText>
-            <span key={fightState.damage} className="fight-log"><span className="fighter-name">{getHitter()}</span> {round.defender.myHp>0? 'hits': 'kills'}  <span className="fighter-name">{getDefender()}</span> with a {fightState.action} caused  
-             {fightState.damage} damage</span>
+            <span key={fightState.damage} className="fight-log">
+              <span className="fighter-name">{getHitter()}</span> 
+              {round.defender.myHp>0? 'hits': 'kills'}  
+              <span className="fighter-name">{getDefender()}</span> 
+                with a {" "} 
+               <span className={`${getActionColorClassName()}`}>{fightState.action}</span> caused  {fightState.damage} damage
+              </span>
           </InfoText>}
           
         </React.Fragment>
