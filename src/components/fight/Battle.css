@@ -1,3 +1,25 @@
 .battle-container {
   display: flex;
+  justify-content: space-evenly;
+  width: 1000px;
+}
+.fighter-container {
+  display: flex;
+  width: 1000px;
+  justify-content: space-evenly;
+}
+.fighter-name {
+  font-size: xxx-large;
+  margin: 17px;
+}
+.fight-log {
+  animation: fade linear 1500ms;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

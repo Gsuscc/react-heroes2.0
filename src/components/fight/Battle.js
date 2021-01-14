@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useState } from "react";
 import LinearProgressWithLabel from "../misc/HeroBar";
 import InfoText from "../misc/InfoText";
 import PageTitle from "../header/PageTitle";
+import CardDock from '../card/CardDock'
 import "./Battle.css";
+import Card from "../card/Card";
 
 const Battle = (props) => {
   const fightLog = props.fightLog;
@@ -20,7 +22,6 @@ const Battle = (props) => {
 
   useEffect(() => {
     setRound(rounds[0]);
-    return () => {};
   }, [rounds]);
 
   useEffect(() => {
@@ -31,7 +32,6 @@ const Battle = (props) => {
         updateFightState();
       }
     }
-
     let timeout;
     if (rounds.length > 0) {
       timeout = setTimeout(() => {
@@ -51,7 +51,7 @@ const Battle = (props) => {
           }
         }
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 3000);
+      }, 4000);
     }
     return () => {
       clearTimeout(timeout);
@@ -74,7 +74,7 @@ const Battle = (props) => {
     let defenderCard = fightState.defenderCard;
     let attackerHp;
     let defenderHp;
-    console.log(round.attacker.attacker);
+
     if (round.attacker.attacker) {
       attackerHp = round.attacker.myHp;
       defenderHp = round.defender.myHp;
@@ -92,7 +92,21 @@ const Battle = (props) => {
     });
   }, [attackerCards, defenderCards, fightState, round]);
 
-  console.log(round);
+  const getHitter = () => {
+    return fightState.attackerCard.uniqueId === round.attacker.uniqueId ?
+            fightState.attackerCard.name:
+            fightState.defenderCard.name
+  }
+
+  const getDefender = () => {
+    return fightState.defenderCard.uniqueId === round.defender.uniqueId ?
+            fightState.defenderCard.name:
+            fightState.attackerCard.name
+  }
+
+  console.log(fightState)
+
+
   return (
     <React.Fragment>
       <PageTitle>
@@ -115,18 +129,11 @@ const Battle = (props) => {
                 }
               />
               <InfoText>
-                AttackerCard:{" "}
-                {round.attacker.attacker
-                  ? round.attacker.uniqueId
-                  : round.defender.uniqueId}{" "}
-                + " - "{fightState.attackerCard.uniqueId}
-              </InfoText>
-              <InfoText>
-                AttackerHp:{" "}
+                AttackerHp:
                 {round.attacker.attacker
                   ? round.attacker.myHp
                   : round.defender.myHp}{" "}
-                - {fightState.attackerHp}
+                - {fightState.attackerCard.stat.maxHp}
               </InfoText>
             </div>
 
@@ -144,25 +151,38 @@ const Battle = (props) => {
                 }
               />
               <InfoText>
-                AttackerCard:{" "}
-                {round.defender.attacker
-                  ? round.attacker.uniqueId
-                  : round.defender.uniqueId}{" "}
-                + " - "{fightState.defenderCard.uniqueId}
-              </InfoText>
-              <InfoText>
-                AttackerHp:{" "}
+                AttackerHp: 
                 {round.defender.attacker
                   ? round.attacker.myHp
-                  : round.defender.myHp}{" "}
-                - {fightState.defenderHp}
+                  : round.defender.myHp}
+                - {fightState.defenderCard.stat.maxHp}
               </InfoText>
             </div>
           </div>
+          <div className="fighter-container">
+                  <CardDock key={fightState.attackerCard.uniqueId}>
+                    <Card
+                      hero={fightState.attackerCard}
+                      isFlippable={true}
+                      isZoomable={false}
+                      isUserCard={true}
+                      isRightClickabale={false}
+                    />
+                  </CardDock>
+                  <CardDock key={fightState.defenderCard.uniqueId}>
+                    <Card
+                      hero={fightState.defenderCard}
+                      isFlippable={true}
+                      isZoomable={false}
+                      isUserCard={true}
+                      isRightClickabale={false}
+                    />
+                  </CardDock>
+          </div>
 
           <InfoText>
-            {round.attacker.uniqueId} - {fightState.action} -{" "}
-            {round.defender.uniqueId} DMG {fightState.damage}
+            <span key={fightState.damage} className="fight-log"><span className="fighter-name">{getHitter()}</span> hits  <span className="fighter-name">{getDefender()}</span> with a {fightState.action} caused  
+             {fightState.damage} damage</span>
           </InfoText>
         </React.Fragment>
       )}
