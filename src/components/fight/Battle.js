@@ -37,21 +37,25 @@ const Battle = (props) => {
       timeout = setTimeout(() => {
         if (round.defender.died) {
           if (round.attacker.attacker) {
-            setFightState((state) => ({
+            if(defenderCards.length > 0){
+              setFightState((state) => ({
               ...state,
               defenderCard: defenderCards[0],
             }));
             setDefenderCards((cards) => [...cards.slice(1)]);
+            }
           } else {
-            setFightState((state) => ({
+            if(attackerCards.length>0){
+               setFightState((state) => ({
               ...state,
               attackerCard: attackerCards[0],
             }));
             setAttackerCards((cards) => [...cards.slice(1)]);
+            }
           }
         }
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 4000);
+      }, 1000);
     }
     return () => {
       clearTimeout(timeout);
@@ -128,13 +132,15 @@ const Battle = (props) => {
                   fightState.attackerCard.stat.maxHp
                 }
               />
-              <InfoText>
-                AttackerHp:
-                {round.attacker.attacker
-                  ? round.attacker.myHp
-                  : round.defender.myHp}{" "}
-                - {fightState.attackerCard.stat.maxHp}
-              </InfoText>
+              { round &&
+                <InfoText>
+                  AttackerHp:
+                  {round.attacker.attacker
+                    ? round.attacker.myHp
+                    : round.defender.myHp}{" "}
+                  - {fightState.attackerCard.stat.maxHp}
+                </InfoText>
+                }
             </div>
 
             <div className="defender-container">
@@ -150,13 +156,15 @@ const Battle = (props) => {
                   fightState.defenderCard.stat.maxHp
                 }
               />
-              <InfoText>
+              {round &&  
+                <InfoText>
                 AttackerHp: 
                 {round.defender.attacker
                   ? round.attacker.myHp
                   : round.defender.myHp}
                 - {fightState.defenderCard.stat.maxHp}
-              </InfoText>
+              </InfoText>}
+           
             </div>
           </div>
           <div className="fighter-container">
@@ -180,10 +188,12 @@ const Battle = (props) => {
                   </CardDock>
           </div>
 
+          {round&&
           <InfoText>
             <span key={fightState.damage} className="fight-log"><span className="fighter-name">{getHitter()}</span> hits  <span className="fighter-name">{getDefender()}</span> with a {fightState.action} caused  
              {fightState.damage} damage</span>
-          </InfoText>
+          </InfoText>}
+          
         </React.Fragment>
       )}
     </React.Fragment>
