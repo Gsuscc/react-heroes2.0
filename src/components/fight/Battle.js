@@ -139,7 +139,7 @@ const Battle = (props) => {
               </span>
             <span className="fighter-name">{getDefender()}</span> 
               with a {" "} 
-            <span className={`${getActionColorClassName()}`}>{fightState.action}</span> caused  {fightState.damage} damage
+            <span className={`${getActionColorClassName()}`}>{fightState.action}</span> caused  <span className="damage">{fightState.damage}</span> damage
             </span>
         </InfoText>)
     }
@@ -179,15 +179,7 @@ const Battle = (props) => {
                   fightState.attackerCard.stat.maxHp
                 }
               />
-              { round &&
-                <InfoText>
-                  AttackerHp:
-                  {round.attacker.attacker
-                    ? round.attacker.myHp
-                    : round.defender.myHp}{" "}
-                  - {fightState.attackerCard.stat.maxHp}
-                </InfoText>
-                }
+              
             </div>
             <div className="defender-container">
               <InfoText>{fightState.defenderCard.name}</InfoText>
@@ -202,14 +194,7 @@ const Battle = (props) => {
                   fightState.defenderCard.stat.maxHp
                 }
               />
-              {round &&  
-                <InfoText>
-                AttackerHp: 
-                {round.defender.attacker
-                  ? round.attacker.myHp
-                  : round.defender.myHp}
-                - {fightState.defenderCard.stat.maxHp}
-              </InfoText>} 
+               
             </div>
           </div>
           <div className="fighter-container">

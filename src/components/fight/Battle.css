@@ -50,6 +50,10 @@
   text-align: center;
 }
 
+.damage {
+  color: red;
+}
+
 .fight-log-container {
   margin-top: 70px;
   line-height: 80px;
