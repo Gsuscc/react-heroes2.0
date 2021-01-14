@@ -11,7 +11,7 @@ const Battle = (props) => {
   const fightLog = props.fightLog;
   const attackerNick = fightLog.myArmy.nick;
   const defenderNick = fightLog.enemyArmy.nick;
-  const { playSlap, playPunch, playBox, playMiss } = useContext(SoundContext);
+  const { playSlap, playPunch, playBox, playMiss, playTada} = useContext(SoundContext);
   const [attackerCards, setAttackerCards] = useState(
     fightLog.myArmy.cards.slice(1)
   );
@@ -122,7 +122,7 @@ const Battle = (props) => {
             <span className="fighter-name new">{getHitter()}</span> 
             againts
             <span className="fighter-name">{getDefender()}</span> 
-              Lets get ready to rumble!
+             <span className="fight-action-double"> Lets get ready to rumble!</span>
             </span>
         </InfoText>)
     } else {
@@ -151,7 +151,8 @@ const Battle = (props) => {
     if(action === 'POW') playSlap()
     if(action === 'DOUBLE') playPunch()
     if(action === 'MISS') playMiss()
-  }, [playBox, playPunch, playSlap])
+    if(action === 'KILLED') playTada()
+  }, [playBox, playPunch, playSlap, playTada, playMiss])
 
   useEffect(() => {
     console.log(fightState)
