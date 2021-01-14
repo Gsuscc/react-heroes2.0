@@ -1,15 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import LinearProgressWithLabel from "../misc/HeroBar";
 import InfoText from "../misc/InfoText";
 import PageTitle from "../header/PageTitle";
 import CardDock from '../card/CardDock'
 import "./Battle.css";
 import Card from "../card/Card";
+import { SoundContext } from "../../state/SoundState";
 
 const Battle = (props) => {
   const fightLog = props.fightLog;
   const attackerNick = fightLog.myArmy.nick;
   const defenderNick = fightLog.enemyArmy.nick;
+  const { playSlap, playPunch, playBox  } = useContext(SoundContext);
   const [attackerCards, setAttackerCards] = useState(
     fightLog.myArmy.cards.slice(1)
   );
@@ -19,6 +21,7 @@ const Battle = (props) => {
   const [rounds, setRounds] = useState(fightLog.rounds);
   const [round, setRound] = useState(null);
   const [fightState, setFightState] = useState(null);
+
 
   useEffect(() => {
     setRound(rounds[0]);
@@ -116,8 +119,17 @@ const Battle = (props) => {
     if(fightState.action === 'BOOM') return 'fight-action-boom'
   }
 
-  console.log(fightState)
+  const getHitSound = useCallback(() => {
+    if(fightState.action === 'KAPOW') playBox()
+    if(fightState.action === 'POW') playSlap()
+    if(fightState.action === 'DOUBLE') playPunch()
+  }, [fightState, playBox, playPunch, playSlap])
 
+  useEffect(() => {
+    if(fightState) getHitSound()
+  }, [fightState, getHitSound])
+
+  
 
   return (
     <React.Fragment>
