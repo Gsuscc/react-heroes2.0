@@ -28,8 +28,7 @@ const Battle = (props) => {
 
   useEffect(() => {
     if (round) {
-      if(round.action === "KILLED") annaunceNewFight();
-      if (round.action === "STARTBATTLE") {
+    if (round.action === "STARTBATTLE") {
         initFightState();
       } else {
         updateFightState();
@@ -38,43 +37,14 @@ const Battle = (props) => {
     let timeout;
     if (rounds.length > 0) {
       timeout = setTimeout(() => {
-        if (round.defender.died) {
-          if (round.attacker.attacker) {
-            if(defenderCards.length > 0){
-              setFightState((state) => ({
-              ...state,
-              defenderCard: defenderCards[0],
-            }));
-            setDefenderCards((cards) => [...cards.slice(1)]);
-            }
-          } else {
-            if(attackerCards.length>0){
-               setFightState((state) => ({
-              ...state,
-              attackerCard: attackerCards[0],
-            }));
-            setAttackerCards((cards) => [...cards.slice(1)]);
-            }
-          }
-        }
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 3500);
+      }, 4500);
     }
     return () => {
       clearTimeout(timeout);
     };
   }, [round]);
 
-  const annaunceNewFight = useCallback(()=>{
-    setFightState({
-      attackerCard: fightState.attackerCard,
-      defenderCard: fightState.defenderCard,
-      action: round.action,
-      attackerHp: round.attacker.myHp,
-      defenderHp: round.defender.myHp,
-      damage: round.damage,
-    });
-  }, [fightLog, round]);
 
   const initFightState = useCallback(() => {
     setFightState({
@@ -92,7 +62,21 @@ const Battle = (props) => {
     let defenderCard = fightState.defenderCard;
     let attackerHp;
     let defenderHp;
-
+    if(round.action === 'KILLED') {
+      if (round.defender.attacker) {
+        if(defenderCards.length > 0){
+          defenderCard= defenderCards[0]
+        }
+        setDefenderCards((cards) => [...cards.slice(1)]);
+        
+      } else {
+        if(attackerCards.length>0){
+          attackerCard = attackerCards[0]
+        }
+        setAttackerCards((cards) => [...cards.slice(1)]);
+        
+      }
+    }
     if (round.attacker.attacker) {
       attackerHp = round.attacker.myHp;
       defenderHp = round.defender.myHp;
@@ -130,14 +114,16 @@ const Battle = (props) => {
     if(fightState.action === 'BOOM') return 'fight-action-boom'
   }
 
-  const getHitSound = useCallback(() => {
-    if(fightState.action === 'KAPOW') playBox()
-    if(fightState.action === 'POW') playSlap()
-    if(fightState.action === 'DOUBLE') playPunch()
-  }, [fightState, playBox, playPunch, playSlap])
+  const getHitSound = useCallback((action) => {
+    console.log(action)
+    if(action === 'KAPOW') playBox()
+    if(action === 'POW') playSlap()
+    if(action === 'DOUBLE') playPunch()
+  }, [playBox, playPunch, playSlap])
 
   useEffect(() => {
-    if(fightState) getHitSound()
+    console.log(fightState)
+    if(fightState) getHitSound(fightState.action)
   }, [fightState, getHitSound])
 
   return (
