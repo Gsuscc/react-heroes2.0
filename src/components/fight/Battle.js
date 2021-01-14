@@ -22,13 +22,13 @@ const Battle = (props) => {
   const [round, setRound] = useState(null);
   const [fightState, setFightState] = useState(null);
 
-
   useEffect(() => {
     setRound(rounds[0]);
   }, [rounds]);
 
   useEffect(() => {
     if (round) {
+      if(round.action === "KILLED") annaunceNewFight();
       if (round.action === "STARTBATTLE") {
         initFightState();
       } else {
@@ -58,12 +58,23 @@ const Battle = (props) => {
           }
         }
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 2500);
+      }, 3500);
     }
     return () => {
       clearTimeout(timeout);
     };
   }, [round]);
+
+  const annaunceNewFight = useCallback(()=>{
+    setFightState({
+      attackerCard: fightState.attackerCard,
+      defenderCard: fightState.defenderCard,
+      action: round.action,
+      attackerHp: round.attacker.myHp,
+      defenderHp: round.defender.myHp,
+      damage: round.damage,
+    });
+  }, [fightLog, round]);
 
   const initFightState = useCallback(() => {
     setFightState({
@@ -129,8 +140,6 @@ const Battle = (props) => {
     if(fightState) getHitSound()
   }, [fightState, getHitSound])
 
-  
-
   return (
     <React.Fragment>
       <PageTitle>
@@ -162,7 +171,6 @@ const Battle = (props) => {
                 </InfoText>
                 }
             </div>
-
             <div className="defender-container">
               <InfoText>{fightState.defenderCard.name}</InfoText>
               <LinearProgressWithLabel
@@ -183,8 +191,7 @@ const Battle = (props) => {
                   ? round.attacker.myHp
                   : round.defender.myHp}
                 - {fightState.defenderCard.stat.maxHp}
-              </InfoText>}
-           
+              </InfoText>} 
             </div>
           </div>
           <div className="fighter-container">
