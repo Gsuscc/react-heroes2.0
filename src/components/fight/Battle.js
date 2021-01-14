@@ -55,7 +55,7 @@ const Battle = (props) => {
           }
         }
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 1000);
+      }, 3500);
     }
     return () => {
       clearTimeout(timeout);
@@ -190,7 +190,7 @@ const Battle = (props) => {
 
           {round&&
           <InfoText>
-            <span key={fightState.damage} className="fight-log"><span className="fighter-name">{getHitter()}</span> hits  <span className="fighter-name">{getDefender()}</span> with a {fightState.action} caused  
+            <span key={fightState.damage} className="fight-log"><span className="fighter-name">{getHitter()}</span> {round.defender.myHp>0? 'hits': 'kills'}  <span className="fighter-name">{getDefender()}</span> with a {fightState.action} caused  
              {fightState.damage} damage</span>
           </InfoText>}
           
