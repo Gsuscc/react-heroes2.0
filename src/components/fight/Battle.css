@@ -8,9 +8,32 @@
   width: 1000px;
   justify-content: space-evenly;
 }
+.new {
+  color: green;
+}
+
+.kills {
+  color: IndianRed;
+  position: relative;
+  -webkit-text-stroke-width: 0px;
+  font-size: 70px;
+}
+
+.hits {
+  color: IndianRed;
+  position: relative;
+  -webkit-text-stroke-width: 0px;
+  font-size: 40px;
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 2px;
+}
+
 .fighter-name {
   font-size: xxx-large;
   margin: 17px;
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 2px;
+  color: orange;
 }
 .fight-log {
   animation: fade linear 1500ms;
@@ -23,6 +46,14 @@
     opacity: 1;
   }
 }
+
+.fight-log-container {
+  margin-top: 70px;
+  line-height: 80px;
+  text-align: center;
+  vertical-align: middle;
+}
+
 .fight-action-kapow {
   display: inline-block;
   font-size: xxx-large;
@@ -119,5 +150,54 @@
   100% {
     transform: scale(3);
     opacity: 0;
+  }
+}
+
+.drop {
+  width: 0.1em;
+  height: 0.1em;
+  border-radius: 0 100% 100% 100%;
+  background-color: currentColor;
+  position: absolute;
+  top: 73%;
+  animation: drop 3s infinite both;
+}
+
+.drop:nth-child(1) {
+  left: 2%;
+}
+
+.drop:nth-child(2) {
+  left: 18%;
+  animation-delay: -0.4s;
+}
+
+.drop:nth-child(3) {
+  left: 31%;
+  animation-delay: -1.5s;
+}
+
+.drop:nth-child(4) {
+  left: 56%;
+  animation-delay: -0.8s;
+}
+
+.drop:nth-child(5) {
+  left: 88%;
+  animation-delay: -1.3s;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0) scaleX(0.85) rotate(45deg);
+    animation-timing-function: ease-out;
+  }
+  60% {
+    transform: translateY(120%) scaleX(0.85) rotate(45deg);
+    animation-timing-function: ease-in;
+  }
+  80%,
+  100% {
+    transform: translateY(60vh) scaleX(0.85) rotate(45deg);
   }
 }

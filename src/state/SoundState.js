@@ -7,6 +7,7 @@ import woosh from "../sounds/woosh.mp3";
 import slap from "../sounds/slap.mp3";
 import box from "../sounds/box.mp3";
 import punch from "../sounds/punch.mp3";
+import miss from "../sounds/miss.mp3";
 
 export const SoundContext = createContext();
 
@@ -15,9 +16,10 @@ export const SoundState = (props) => {
   const [playLevelUp] = useSound(levelUp, { volume: 0.2 });
   const [playBuy] = useSound(buy, { volume: 0.2 });
   const [playWoosh] = useSound(woosh, { volume: 0.2 });
-  const [playSlap] = useSound(slap, { volume: 0.2 });
-  const [playPunch] = useSound(box, { volume: 0.8 });
+  const [playSlap] = useSound(slap, { volume: 0.1 });
+  const [playPunch] = useSound(box, { volume: 1.0 });
   const [playBox] = useSound(punch, { volume: 0.3 });
+  const [playMiss] = useSound(miss, { volume: 0.3 });
 
   return (
     <SoundContext.Provider
@@ -28,7 +30,8 @@ export const SoundState = (props) => {
         playWoosh: playWoosh,
         playSlap: playSlap,
         playBox: playBox,
-        playPunch: playPunch
+        playPunch: playPunch,
+        playMiss: playMiss
       }}
     >
       {props.children}

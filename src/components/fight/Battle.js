@@ -11,7 +11,7 @@ const Battle = (props) => {
   const fightLog = props.fightLog;
   const attackerNick = fightLog.myArmy.nick;
   const defenderNick = fightLog.enemyArmy.nick;
-  const { playSlap, playPunch, playBox  } = useContext(SoundContext);
+  const { playSlap, playPunch, playBox, playMiss } = useContext(SoundContext);
   const [attackerCards, setAttackerCards] = useState(
     fightLog.myArmy.cards.slice(1)
   );
@@ -38,13 +38,12 @@ const Battle = (props) => {
     if (rounds.length > 0) {
       timeout = setTimeout(() => {
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 4500);
+      }, 4000);
     }
     return () => {
       clearTimeout(timeout);
     };
   }, [round]);
-
 
   const initFightState = useCallback(() => {
     setFightState({
@@ -114,11 +113,44 @@ const Battle = (props) => {
     if(fightState.action === 'BOOM') return 'fight-action-boom'
   }
 
+  const getMessage = () => {
+    if(fightState.action ==='KILLED') {
+      return(
+        <InfoText>
+          <span key={fightState.damage} className="fight-log">
+            New Fighter in the arena: 
+            <span className="fighter-name new">{getHitter()}</span> 
+            againts
+            <span className="fighter-name">{getDefender()}</span> 
+              Lets get ready to rumble!
+            </span>
+        </InfoText>)
+    } else {
+      return ( 
+        <InfoText>
+          <span key={fightState.damage} className="fight-log">
+            <span className="fighter-name">{getHitter()}</span> 
+              <span className={round.defender.myHp > 0? 'hits': 'kills'}>{round.defender.myHp > 0? 'hits': 'kills'}
+                  <span class="drop"></span>
+                  <span class="drop"></span>
+                  <span class="drop"></span>
+                  <span class="drop"></span>
+                  <span class="drop"></span>
+              </span>
+            <span className="fighter-name">{getDefender()}</span> 
+              with a {" "} 
+            <span className={`${getActionColorClassName()}`}>{fightState.action}</span> caused  {fightState.damage} damage
+            </span>
+        </InfoText>)
+    }
+  }
+
   const getHitSound = useCallback((action) => {
     console.log(action)
     if(action === 'KAPOW') playBox()
     if(action === 'POW') playSlap()
     if(action === 'DOUBLE') playPunch()
+    if(action === 'MISS') playMiss()
   }, [playBox, playPunch, playSlap])
 
   useEffect(() => {
@@ -200,17 +232,9 @@ const Battle = (props) => {
                     />
                   </CardDock>
           </div>
-
-          {round&&
-          <InfoText>
-            <span key={fightState.damage} className="fight-log">
-              <span className="fighter-name">{getHitter()}</span> 
-              {round.defender.myHp>0? 'hits': 'kills'}  
-              <span className="fighter-name">{getDefender()}</span> 
-                with a {" "} 
-               <span className={`${getActionColorClassName()}`}>{fightState.action}</span> caused  {fightState.damage} damage
-              </span>
-          </InfoText>}
+          <div className="fight-log-container">
+            {round && getMessage()}
+          </div>
           
         </React.Fragment>
       )}

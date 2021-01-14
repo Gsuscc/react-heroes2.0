@@ -32,7 +32,6 @@ const useStyles = makeStyles({
   },
   label: {
     position: "absolute",
-    width: "100%",
     fontWeight: "bold",
     color: "black",
     fontFamily: "superHeroFont",
