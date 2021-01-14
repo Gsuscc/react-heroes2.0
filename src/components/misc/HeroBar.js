@@ -18,23 +18,23 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   root: {
-    width: "200px",
-    height: "30px",
-    // textAlign: "center",
-    // position: "absolute",
+    width: "333px",
+    height: "40px",
     padding: "5px",
   },
   bar: {
     height: "100%",
     width: "100%",
-    // position: "absolute",
     borderRadius: "5px",
   },
   label: {
-    position: "absolute",
-    fontWeight: "bold",
-    color: "black",
-    fontFamily: "superHeroFont",
+    color: 'black',
+    position: 'absolute',
+    fontFamily: 'superHeroFont',
+    fontWeight: 'bold',
+    width: '333px',
+    textAlign: 'center',
+    fontSize: '20px',
   },
 });
 

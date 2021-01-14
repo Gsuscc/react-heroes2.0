@@ -38,7 +38,7 @@ const Battle = (props) => {
     if (rounds.length > 0) {
       timeout = setTimeout(() => {
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 4000);
+      }, 4500);
     }
     return () => {
       clearTimeout(timeout);

@@ -9,6 +9,8 @@ import InfoText from "../misc/InfoText";
 import Loading from "../misc/Loading";
 import LoginCheck from "../misc/LoginCheck";
 import Battle from "./Battle";
+import './Arena.css'
+
 
 const Arena = (props) => {
   return (
@@ -86,7 +88,7 @@ const ArenaComponent = () => {
       {!isLoading && !isBattle && (
         <React.Fragment>
           <InfoText>{myArmy.nick}'s Army</InfoText>
-          <CardContainer>
+          <div className="army-container">
             {myArmy.cards.map((hero) => {
               return (
                 <CardDock key={hero.uniqueId}>
@@ -100,13 +102,13 @@ const ArenaComponent = () => {
                 </CardDock>
               );
             })}
-          </CardContainer>
+          </div>
           <HeroButton onClick={getNewEnemyHandler}>New Enemy</HeroButton>
           {enemyArmy && (
             <React.Fragment>
               <HeroButton onClick={startBattleHandler}>Start Battle</HeroButton>
               <InfoText>{enemyArmy.nick}'s Army</InfoText>
-              <CardContainer>
+              <div className="army-container">
                 {enemyArmy.cards.map((hero) => {
                   return (
                     <CardDock key={hero.uniqueId}>
@@ -120,7 +122,7 @@ const ArenaComponent = () => {
                     </CardDock>
                   );
                 })}
-              </CardContainer>
+              </div>
             </React.Fragment>
           )}
         </React.Fragment>
