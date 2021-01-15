@@ -11,7 +11,7 @@ const Battle = (props) => {
   const fightLog = props.fightLog;
   const attackerNick = fightLog.myArmy.nick;
   const defenderNick = fightLog.enemyArmy.nick;
-  const { playSlap, playPunch, playBox, playMiss, playTada} = useContext(SoundContext);
+  const { playSlap, playPunch, playBox, playMiss, playTada, playStartFight, playWin} = useContext(SoundContext);
   const [attackerCards, setAttackerCards] = useState(
     fightLog.myArmy.cards.slice(1)
   );
@@ -122,10 +122,24 @@ const Battle = (props) => {
             <span className="fighter-name new">{getHitter()}</span> 
             againts
             <span className="fighter-name">{getDefender()}</span> 
-             <span className="fight-action-double"> Lets get ready to rumble!</span>
+            <div><span className="fight-action-double"> Lets get ready to rumble!</span></div> 
+
             </span>
         </InfoText>)
-    } else {
+        }
+      if(fightState.action === 'STARTBATTLE'){
+        return (
+          <InfoText>
+            <span key={fightState.damage} className="fight-log">
+              A legendary battle is starting between: 
+              <span className="fighter-name new">{getHitter()}</span> 
+              and
+              <span className="fighter-name new">{getDefender()}</span> 
+              <div><span className="fight-action-double"> Lets get ready to rumble!</span></div> 
+              </span>
+        </InfoText>
+        )
+      }
       return ( 
         <InfoText>
           <span key={fightState.damage} className="fight-log">
@@ -142,20 +156,39 @@ const Battle = (props) => {
             <span className={`${getActionColorClassName()}`}>{fightState.action}</span> caused  <span className="damage">{fightState.damage}</span> damage
             </span>
         </InfoText>)
-    }
   }
 
   const getHitSound = useCallback((action) => {
-    console.log(action)
     if(action === 'KAPOW') playBox()
     if(action === 'POW') playSlap()
     if(action === 'DOUBLE') playPunch()
     if(action === 'MISS') playMiss()
     if(action === 'KILLED') playTada()
-  }, [playBox, playPunch, playSlap, playTada, playMiss])
+    if(action === 'STARTBATTLE') playStartFight()
+  }, [playBox, playSlap, playPunch, playMiss, playTada, playStartFight])
+
+  const getWinner = () => {
+    playWin()
+    if(fightState.attackerHp === 0) {
+      return hasUserCardByUniqueId(fightLog.myArmy.cards ,fightState.attackerCard.uniqueId) ?
+                    <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText> :
+                    <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText>
+    }
+    else{
+      return hasUserCardByUniqueId(fightLog.myArmy.cards, fightState.defenderCard.uniqueId) ?
+                    <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText> :
+                    <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText>
+    }
+  }
+
+  const hasUserCardByUniqueId = (army, id) =>{
+    for(let fighter of army){
+      if (fighter.uniqueId === id) return true;
+    }
+    return false
+  }
 
   useEffect(() => {
-    console.log(fightState)
     if(fightState) getHitSound(fightState.action)
   }, [fightState, getHitSound])
 
@@ -180,7 +213,6 @@ const Battle = (props) => {
                   fightState.attackerCard.stat.maxHp
                 }
               />
-              
             </div>
             <div className="defender-container">
               <InfoText>{fightState.defenderCard.name}</InfoText>
@@ -195,7 +227,6 @@ const Battle = (props) => {
                   fightState.defenderCard.stat.maxHp
                 }
               />
-               
             </div>
           </div>
           <div className="fighter-container">
@@ -220,8 +251,8 @@ const Battle = (props) => {
           </div>
           <div className="fight-log-container">
             {round && getMessage()}
+            {!round && getWinner()}
           </div>
-          
         </React.Fragment>
       )}
     </React.Fragment>
