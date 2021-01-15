@@ -38,7 +38,7 @@ const Battle = (props) => {
     if (rounds.length > 0) {
       timeout = setTimeout(() => {
         setRounds((rounds) => [...rounds.slice(1)]);
-      }, 4500);
+      }, 2000);
     }
     return () => {
       clearTimeout(timeout);
@@ -159,33 +159,28 @@ const Battle = (props) => {
   }
 
   const getHitSound = useCallback((action) => {
-    if(action === 'KAPOW') playBox()
+    if(action === 'KAPOW') playPunch()
     if(action === 'POW') playSlap()
-    if(action === 'DOUBLE') playPunch()
+    if(action === 'DOUBLE') playBox()
     if(action === 'MISS') playMiss()
     if(action === 'KILLED') playTada()
     if(action === 'STARTBATTLE') playStartFight()
   }, [playBox, playSlap, playPunch, playMiss, playTada, playStartFight])
 
   const getWinner = () => {
-    playWin()
+    // playWin()
     if(fightState.attackerHp === 0) {
-      return hasUserCardByUniqueId(fightLog.myArmy.cards ,fightState.attackerCard.uniqueId) ?
-                    <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText> :
-                    <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText>
+        return <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText> 
+      // return hasUserCardByUniqueId(fightLog.myArmy.cards ,fightState.attackerCard.uniqueId) ?
+      //               <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText> :
+      //               <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText>
     }
     else{
-      return hasUserCardByUniqueId(fightLog.myArmy.cards, fightState.defenderCard.uniqueId) ?
-                    <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText> :
-                    <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText>
+        return <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText>
+      // return hasUserCardByUniqueId(fightLog.myArmy.cards, fightState.defenderCard.uniqueId) ?
+      //               <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText> :
+      //               <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText>
     }
-  }
-
-  const hasUserCardByUniqueId = (army, id) =>{
-    for(let fighter of army){
-      if (fighter.uniqueId === id) return true;
-    }
-    return false
   }
 
   useEffect(() => {

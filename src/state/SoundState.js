@@ -20,12 +20,12 @@ export const SoundState = (props) => {
   const [playBuy] = useSound(buy, { volume: 0.2 });
   const [playWoosh] = useSound(woosh, { volume: 0.2 });
   const [playSlap] = useSound(slap, { volume: 0.1 });
-  const [playPunch] = useSound(box, { volume: 1.0 });
-  const [playBox] = useSound(punch, { volume: 0.3 });
+  const [playPunch] = useSound(punch, { volume: 1.0 });
+  const [playBox] = useSound(box, { volume: 0.2 });
   const [playMiss] = useSound(miss, { volume: 0.3 });
-  const [playTada] = useSound(tada, { volume: 0.3 });
-  const [playStartFight] = useSound(round1, { volume: 0.3 });
-  const [playWin] = useSound(crowd, { volume: 0.3 });
+  const [playTada] = useSound(tada, { volume: 0.1 });
+  const [playStartFight] = useSound(round1, { volume: 0.5 });
+  const [playWin] = useSound(crowd, { volume: 0.1 });
 
   return (
     <SoundContext.Provider
