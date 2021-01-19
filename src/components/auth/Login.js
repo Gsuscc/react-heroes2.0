@@ -22,12 +22,12 @@ const Login = () => {
         },
         { withCredentials: true }
       )
-      .then((response) => {
+      .then(() => {
         refreshUserDetails();
         history.push("/");
       })
       .catch((err) => {
-        addNewAlert(err.response.data.error);
+        addNewAlert("Invalid username/password supplied");
         console.log(err);
       });
   };
