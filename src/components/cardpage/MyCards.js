@@ -32,8 +32,9 @@ const MyCardsComponent = () => {
   const [hasMorePage, setHasMorePage] = useState(true);
   const [heroesList, setHeroesList] = useState([]);
   const pageBottom = useRef();
-  const { addNewAlert, army, setArmy } = useContext(GlobalContext);
+  const { addNewAlert } = useContext(GlobalContext);
   const [isArmySlotVisible, setIsArmySlotVisible] = useState(false);
+  const [army, setArmy] = useState(null);
 
   const armyUniques = army.map((element) => element.uniqueId);
 
@@ -51,7 +52,7 @@ const MyCardsComponent = () => {
         setArmy(army);
       })
       .catch((err) => {
-        addNewAlert(err.response.data.error);
+        addNewAlert("Error while retrieving army");
       });
   }, [setArmy, addNewAlert]);
 
@@ -84,13 +85,13 @@ const MyCardsComponent = () => {
         }
       })
       .catch((err) => {
-        addNewAlert(err.response.data.error);
+        addNewAlert("Error while loading cards");
         console.log(err.response);
         setIsLoading(false);
       });
   }, [page]);
 
-  console.log(heroesList)
+  console.log(heroesList);
 
   return (
     <React.Fragment>
@@ -109,7 +110,7 @@ const MyCardsComponent = () => {
       <CardContainer>
         {heroesList.length > 0
           ? heroesList.map((hero) => {
-              return  (
+              return (
                 <CardDock key={hero.uniqueId}>
                   <Card
                     hero={hero}
@@ -126,11 +127,14 @@ const MyCardsComponent = () => {
             )}
         {isArmySlotVisible && <ArmySlot />}
       </CardContainer>
-      <div class="bounce bottom-left-corner">
-        <HeroButton onClick={toggleSlots}>
-          {isArmySlotVisible ? "Hide Army" : "Show Army"}
-        </HeroButton>
-      </div>
+      {army !== null && (
+        <div class="bounce bottom-left-corner">
+          <HeroButton onClick={toggleSlots}>
+            {isArmySlotVisible ? "Hide Army" : "Show Army"}
+          </HeroButton>
+        </div>
+      )}
+
       <div
         className="scrollTrigger"
         ref={pageBottom}
