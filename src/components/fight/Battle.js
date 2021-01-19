@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, useContext } from "react";
 import LinearProgressWithLabel from "../misc/HeroBar";
 import InfoText from "../misc/InfoText";
 import PageTitle from "../header/PageTitle";
-import CardDock from '../card/CardDock'
+import CardDock from "../card/CardDock";
 import "./Battle.css";
 import Card from "../card/Card";
 import { SoundContext } from "../../state/SoundState";
@@ -11,7 +11,15 @@ const Battle = (props) => {
   const fightLog = props.fightLog;
   const attackerNick = fightLog.myArmy.nick;
   const defenderNick = fightLog.enemyArmy.nick;
-  const { playSlap, playPunch, playBox, playMiss, playTada, playStartFight, playWin} = useContext(SoundContext);
+  const {
+    playSlap,
+    playPunch,
+    playBox,
+    playMiss,
+    playTada,
+    playStartFight,
+    playWin,
+  } = useContext(SoundContext);
   const [attackerCards, setAttackerCards] = useState(
     fightLog.myArmy.cards.slice(1)
   );
@@ -28,7 +36,7 @@ const Battle = (props) => {
 
   useEffect(() => {
     if (round) {
-    if (round.action === "STARTBATTLE") {
+      if (round.action === "STARTBATTLE") {
         initFightState();
       } else {
         updateFightState();
@@ -61,19 +69,17 @@ const Battle = (props) => {
     let defenderCard = fightState.defenderCard;
     let attackerHp;
     let defenderHp;
-    if(round.action === 'KILLED') {
-      if (round.defender.attacker) {
-        if(defenderCards.length > 0){
-          defenderCard= defenderCards[0]
+    if (round.action === "KILLED") {
+      if (!round.defender.attacker) {
+        if (defenderCards.length > 0) {
+          defenderCard = defenderCards[0];
         }
         setDefenderCards((cards) => [...cards.slice(1)]);
-        
       } else {
-        if(attackerCards.length>0){
-          attackerCard = attackerCards[0]
+        if (attackerCards.length > 0) {
+          attackerCard = attackerCards[0];
         }
         setAttackerCards((cards) => [...cards.slice(1)]);
-        
       }
     }
     if (round.attacker.attacker) {
@@ -94,98 +100,123 @@ const Battle = (props) => {
   }, [attackerCards, defenderCards, fightState, round]);
 
   const getHitter = () => {
-    return fightState.attackerCard.uniqueId === round.attacker.uniqueId ?
-            fightState.attackerCard.name:
-            fightState.defenderCard.name
-  }
+    return fightState.attackerCard.uniqueId === round.attacker.uniqueId
+      ? fightState.attackerCard.name
+      : fightState.defenderCard.name;
+  };
 
-  const getDefender = () => {
-    return fightState.defenderCard.uniqueId === round.defender.uniqueId ?
-            fightState.defenderCard.name:
-            fightState.attackerCard.name
-  }
+  const getDefender = () => {
+    return fightState.defenderCard.uniqueId === round.defender.uniqueId
+      ? fightState.defenderCard.name
+      : fightState.attackerCard.name;
+  };
 
-  const getActionColorClassName = () =>{
-    if(fightState.action === 'KAPOW') return 'fight-action-kapow'
-    if(fightState.action === 'POW') return 'fight-action-pow'
-    if(fightState.action === 'MISS') return 'fight-action-miss'
-    if(fightState.action === 'DOUBLE') return 'fight-action-double'
-    if(fightState.action === 'BOOM') return 'fight-action-boom'
-  }
+  const getActionColorClassName = () => {
+    if (fightState.action === "KAPOW") return "fight-action-kapow";
+    if (fightState.action === "POW") return "fight-action-pow";
+    if (fightState.action === "MISS") return "fight-action-miss";
+    if (fightState.action === "DOUBLE") return "fight-action-double";
+    if (fightState.action === "BOOM") return "fight-action-boom";
+  };
 
-  const getMessage = () => {
-    if(fightState.action ==='KILLED') {
-      return(
+  const getMessage = () => {
+    if (fightState.action === "KILLED") {
+      return (
         <InfoText>
           <span key={fightState.damage} className="fight-log">
-            New Fighter in the arena: 
-            <span className="fighter-name new">{getHitter()}</span> 
+            New Fighter in the arena:
+            <span className="fighter-name new">{getHitter()}</span>
             againts
-            <span className="fighter-name">{getDefender()}</span> 
-            <div><span className="fight-action-double"> Lets get ready to rumble!</span></div> 
-
-            </span>
-        </InfoText>)
-        }
-      if(fightState.action === 'STARTBATTLE'){
-        return (
-          <InfoText>
-            <span key={fightState.damage} className="fight-log">
-              A legendary battle is starting between: 
-              <span className="fighter-name new">{getHitter()}</span> 
-              and
-              <span className="fighter-name new">{getDefender()}</span> 
-              <div><span className="fight-action-double"> Lets get ready to rumble!</span></div> 
+            <span className="fighter-name">{getDefender()}</span>
+            <div>
+              <span className="fight-action-double">
+                {" "}
+                Lets get ready to rumble!
               </span>
+            </div>
+          </span>
         </InfoText>
-        )
-      }
-      return ( 
+      );
+    }
+    if (fightState.action === "STARTBATTLE") {
+      return (
         <InfoText>
           <span key={fightState.damage} className="fight-log">
-            <span className="fighter-name">{getHitter()}</span> 
-              <span className={round.defender.myHp > 0? 'hits': 'kills'}>{round.defender.myHp > 0? 'hits': 'kills'}
-                  <span class="drop"></span>
-                  <span class="drop"></span>
-                  <span class="drop"></span>
-                  <span class="drop"></span>
-                  <span class="drop"></span>
+            A legendary battle is starting between:
+            <span className="fighter-name new">{getHitter()}</span>
+            and
+            <span className="fighter-name new">{getDefender()}</span>
+            <div>
+              <span className="fight-action-double">
+                {" "}
+                Lets get ready to rumble!
               </span>
-            <span className="fighter-name">{getDefender()}</span> 
-              with a {" "} 
-            <span className={`${getActionColorClassName()}`}>{fightState.action}</span> caused  <span className="damage">{fightState.damage}</span> damage
-            </span>
-        </InfoText>)
-  }
+            </div>
+          </span>
+        </InfoText>
+      );
+    }
+    return (
+      <InfoText>
+        <span key={fightState.damage} className="fight-log">
+          <span className="fighter-name">{getHitter()}</span>
+          <span className={round.defender.myHp > 0 ? "hits" : "kills"}>
+            {round.defender.myHp > 0 ? "hits" : "kills"}
+            <span class="drop"></span>
+            <span class="drop"></span>
+            <span class="drop"></span>
+            <span class="drop"></span>
+            <span class="drop"></span>
+          </span>
+          <span className="fighter-name">{getDefender()}</span>
+          with a{" "}
+          <span className={`${getActionColorClassName()}`}>
+            {fightState.action}
+          </span>{" "}
+          caused <span className="damage">{fightState.damage}</span> damage
+        </span>
+      </InfoText>
+    );
+  };
 
-  const getHitSound = useCallback((action) => {
-    if(action === 'KAPOW') playPunch()
-    if(action === 'POW') playSlap()
-    if(action === 'DOUBLE') playBox()
-    if(action === 'MISS') playMiss()
-    if(action === 'KILLED') playTada()
-    if(action === 'STARTBATTLE') playStartFight()
-  }, [playBox, playSlap, playPunch, playMiss, playTada, playStartFight])
+  const getHitSound = useCallback(
+    (action) => {
+      if (action === "KAPOW") playPunch();
+      if (action === "POW") playSlap();
+      if (action === "DOUBLE") playBox();
+      if (action === "MISS") playMiss();
+      if (action === "KILLED") playTada();
+      if (action === "STARTBATTLE") playStartFight();
+    },
+    [playBox, playSlap, playPunch, playMiss, playTada, playStartFight]
+  );
 
-  const getWinner = () => {
+  const getWinner = () => {
     // playWin()
-    if(fightState.attackerHp === 0) {
-        return <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText> 
+    if (fightState.attackerHp === 0) {
+      return (
+        <InfoText>
+          <span className="win-message">{defenderNick} won the battle</span>
+        </InfoText>
+      );
       // return hasUserCardByUniqueId(fightLog.myArmy.cards ,fightState.attackerCard.uniqueId) ?
       //               <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText> :
       //               <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText>
-    }
-    else{
-        return <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText>
+    } else {
+      return (
+        <InfoText>
+          <span className="win-message">{attackerNick} won the battle</span>
+        </InfoText>
+      );
       // return hasUserCardByUniqueId(fightLog.myArmy.cards, fightState.defenderCard.uniqueId) ?
       //               <InfoText><span className="win-message">{attackerNick} won the battle</span></InfoText> :
       //               <InfoText><span className="win-message">{defenderNick} won the battle</span></InfoText>
     }
-  }
+  };
 
   useEffect(() => {
-    if(fightState) getHitSound(fightState.action)
-  }, [fightState, getHitSound])
+    if (fightState) getHitSound(fightState.action);
+  }, [fightState, getHitSound]);
 
   return (
     <React.Fragment>
@@ -225,24 +256,24 @@ const Battle = (props) => {
             </div>
           </div>
           <div className="fighter-container">
-                  <CardDock key={fightState.attackerCard.uniqueId}>
-                    <Card
-                      hero={fightState.attackerCard}
-                      isFlippable={true}
-                      isZoomable={false}
-                      isUserCard={true}
-                      isRightClickabale={false}
-                    />
-                  </CardDock>
-                  <CardDock key={fightState.defenderCard.uniqueId}>
-                    <Card
-                      hero={fightState.defenderCard}
-                      isFlippable={true}
-                      isZoomable={false}
-                      isUserCard={true}
-                      isRightClickabale={false}
-                    />
-                  </CardDock>
+            <CardDock key={fightState.attackerCard.uniqueId}>
+              <Card
+                hero={fightState.attackerCard}
+                isFlippable={true}
+                isZoomable={false}
+                isUserCard={true}
+                isRightClickabale={false}
+              />
+            </CardDock>
+            <CardDock key={fightState.defenderCard.uniqueId}>
+              <Card
+                hero={fightState.defenderCard}
+                isFlippable={true}
+                isZoomable={false}
+                isUserCard={true}
+                isRightClickabale={false}
+              />
+            </CardDock>
           </div>
           <div className="fight-log-container">
             {round && getMessage()}
