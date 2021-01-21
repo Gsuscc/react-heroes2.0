@@ -6,13 +6,20 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-const BorderLinearProgress = withStyles((theme) => ({
+const BorderLinearProgress = withStyles((props) => ({
   colorPrimary: {
     backgroundColor: "lightgray",
   },
   bar: {
     borderRadius: 5,
-    backgroundColor: "green",
+    backgroundColor: props => {
+      const red =  255 - (255 / 100 * props.value)
+      const green = 255 / 100 * props.value
+      console.log(`rgb(${red}, ${green}, 0)`)
+      return(
+        `rgb(${red}, ${green}, 0)`
+      )
+    }
   },
 }))(LinearProgress);
 

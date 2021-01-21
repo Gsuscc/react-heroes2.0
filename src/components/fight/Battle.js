@@ -123,36 +123,30 @@ const Battle = (props) => {
     if (fightState.action === "KILLED") {
       return (
         <InfoText>
-          <span key={fightState.damage} className="fight-log">
+          <div key={fightState.damage} className="fight-log">
             New Fighter in the arena:
             <span className="fighter-name new">{getHitter()}</span>
             againts
             <span className="fighter-name">{getDefender()}</span>
-            <div className="fight-log-rumble">
-              <span className="fight-action-double">
-                {" "}
-                Lets get ready to rumble!
-              </span>
-            </div>
-          </span>
+          </div>
         </InfoText>
       );
     }
     if (fightState.action === "STARTBATTLE") {
       return (
-        <InfoText>
-          <span key={fightState.damage} className="fight-log">
+        <InfoText >
+          <div key={fightState.damage} className="fight-log">
             A legendary battle is starting between:
             <span className="fighter-name new">{getHitter()}</span>
             and
             <span className="fighter-name new">{getDefender()}</span>
-          </span>
+          </div>
         </InfoText>
       );
     }
     return (
-      <InfoText>
-        <span key={fightState.damage} className="fight-log">
+      <InfoText >
+        <div key={fightState.damage} className="fight-log">
           <span className="fighter-name">{getHitter()}</span>
           <span className={round.defender.myHp > 0 ? "hits" : "kills"}>
             {round.defender.myHp > 0 ? "hits" : "kills"}
@@ -168,7 +162,7 @@ const Battle = (props) => {
             {fightState.action}
           </span>{" "}
           caused <span className="damage">{fightState.damage}</span> damage
-        </span>
+        </div>
       </InfoText>
     );
   };
@@ -220,7 +214,7 @@ const Battle = (props) => {
       {fightState && (
         <React.Fragment>
           <div className="fight-log-container">
-            {fightState.action === "STARTBATTLE" && (
+            {(fightState.action === "STARTBATTLE" || fightState.action === "KILLED") && (
               <InfoText>
                 <div className="fight-log-rumble">
                   <span className="fight-action-double">

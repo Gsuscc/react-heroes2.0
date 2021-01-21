@@ -37,6 +37,7 @@
 }
 .fight-log {
   animation: fade linear 1500ms;
+  height: 90px;
 }
 @keyframes fade {
   from {
@@ -55,7 +56,7 @@
 }
 
 .fight-log-container {
-  margin-top: 70px;
+  margin-top: 30px;
   line-height: 80px;
   text-align: center;
   vertical-align: middle;
