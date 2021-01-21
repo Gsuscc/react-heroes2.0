@@ -36,8 +36,6 @@ const MyCardsComponent = () => {
   const [isArmySlotVisible, setIsArmySlotVisible] = useState(false);
   const [army, setArmy] = useState(null);
 
-  const armyUniques = army.map((element) => element.uniqueId);
-
   const toggleSlots = useCallback(() => {
     setIsArmySlotVisible(!isArmySlotVisible);
   }, [isArmySlotVisible]);
@@ -118,6 +116,8 @@ const MyCardsComponent = () => {
                     isZoomable={true}
                     isUserCard={true}
                     isRightClickabale={true}
+                    army={army}
+                    setArmy={setArmy}
                   />
                 </CardDock>
               );
@@ -125,7 +125,7 @@ const MyCardsComponent = () => {
           : !isLoading && (
               <InfoText>No cards, go to Shop to collect'em</InfoText>
             )}
-        {isArmySlotVisible && <ArmySlot />}
+        {isArmySlotVisible && <ArmySlot army={army} setArmy={setArmy} />}
       </CardContainer>
       {army !== null && (
         <div class="bounce bottom-left-corner">

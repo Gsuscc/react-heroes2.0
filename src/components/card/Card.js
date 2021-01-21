@@ -11,11 +11,11 @@ const Card = (props) => {
   const isFlippable = props.isFlippable;
   const isZoomable = props.isZoomable;
   const isUserCard = props.isUserCard;
-  const isRightClickabale = props.isRightClickabale
+  const isRightClickabale = props.isRightClickabale;
   const [isFrontPage, setIsFrontPage] = useState(true);
   const { playCardFlip } = useContext(SoundContext);
-  const { army, setArmy } = useContext(GlobalContext);
-  
+  const army = props.army;
+  const setArmy = props.setArmy;
 
   const getColor = () => {
     if (hero.biography.alignment === "good") return { color: "darkgreen" };
@@ -31,19 +31,20 @@ const Card = (props) => {
 
   const handleRightClick = useCallback(
     (e) => {
-      if(isRightClickabale){
-        e.preventDefault()
-        if(army.includes(hero)){
-          setArmy(army.filter((selected)=> selected !== hero))
+      console.log(army);
+      if (isRightClickabale) {
+        e.preventDefault();
+        if (army.includes(hero)) {
+          setArmy(army.filter((selected) => selected !== hero));
+        } else if (army.length <= 4) {
+          setArmy((army) => [...army, hero]);
+        } else {
+          console.log("army is full");
         }
-        else if (army.length <= 4){
-          setArmy(army => [...army, hero])
-        }
-        else{console.log('army is full')}
       }
     },
-    [army, hero, isRightClickabale, setArmy],
-  ) 
+    [army, hero, isRightClickabale, setArmy]
+  );
 
   return (
     <div
@@ -63,17 +64,17 @@ const Card = (props) => {
 
 export default Card;
 
-Card.propTypes = {		
-  hero: PropTypes.object,		
-  isFlippable: PropTypes.bool,		
-  isZoomable: PropTypes.bool,		
-  isUserCard: PropTypes.bool,		
-  isRightClickabale: PropTypes.bool
+Card.propTypes = {
+  hero: PropTypes.object,
+  isFlippable: PropTypes.bool,
+  isZoomable: PropTypes.bool,
+  isUserCard: PropTypes.bool,
+  isRightClickabale: PropTypes.bool,
 };
 
 Card.defaultProps = {
   isFlippable: false,
   isZoomable: false,
   isUserCard: false,
-  isRightClickabale: false
+  isRightClickabale: false,
 };

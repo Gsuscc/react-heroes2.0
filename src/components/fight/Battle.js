@@ -128,7 +128,7 @@ const Battle = (props) => {
             <span className="fighter-name new">{getHitter()}</span>
             againts
             <span className="fighter-name">{getDefender()}</span>
-            <div>
+            <div className="fight-log-rumble">
               <span className="fight-action-double">
                 {" "}
                 Lets get ready to rumble!
@@ -146,12 +146,6 @@ const Battle = (props) => {
             <span className="fighter-name new">{getHitter()}</span>
             and
             <span className="fighter-name new">{getDefender()}</span>
-            <div>
-              <span className="fight-action-double">
-                {" "}
-                Lets get ready to rumble!
-              </span>
-            </div>
           </span>
         </InfoText>
       );
@@ -225,6 +219,20 @@ const Battle = (props) => {
       </PageTitle>
       {fightState && (
         <React.Fragment>
+          <div className="fight-log-container">
+            {fightState.action === "STARTBATTLE" && (
+              <InfoText>
+                <div className="fight-log-rumble">
+                  <span className="fight-action-double">
+                    Lets get ready to rumble!
+                  </span>
+                </div>
+              </InfoText>
+            )}
+
+            {round && getMessage()}
+            {!round && getWinner()}
+          </div>
           <div className="battle-container">
             <div className="attacker-container">
               <InfoText>{fightState.attackerCard.name}</InfoText>
@@ -255,6 +263,7 @@ const Battle = (props) => {
               />
             </div>
           </div>
+
           <div className="fighter-container">
             <CardDock key={fightState.attackerCard.uniqueId}>
               <Card
@@ -274,10 +283,6 @@ const Battle = (props) => {
                 isRightClickabale={false}
               />
             </CardDock>
-          </div>
-          <div className="fight-log-container">
-            {round && getMessage()}
-            {!round && getWinner()}
           </div>
         </React.Fragment>
       )}
