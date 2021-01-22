@@ -6,6 +6,11 @@ import CardDock from "../card/CardDock";
 import "./Battle.css";
 import Card from "../card/Card";
 import { SoundContext } from "../../state/SoundState";
+import kapowImg from "../../img/kapow.png";
+import powImg from "../../img/pow.png";
+import boomImg from "../../img/boom.png";
+import doubleImg from "../../img/wow.png";
+import missImg from "../../img/lol.png";
 
 const Battle = (props) => {
   const fightLog = props.fightLog;
@@ -61,6 +66,7 @@ const Battle = (props) => {
       attackerCard: fightLog.myArmy.cards[0],
       defenderCard: fightLog.enemyArmy.cards[0],
       damage: round.damage,
+      turn: round.attacker.attacker ? "attacker" : "defender",
     });
   }, [fightLog, round]);
 
@@ -96,6 +102,7 @@ const Battle = (props) => {
       attackerCard: attackerCard,
       defenderCard: defenderCard,
       damage: round.damage,
+      turn: round.attacker.attacker ? "attacker" : "defender",
     });
   }, [attackerCards, defenderCards, fightState, round]);
 
@@ -119,6 +126,47 @@ const Battle = (props) => {
     if (fightState.action === "BOOM") return "fight-action-boom";
   };
 
+  const isFightEvent = () => {
+    return (
+      fightState.action === "KAPOW" ||
+      fightState.action === "POW" ||
+      fightState.action === "MISS" ||
+      fightState.action === "DOUBLE" ||
+      fightState.action === "BOOM"
+    );
+  };
+
+  const getActionFrame = () => {
+    if (isFightEvent())
+      return (
+        <div className={getActionColorClassName() + "-animation"}>
+          {getActionImage()}
+        </div>
+      );
+    return null;
+  };
+
+  const getActionImage = () => {
+    if (fightState.action === "KAPOW")
+      return (
+        <img style={{ maxWidth: "320px" }} src={kapowImg} alt="event"></img>
+      );
+    if (fightState.action === "POW")
+      return <img style={{ maxWidth: "320px" }} src={powImg} alt="event"></img>;
+    if (fightState.action === "MISS")
+      return (
+        <img style={{ maxWidth: "320px" }} src={missImg} alt="event"></img>
+      );
+    if (fightState.action === "DOUBLE")
+      return (
+        <img style={{ maxWidth: "320px" }} src={doubleImg} alt="event"></img>
+      );
+    if (fightState.action === "BOOM")
+      return (
+        <img style={{ maxWidth: "320px" }} src={boomImg} alt="event"></img>
+      );
+  };
+
   const getMessage = () => {
     if (fightState.action === "KILLED") {
       return (
@@ -134,7 +182,7 @@ const Battle = (props) => {
     }
     if (fightState.action === "STARTBATTLE") {
       return (
-        <InfoText >
+        <InfoText>
           <div key={fightState.damage} className="fight-log">
             A legendary battle is starting between:
             <span className="fighter-name new">{getHitter()}</span>
@@ -145,7 +193,7 @@ const Battle = (props) => {
       );
     }
     return (
-      <InfoText >
+      <InfoText>
         <div key={fightState.damage} className="fight-log">
           <span className="fighter-name">{getHitter()}</span>
           <span className={round.defender.myHp > 0 ? "hits" : "kills"}>
@@ -214,7 +262,8 @@ const Battle = (props) => {
       {fightState && (
         <React.Fragment>
           <div className="fight-log-container">
-            {(fightState.action === "STARTBATTLE" || fightState.action === "KILLED") && (
+            {(fightState.action === "STARTBATTLE" ||
+              fightState.action === "KILLED") && (
               <InfoText>
                 <div className="fight-log-rumble">
                   <span className="fight-action-double">
@@ -259,24 +308,30 @@ const Battle = (props) => {
           </div>
 
           <div className="fighter-container">
-            <CardDock key={fightState.attackerCard.uniqueId}>
-              <Card
-                hero={fightState.attackerCard}
-                isFlippable={true}
-                isZoomable={false}
-                isUserCard={true}
-                isRightClickabale={false}
-              />
-            </CardDock>
-            <CardDock key={fightState.defenderCard.uniqueId}>
-              <Card
-                hero={fightState.defenderCard}
-                isFlippable={true}
-                isZoomable={false}
-                isUserCard={true}
-                isRightClickabale={false}
-              />
-            </CardDock>
+            <div className="fighter-frame">
+              {fightState.turn === "defender" && getActionFrame()}
+              <CardDock key={fightState.attackerCard.uniqueId}>
+                <Card
+                  hero={fightState.attackerCard}
+                  isFlippable={true}
+                  isZoomable={false}
+                  isUserCard={true}
+                  isRightClickabale={false}
+                />
+              </CardDock>
+            </div>
+            <div className="fighter-frame">
+              {fightState.turn === "attacker" && getActionFrame()}
+              <CardDock key={fightState.defenderCard.uniqueId}>
+                <Card
+                  hero={fightState.defenderCard}
+                  isFlippable={true}
+                  isZoomable={false}
+                  isUserCard={true}
+                  isRightClickabale={false}
+                />
+              </CardDock>
+            </div>
           </div>
         </React.Fragment>
       )}
