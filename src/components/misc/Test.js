@@ -8,7 +8,7 @@ import HeroBar from './HeroBar'
     
     useEffect(() => {
         if(percentage > 0){
-            let timeOut = setTimeout(() => setPercentage((percentage) => percentage-1 ), 150)
+            setTimeout(() => setPercentage((percentage) => percentage-1 ), 150)
         }
     }, [percentage])
 

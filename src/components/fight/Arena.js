@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { createRef, useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../../state/GlobalState";
 import Card from "../card/Card";
-import CardContainer from "../card/CardContainer";
 import CardDock from "../card/CardDock";
 import HeroButton from "../misc/HeroButton";
 import InfoText from "../misc/InfoText";

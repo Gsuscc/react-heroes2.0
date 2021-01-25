@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import HeroButton from '../misc/HeroButton';
 import axios from 'axios'
 import { GlobalContext } from '../../state/GlobalState';
-import { MyCardContext, MyCardState } from '../../state/MyCardState';
+import { MyCardContext } from '../../state/MyCardState';
 
 
 const CardHeader = (props) => {

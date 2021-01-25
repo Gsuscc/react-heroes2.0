@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState, useContext } from "react";
 import LinearProgressWithLabel from "../misc/HeroBar";
 import InfoText from "../misc/InfoText";
@@ -25,7 +26,6 @@ const Battle = (props) => {
     playMiss,
     playTada,
     playStartFight,
-    playWin,
     playMarvel,
     playKapow,
   } = useContext(SoundContext);
