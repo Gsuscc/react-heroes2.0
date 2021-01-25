@@ -1,0 +1,353 @@
+.battle-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 1000px;
+}
+.fighter-container {
+  display: flex;
+  width: 1100px;
+  justify-content: space-evenly;
+}
+.new {
+  color: green !important;
+}
+
+.kills {
+  color: IndianRed;
+  position: relative;
+  -webkit-text-stroke-width: 0px;
+  font-size: 70px;
+}
+
+.hits {
+  color: IndianRed;
+  position: relative;
+  -webkit-text-stroke-width: 0px;
+  font-size: 45px;
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 2px;
+}
+
+.fighter-name {
+  font-size: 50px;
+  margin: 17px;
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 2px;
+  color: orange;
+}
+.fight-log {
+  animation: fade linear 1500ms;
+  height: 90px;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.info-text {
+  text-align: center;
+}
+
+.damage {
+  color: red;
+}
+
+.fight-log-container {
+  margin-top: 30px;
+  line-height: 80px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.fight-action-kapow {
+  display: inline-block;
+  font-size: 50px;
+  animation: kapow infinite 0.5s;
+}
+.fight-action-boom {
+  display: inline-block;
+  font-size: 50px;
+  animation: boom infinite 0.5s;
+}
+.fight-action-pow {
+  font-size: 50px;
+  display: inline-block;
+}
+.fight-action-miss {
+  font-size: 50px;
+  display: inline-block;
+  animation: miss cubic-bezier(1, 0, 0, 1) 1.5s;
+}
+.fight-action-double {
+  font-size: 50px;
+  display: inline-block;
+  animation: double linear 2.5s;
+}
+
+.fight-log-rumble {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+}
+
+@keyframes kapow {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+@keyframes boom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.2);
+  }
+  80% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes miss {
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes double {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+.drop {
+  width: 0.1em;
+  height: 0.1em;
+  border-radius: 0 100% 100% 100%;
+  background-color: currentColor;
+  position: absolute;
+  top: 73%;
+  animation: drop 3s infinite both;
+}
+
+.drop:nth-child(1) {
+  left: 2%;
+}
+
+.drop:nth-child(2) {
+  left: 18%;
+  animation-delay: -0.4s;
+}
+
+.drop:nth-child(3) {
+  left: 31%;
+  animation-delay: -1.5s;
+}
+
+.drop:nth-child(4) {
+  left: 56%;
+  animation-delay: -0.8s;
+}
+
+.drop:nth-child(5) {
+  left: 88%;
+  animation-delay: -1.3s;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0) scaleX(0.85) rotate(45deg);
+    animation-timing-function: ease-out;
+  }
+  60% {
+    transform: translateY(120%) scaleX(0.85) rotate(45deg);
+    animation-timing-function: ease-in;
+  }
+  80%,
+  100% {
+    transform: translateY(28.5vh) scaleX(0.85) rotate(45deg);
+  }
+}
+
+.fighter-frame {
+  position: relative;
+}
+.fight-action-pow-animation {
+  position: absolute;
+  z-index: 150;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  animation: pow-img cubic-bezier(1, 0, 0, 1) 0.5s;
+}
+
+@keyframes pow-img {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+.fight-action-kapow-animation {
+  position: absolute;
+  z-index: 150;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  animation: kapow-img infinite 0.5s;
+}
+
+@keyframes kapow-img {
+  0% {
+    transform: translate(-49%, -49%) rotate(0deg);
+  }
+  10% {
+    transform: translate(-51%, -52%) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-53%, -50%) rotate(1deg);
+  }
+  30% {
+    transform: translate(-47%, -48%) rotate(0deg);
+  }
+  40% {
+    transform: translate(-49%, -51%) rotate(1deg);
+  }
+  50% {
+    transform: translate(-51%, -48%) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-53%, -49%) rotate(0deg);
+  }
+  70% {
+    transform: translate(-47%, -49%) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-51%, -51%) rotate(1deg);
+  }
+  90% {
+    transform: translate(-49%, -48%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-49%, -52%) rotate(-1deg);
+  }
+}
+
+.fight-action-boom-animation {
+  position: absolute;
+  z-index: 150;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  animation: boom-img infinite 0.5s;
+}
+@keyframes boom-img {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+.fight-action-double-animation {
+  position: absolute;
+  z-index: 150;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  animation: double-img linear 1s;
+}
+
+@keyframes double-img {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2) rotate(-360deg);
+  }
+}
+
+.fight-action-miss-animation {
+  position: absolute;
+  z-index: 150;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  animation: miss-img cubic-bezier(1, 0, 0, 1) 1.5s;
+}
+
+@keyframes miss-img {
+  25% {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(270deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

@@ -16,7 +16,6 @@ import InfoText from "../misc/InfoText";
 import CardContainer from "../card/CardContainer";
 import LoginCheck from "../misc/LoginCheck";
 import ArmySlot from "./ArmySlot";
-import Button from "@material-ui/core/Button";
 import HeroButton from "../misc/HeroButton";
 
 const MyCards = (props) => {
@@ -33,10 +32,9 @@ const MyCardsComponent = () => {
   const [hasMorePage, setHasMorePage] = useState(true);
   const [heroesList, setHeroesList] = useState([]);
   const pageBottom = useRef();
-  const { addNewAlert, army, setArmy } = useContext(GlobalContext);
+  const { addNewAlert } = useContext(GlobalContext);
   const [isArmySlotVisible, setIsArmySlotVisible] = useState(false);
-
-  const armyUniques = army.map((element) => element.uniqueId);
+  const [army, setArmy] = useState(null);
 
   const toggleSlots = useCallback(() => {
     setIsArmySlotVisible(!isArmySlotVisible);
@@ -52,7 +50,7 @@ const MyCardsComponent = () => {
         setArmy(army);
       })
       .catch((err) => {
-        addNewAlert(err.response.data.error);
+        addNewAlert("Error while retrieving army");
       });
   }, [setArmy, addNewAlert]);
 
@@ -85,11 +83,13 @@ const MyCardsComponent = () => {
         }
       })
       .catch((err) => {
-        addNewAlert(err.response.data.error);
+        addNewAlert("Error while loading cards");
         console.log(err.response);
         setIsLoading(false);
       });
   }, [page]);
+
+  console.log(heroesList);
 
   return (
     <React.Fragment>
@@ -108,7 +108,7 @@ const MyCardsComponent = () => {
       <CardContainer>
         {heroesList.length > 0
           ? heroesList.map((hero) => {
-              return  (
+              return (
                 <CardDock key={hero.uniqueId}>
                   <Card
                     hero={hero}
@@ -116,6 +116,9 @@ const MyCardsComponent = () => {
                     isZoomable={true}
                     isUserCard={true}
                     isRightClickabale={true}
+                    isSellable = {true}
+                    army={army}
+                    setArmy={setArmy}
                   />
                 </CardDock>
               );
@@ -123,13 +126,16 @@ const MyCardsComponent = () => {
           : !isLoading && (
               <InfoText>No cards, go to Shop to collect'em</InfoText>
             )}
-        {isArmySlotVisible && <ArmySlot />}
+        {isArmySlotVisible && <ArmySlot army={army} setArmy={setArmy} />}
       </CardContainer>
-      <div class="bounce bottom-left-corner">
-        <HeroButton onClick={toggleSlots}>
-          {isArmySlotVisible ? "Hide Army" : "Show Army"}
-        </HeroButton>
-      </div>
+      {army !== null && (
+        <div class="bounce bottom-left-corner">
+          <HeroButton onClick={toggleSlots}>
+            {isArmySlotVisible ? "Hide Army" : "Show Army"}
+          </HeroButton>
+        </div>
+      )}
+
       <div
         className="scrollTrigger"
         ref={pageBottom}

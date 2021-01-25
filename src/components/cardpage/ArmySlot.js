@@ -1,16 +1,15 @@
 import React, { useCallback, useContext } from "react";
 import { GlobalContext } from "../../state/GlobalState";
 import Card from "../card/Card";
-import CardDock from "../card/CardDock";
-import CardDockDrag from "../card/CardDockDrag";
 import CardDockMini from "../card/CardDockMini";
 import HeroButton from "../misc/HeroButton";
 import axios from "axios";
 import "./ArmySlot.css";
-import { List } from "material-ui";
 
-const ArmySlot = () => {
-  const { addNewAlert, army, setArmy } = useContext(GlobalContext);
+const ArmySlot = (props) => {
+  const army = props.army;
+  const setArmy = props.setArmy;
+  const { addNewAlert } = useContext(GlobalContext);
 
   const resetSlots = useCallback(() => {
     setArmy([]);
@@ -44,6 +43,8 @@ const ArmySlot = () => {
               isZoomable={false}
               isUserCard={true}
               isRightClickabale={true}
+              army={army}
+              setArmy={setArmy}
             />
           </CardDockMini>
         )}
@@ -59,6 +60,8 @@ const ArmySlot = () => {
               isZoomable={false}
               isUserCard={true}
               isRightClickabale={true}
+              army={army}
+              setArmy={setArmy}
             />
           </CardDockMini>
         )}
@@ -74,6 +77,8 @@ const ArmySlot = () => {
               isZoomable={false}
               isUserCard={true}
               isRightClickabale={true}
+              army={army}
+              setArmy={setArmy}
             />
           </CardDockMini>
         )}
@@ -89,6 +94,8 @@ const ArmySlot = () => {
               isZoomable={false}
               isUserCard={true}
               isRightClickabale={true}
+              army={army}
+              setArmy={setArmy}
             />
           </CardDockMini>
         )}
@@ -104,6 +111,8 @@ const ArmySlot = () => {
               isZoomable={false}
               isUserCard={true}
               isRightClickabale={true}
+              army={army}
+              setArmy={setArmy}
             />
           </CardDockMini>
         )}
