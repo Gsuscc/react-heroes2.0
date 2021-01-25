@@ -12,6 +12,7 @@ const Card = (props) => {
   const isZoomable = props.isZoomable;
   const isUserCard = props.isUserCard;
   const isRightClickabale = props.isRightClickabale;
+  const isSellable = props.isSellable;
   const [isFrontPage, setIsFrontPage] = useState(true);
   const { playCardFlip } = useContext(SoundContext);
   const army = props.army;
@@ -53,7 +54,7 @@ const Card = (props) => {
       onContextMenu={handleRightClick}
     >
       <div className={isFrontPage ? "card" : "card is-flipped"}>
-        <FrontPage hero={hero} getColor={getColor} isUserCard={isUserCard} />
+        <FrontPage hero={hero} getColor={getColor} isUserCard={isUserCard} isSellable={isSellable} />
         {isFlippable && (
           <BackPage hero={hero} getColor={getColor} isUserCard={isUserCard} />
         )}
@@ -70,6 +71,7 @@ Card.propTypes = {
   isZoomable: PropTypes.bool,
   isUserCard: PropTypes.bool,
   isRightClickabale: PropTypes.bool,
+  isSellable: PropTypes.bool,
 };
 
 Card.defaultProps = {
@@ -77,4 +79,5 @@ Card.defaultProps = {
   isZoomable: false,
   isUserCard: false,
   isRightClickabale: false,
+  isSellable: false
 };

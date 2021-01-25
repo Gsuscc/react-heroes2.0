@@ -116,6 +116,7 @@ const MyCardsComponent = () => {
                     isZoomable={true}
                     isUserCard={true}
                     isRightClickabale={true}
+                    isSellable = {true}
                     army={army}
                     setArmy={setArmy}
                   />

@@ -15,7 +15,6 @@ const BorderLinearProgress = withStyles((props) => ({
     backgroundColor: props => {
       const red =  props.value > 90 ? 0 : Math.log2(90 - props.value + 1) * 36
       const green = props.value < 15 ? 0 : Math.log2(((props.value - 15) * 3 )+1) *20
-      console.log(`rgb(${red}, ${green}, 0)`)
       return(
         `rgb(${red}, ${green}, 0)`
       )

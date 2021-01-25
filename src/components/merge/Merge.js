@@ -14,6 +14,8 @@ import InfoText from "../misc/InfoText";
 import { SoundContext } from "../../state/SoundState";
 import CardContainer from "../card/CardContainer";
 import LoginCheck from "../misc/LoginCheck";
+import HeroButton from "../misc/HeroButton"
+import  { useHistory } from "react-router-dom"
 
 const Merge = (props) => {
   const cardToMerge = props.location.state;
@@ -25,6 +27,7 @@ const Merge = (props) => {
 };
 
 const MergeComponent = (props) => {
+  const history = useHistory()
   const { addNewAlert } = useContext(GlobalContext);
   const [heroToMerge, setHeroToMerge] = useState(props.cardToMerge);
   const [page, setPage] = useState(0);
@@ -135,6 +138,7 @@ const MergeComponent = (props) => {
             />
           </CardDockDrop>
         </CardContainer>
+        <HeroButton onClick={() => history.push('/mycards')}>Back</HeroButton> 
         <CardContainer>
           {heroesList.length > 0 ? (
             heroesList.map((hero) => {
