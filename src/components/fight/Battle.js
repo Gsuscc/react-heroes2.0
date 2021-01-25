@@ -24,6 +24,8 @@ const Battle = (props) => {
     playTada,
     playStartFight,
     playWin,
+    playMarvel,
+    playKapow,
   } = useContext(SoundContext);
   const [attackerCards, setAttackerCards] = useState(
     fightLog.myArmy.cards.slice(1)
@@ -217,14 +219,19 @@ const Battle = (props) => {
 
   const getHitSound = useCallback(
     (action) => {
-      if (action === "KAPOW") playPunch();
+      if (action === "KAPOW") playKapow();
+      if (action === "BOOM") playPunch();
       if (action === "POW") playSlap();
       if (action === "DOUBLE") playBox();
       if (action === "MISS") playMiss();
-      if (action === "KILLED") playTada();
-      if (action === "STARTBATTLE") playStartFight();
+      // if (action === "KILLED") playTada();
+      if (action === "STARTBATTLE"){
+        playMarvel();
+        playStartFight();
+      } 
+      
     },
-    [playBox, playSlap, playPunch, playMiss, playTada, playStartFight]
+    [playKapow, playPunch, playSlap, playBox, playMiss, playTada, playStartFight]
   );
 
   const getWinner = () => {

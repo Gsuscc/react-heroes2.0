@@ -11,6 +11,8 @@ import miss from "../sounds/miss.mp3";
 import tada from "../sounds/tada.mp3";
 import round1 from "../sounds/round1.mp3";
 import crowd from "../sounds/crowd.mp3";
+import kapow from "../sounds/kapow.mp3";
+import marvel from "../sounds/marvel.mp3";
 
 export const SoundContext = createContext();
 
@@ -26,7 +28,9 @@ export const SoundState = (props) => {
   const [playTada] = useSound(tada, { volume: 0.1 });
   const [playStartFight] = useSound(round1, { volume: 0.5 });
   const [playWin] = useSound(crowd, { volume: 0.1 });
-
+  const [playKapow] = useSound(kapow, { volume: 0.1 });
+  const [playMarvel] = useSound(marvel, { volume: 0.1, loop: true });
+  
   return (
     <SoundContext.Provider
       value={{
@@ -40,7 +44,9 @@ export const SoundState = (props) => {
         playMiss: playMiss,
         playTada: playTada,
         playStartFight: playStartFight,
-        playWin: playWin
+        playWin: playWin,
+        playKapow: playKapow,
+        playMarvel: playMarvel
       }}
     >
       {props.children}
