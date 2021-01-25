@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import HeroButton from '../misc/HeroButton';
 
 
 const CardHeader = (props) => {
   const getColor = props.getColor;
   const heroName = props.heroName;
+  const sellable = props.sellable;
+
+  const handleSell = (e) =>{
+    e.stopPropagation()
+  }
 
   return (
     <div
@@ -12,6 +18,7 @@ const CardHeader = (props) => {
       className={"card-name dotted"}
     >
       <div>{heroName}</div>
+      {sellable && <div className="sell-button"><HeroButton onClick={handleSell}>X</HeroButton></div> }
     </div>
   )
 }
