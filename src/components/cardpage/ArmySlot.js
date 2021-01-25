@@ -14,7 +14,7 @@ const ArmySlot = (props) => {
   const resetSlots = useCallback(() => {
     setArmy([]);
   }, [setArmy]);
-
+  
   const saveArmy = useCallback(() => {
     if (army.length !== 5) addNewAlert("Need exacly 5 card!");
     else

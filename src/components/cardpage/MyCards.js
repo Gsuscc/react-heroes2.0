@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
   useEffect,
   useState,
@@ -17,24 +18,34 @@ import CardContainer from "../card/CardContainer";
 import LoginCheck from "../misc/LoginCheck";
 import ArmySlot from "./ArmySlot";
 import HeroButton from "../misc/HeroButton";
+import { MyCardContext } from "../../state/MyCardState";
 
 const MyCards = (props) => {
   return (
     <LoginCheck>
-      <MyCardsComponent />
+        <MyCardsComponent />
     </LoginCheck>
   );
 };
 
-const MyCardsComponent = () => {
-  const [page, setPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasMorePage, setHasMorePage] = useState(true);
-  const [heroesList, setHeroesList] = useState([]);
+const MyCardsComponent = (props) => {
   const pageBottom = useRef();
   const { addNewAlert } = useContext(GlobalContext);
+  const {
+    isLoading,
+    setIsLoading, 
+    page, 
+    setPage, 
+    heroesList, 
+    setHeroesList, 
+    hasMorePage, 
+    setHasMorePage
+  } = useContext(MyCardContext)
   const [isArmySlotVisible, setIsArmySlotVisible] = useState(false);
   const [army, setArmy] = useState(null);
+
+  console.log(MyCardContext)
+  console.log(heroesList)
 
   const toggleSlots = useCallback(() => {
     setIsArmySlotVisible(!isArmySlotVisible);
@@ -53,6 +64,7 @@ const MyCardsComponent = () => {
         addNewAlert("Error while retrieving army");
       });
   }, [setArmy, addNewAlert]);
+
 
   useEffect(() => {
     const toggleDiv = pageBottom.current;
@@ -83,13 +95,12 @@ const MyCardsComponent = () => {
         }
       })
       .catch((err) => {
-        addNewAlert("Error while loading cards");
-        console.log(err.response);
+        // addNewAlert("Error while loading cards");
         setIsLoading(false);
       });
   }, [page]);
+  
 
-  console.log(heroesList);
 
   return (
     <React.Fragment>

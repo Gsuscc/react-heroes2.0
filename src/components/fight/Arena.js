@@ -1,8 +1,7 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { createRef, useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../../state/GlobalState";
 import Card from "../card/Card";
-import CardContainer from "../card/CardContainer";
 import CardDock from "../card/CardDock";
 import HeroButton from "../misc/HeroButton";
 import InfoText from "../misc/InfoText";
@@ -20,6 +19,12 @@ const Arena = (props) => {
   );
 };
 
+const fillRefs = (arrRef) =>{
+  arrRef.current = Array(5).fill().map(
+    (ref, index) =>   arrRef.current[index] = createRef()
+  )
+}
+
 const ArenaComponent = () => {
   const [myArmy, setMyArmy] = useState();
   const [enemyArmy, setEnemyArmy] = useState();
@@ -27,6 +32,8 @@ const ArenaComponent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [fightLog, setFightLog] = useState();
   const [isBattle, setIsBattle] = useState(false);
+  const defenderCards = useRef([])
+  const attackerCards = useRef([])
 
   useEffect(() => {
     axios
@@ -81,24 +88,37 @@ const ArenaComponent = () => {
       });
   };
 
+  fillRefs(attackerCards);
+  fillRefs(defenderCards);
+
+  const flipAll = (arrRef) => {
+    arrRef.current.forEach((el, i) => {
+      setTimeout(() => el.current.firstChild.click(), i*150)
+  }
+    )
+  }
+
   return (
     <React.Fragment>
       {isLoading && <Loading />}
       {!isLoading && isBattle && <Battle fightLog={fightLog} />}
       {!isLoading && !isBattle && (
         <React.Fragment>
+          <div className="bounce upper-left-corner"><HeroButton onClick={() => flipAll(attackerCards)}>Flip all</HeroButton></div>
           <InfoText>{myArmy.nick}'s Army</InfoText>
           <div className="army-container">
-            {myArmy.cards.map((hero) => {
+            {myArmy.cards.map((hero, i) => {
               return (
                 <CardDock key={hero.uniqueId}>
-                  <Card
+                  <div ref={attackerCards.current[i]}>
+                   <Card
                     hero={hero}
                     isFlippable={true}
                     isZoomable={true}
                     isUserCard={true}
                     isRightClickabale={false}
-                  />
+                  /> 
+                  </div>
                 </CardDock>
               );
             })}
@@ -107,18 +127,20 @@ const ArenaComponent = () => {
           {enemyArmy && (
             <React.Fragment>
               <HeroButton onClick={startBattleHandler}>Start Battle</HeroButton>
+              <div className="bounce bottom-left-corner"><HeroButton onClick={() => flipAll(defenderCards)}>Flip all</HeroButton></div>
               <InfoText>{enemyArmy.nick}'s Army</InfoText>
               <div className="army-container">
-                {enemyArmy.cards.map((hero) => {
+                {enemyArmy.cards.map((hero,i ) => {
                   return (
                     <CardDock key={hero.uniqueId}>
-                      <Card
+                      <div ref={defenderCards.current[i]}><Card
                         hero={hero}
                         isFlippable={true}
                         isZoomable={true}
                         isUserCard={true}
                         isRightClickabale={false}
                       />
+                      </div> 
                     </CardDock>
                   );
                 })}

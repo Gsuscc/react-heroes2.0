@@ -10,3 +10,44 @@
 .info-text {
   margin: 10px;
 }
+
+.bottom-left-corner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
+.upper-left-corner {
+  position: fixed;
+  top: 170px;
+  left: 20px;
+}
+
+.bounce {
+  animation: bounce 7s infinite;
+  z-index: 100;
+}
+
+@keyframes bounce {
+  0%,
+  76%,
+  88%,
+  100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  84% {
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  92% {
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+}

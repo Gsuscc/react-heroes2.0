@@ -72,6 +72,7 @@ const MergeComponent = (props) => {
         addNewAlert(err.response.data.error);
         setIsLoading(false);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const levelUp = (newLevel) => {

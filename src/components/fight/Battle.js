@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState, useContext } from "react";
 import LinearProgressWithLabel from "../misc/HeroBar";
 import InfoText from "../misc/InfoText";
@@ -11,6 +12,8 @@ import powImg from "../../img/pow.png";
 import boomImg from "../../img/boom.png";
 import doubleImg from "../../img/wow.png";
 import missImg from "../../img/lol.png";
+import HeroButton from "../misc/HeroButton";
+import { useHistory } from "react-router-dom";
 
 const Battle = (props) => {
   const fightLog = props.fightLog;
@@ -23,7 +26,8 @@ const Battle = (props) => {
     playMiss,
     playTada,
     playStartFight,
-    playWin,
+    playMarvel,
+    playKapow,
   } = useContext(SoundContext);
   const [attackerCards, setAttackerCards] = useState(
     fightLog.myArmy.cards.slice(1)
@@ -34,6 +38,7 @@ const Battle = (props) => {
   const [rounds, setRounds] = useState(fightLog.rounds);
   const [round, setRound] = useState(null);
   const [fightState, setFightState] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     setRound(rounds[0]);
@@ -217,14 +222,19 @@ const Battle = (props) => {
 
   const getHitSound = useCallback(
     (action) => {
-      if (action === "KAPOW") playPunch();
+      if (action === "KAPOW") playKapow();
+      if (action === "BOOM") playPunch();
       if (action === "POW") playSlap();
       if (action === "DOUBLE") playBox();
       if (action === "MISS") playMiss();
-      if (action === "KILLED") playTada();
-      if (action === "STARTBATTLE") playStartFight();
+      // if (action === "KILLED") playTada();
+      if (action === "STARTBATTLE"){
+        playMarvel();
+        playStartFight();
+      } 
+      
     },
-    [playBox, playSlap, playPunch, playMiss, playTada, playStartFight]
+    [playKapow, playPunch, playSlap, playBox, playMiss, playTada, playStartFight]
   );
 
   const getWinner = () => {
@@ -275,6 +285,8 @@ const Battle = (props) => {
 
             {round && getMessage()}
             {!round && getWinner()}
+            {!round && <HeroButton onClick={() => history.go(0)}>Back</HeroButton> 
+            }
           </div>
           <div className="battle-container">
             <div className="attacker-container">
