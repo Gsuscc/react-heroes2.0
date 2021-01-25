@@ -11,6 +11,8 @@ import powImg from "../../img/pow.png";
 import boomImg from "../../img/boom.png";
 import doubleImg from "../../img/wow.png";
 import missImg from "../../img/lol.png";
+import HeroButton from "../misc/HeroButton";
+import { useHistory } from "react-router-dom";
 
 const Battle = (props) => {
   const fightLog = props.fightLog;
@@ -36,6 +38,7 @@ const Battle = (props) => {
   const [rounds, setRounds] = useState(fightLog.rounds);
   const [round, setRound] = useState(null);
   const [fightState, setFightState] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     setRound(rounds[0]);
@@ -282,6 +285,8 @@ const Battle = (props) => {
 
             {round && getMessage()}
             {!round && getWinner()}
+            {!round && <HeroButton onClick={() => history.go(0)}>Back</HeroButton> 
+            }
           </div>
           <div className="battle-container">
             <div className="attacker-container">
