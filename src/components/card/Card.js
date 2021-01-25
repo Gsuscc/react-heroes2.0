@@ -4,7 +4,7 @@ import FrontPage from "./FrontPage";
 import BackPage from "./BackPage";
 import "./Card.css";
 import { SoundContext } from "../../state/SoundState";
-import { GlobalContext } from "../../state/GlobalState";
+
 
 const Card = (props) => {
   const hero = props.hero;
