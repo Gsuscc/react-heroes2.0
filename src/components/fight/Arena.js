@@ -20,6 +20,12 @@ const Arena = (props) => {
   );
 };
 
+const fillRefs = (arrRef) =>{
+  arrRef.current = Array(5).fill().map(
+    (ref, index) =>   arrRef.current[index] = createRef()
+  )
+}
+
 const ArenaComponent = () => {
   const [myArmy, setMyArmy] = useState();
   const [enemyArmy, setEnemyArmy] = useState();
@@ -29,10 +35,6 @@ const ArenaComponent = () => {
   const [isBattle, setIsBattle] = useState(false);
   const defenderCards = useRef([])
   const attackerCards = useRef([])
-
-  attackerCards.current = Array(5).fill().map(
-    (ref, index) =>   attackerCards.current[index] = createRef()
-  )
 
   useEffect(() => {
     axios
@@ -87,8 +89,11 @@ const ArenaComponent = () => {
       });
   };
 
-  const flipAll = (e) => {
-    attackerCards.current.forEach((el, i) => {
+  fillRefs(attackerCards);
+  fillRefs(defenderCards);
+
+  const flipAll = (arrRef) => {
+    arrRef.current.forEach((el, i) => {
       setTimeout(() => el.current.firstChild.click(), i*150)
   }
     )
@@ -100,7 +105,7 @@ const ArenaComponent = () => {
       {!isLoading && isBattle && <Battle fightLog={fightLog} />}
       {!isLoading && !isBattle && (
         <React.Fragment>
-          <HeroButton onClick={flipAll}>Flip ally</HeroButton>
+          <div className="bounce upper-left-corner"><HeroButton onClick={() => flipAll(attackerCards)}>Flip all</HeroButton></div>
           <InfoText>{myArmy.nick}'s Army</InfoText>
           <div className="army-container">
             {myArmy.cards.map((hero, i) => {
@@ -123,18 +128,20 @@ const ArenaComponent = () => {
           {enemyArmy && (
             <React.Fragment>
               <HeroButton onClick={startBattleHandler}>Start Battle</HeroButton>
+              <div className="bounce bottom-left-corner"><HeroButton onClick={() => flipAll(defenderCards)}>Flip all</HeroButton></div>
               <InfoText>{enemyArmy.nick}'s Army</InfoText>
               <div className="army-container">
-                {enemyArmy.cards.map((hero) => {
+                {enemyArmy.cards.map((hero,i ) => {
                   return (
-                    <CardDock ref={defenderCards} key={hero.uniqueId}>
-                      <Card
+                    <CardDock key={hero.uniqueId}>
+                      <div ref={defenderCards.current[i]}><Card
                         hero={hero}
                         isFlippable={true}
                         isZoomable={true}
                         isUserCard={true}
                         isRightClickabale={false}
                       />
+                      </div> 
                     </CardDock>
                   );
                 })}

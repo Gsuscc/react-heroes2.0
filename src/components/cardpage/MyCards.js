@@ -17,7 +17,7 @@ import CardContainer from "../card/CardContainer";
 import LoginCheck from "../misc/LoginCheck";
 import ArmySlot from "./ArmySlot";
 import HeroButton from "../misc/HeroButton";
-import { MyCardContext, MyCardState } from "../../state/MyCardState";
+import { MyCardContext } from "../../state/MyCardState";
 
 const MyCards = (props) => {
   return (
