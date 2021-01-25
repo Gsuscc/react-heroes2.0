@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HeroList from "./components/cardpage/HeroList";
 import MyCards from "./components/cardpage/MyCards";
@@ -20,6 +20,7 @@ import { GlobalContext } from "./state/GlobalState";
 import Loading from "./components/misc/Loading";
 import Arena from "./components/fight/Arena";
 import Test from "./components/misc/Test"
+import { MyCardState } from "./state/MyCardState";
 
 const App = () => {
   const { refreshUserDetails, initialized } = useContext(GlobalContext);
@@ -35,6 +36,7 @@ const App = () => {
       ) : (
         <Router>
           <SoundState>
+          <MyCardState>
             <Alerts />
             <Menu />
             <Header />
@@ -55,6 +57,7 @@ const App = () => {
                 <Route path="/test-bar" component={Test} />
               </PaddingContent>
             </Switch>
+            </MyCardState>
           </SoundState>
         </Router>
       )}

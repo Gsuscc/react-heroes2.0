@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from "prop-types";
 import HeroButton from '../misc/HeroButton';
 import axios from 'axios'
+import { GlobalContext } from '../../state/GlobalState';
+import { MyCardContext, MyCardState } from '../../state/MyCardState';
 
 
 const CardHeader = (props) => {
@@ -9,7 +11,10 @@ const CardHeader = (props) => {
   const heroName = props.heroName;
   const sellable = props.sellable;
   const uniqueId = props.uniqueId
-
+  const { refreshUserDetails, addNewAlert } = useContext(GlobalContext);
+  const { setHeroesList } = useContext(MyCardContext);
+  
+  
   const handleSell = (e) =>{
     e.stopPropagation()
     axios.delete(`http://localhost:8762/api/user/sell-card`, {
@@ -18,8 +23,14 @@ const CardHeader = (props) => {
         uniqueId: uniqueId
       }
     })
-    .then(response => console.log(response));
+    .then(response => {
+      refreshUserDetails()
+      setHeroesList((heroesList) => heroesList.filter(hero => hero.uniqueId !== uniqueId))
+      addNewAlert("Sold Successfully!", "green")
+    })
+    .catch(err => addNewAlert(err.response.data));
   }
+
 
   return (
     <div
